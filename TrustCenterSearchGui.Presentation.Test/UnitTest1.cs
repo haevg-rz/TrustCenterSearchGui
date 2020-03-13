@@ -5,7 +5,7 @@ namespace TrustCenterSearchGui.Presentation.Test
 {
     public class UnitTest1
     {
-        [Fact]
+        [Fact(DisplayName = "Empty test, TODO Remove")]
         public void Test1()
         {
 
