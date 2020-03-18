@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TrustCenterSearchGui.Presentation.Style">
+
+    <Style x:Key="Watermark" TargetType="{x:Type TextBox}">
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <TextBlock Text="Search...">
+                                <TextBlock.Visibility>
+                                    <MultiBinding Converter="{StaticResource InputToVisibility}">
+                                        <Binding ElementName="inputText" Path="Text.IsEmpty"/>
+                                        <Binding ElementName="inputText" Path="IsFocused"/>
+                                    </MultiBinding>
+                                </TextBlock.Visibility>            
+                            </TextBlock>
+                            <TextBox x:Name="inputText" Background="Transparent"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+            
+</ResourceDictionary>
