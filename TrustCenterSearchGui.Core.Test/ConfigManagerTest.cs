@@ -25,7 +25,7 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Act
 
-            var result = configManager.GetConfic();
+            var result = configManager.GetConfig();
 
             #endregion
 

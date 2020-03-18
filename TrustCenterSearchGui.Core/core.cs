@@ -10,7 +10,10 @@ namespace TrustCenterSearchGui.Core
         public void CoreRoutine()
         {
             var configManager = new ConfigManager();
-            Config = configManager.GetConfic();
+            Config = configManager.GetConfig();
+
+            var downloadManager = new DownloadManager();
+            downloadManager.DownloadDataFromConfic(Config);
         }
     }
 }

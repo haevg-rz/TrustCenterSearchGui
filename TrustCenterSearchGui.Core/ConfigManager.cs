@@ -8,7 +8,7 @@ namespace TrustCenterSearchGui.Core
         private static string ConfigPath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\Config.JSON";
 
-        public Config GetConfic()
+        public Config GetConfig()
         {
             
                 var jsonString = System.IO.File.ReadAllText(ConfigPath);
