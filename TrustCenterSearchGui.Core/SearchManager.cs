@@ -10,14 +10,9 @@ namespace TrustCenterSearchGui.Core
     {
 
         
-        public ObservableCollection<CertificateDatas> SearchManagerConecter(string search)
+        public ObservableCollection<CertificateData> SearchManagerConecter(string search)
         {
-            var searchResults = new ObservableCollection<CertificateDatas>();
-            {
-                new CertificateDatas() { Data1 = "Test", Data2 = "TestZwei", Data3 = "TestDrei", Data4 = "TestVier", Data5 = "TestFünf", Data6 = "TestSechs" };
-                new CertificateDatas() { Data1 = "Test2", Data2 = "TestZwei", Data3 = "TestDrei", Data4 = "TestVier", Data5 = "TestFünf", Data6 = "TestSechs" };
-                new CertificateDatas() { Data1 = "Test", Data2 = "TestZwei", Data3 = "TestDrei", Data4 = "TestVier", Data5 = "TestFünf", Data6 = "TestSechs" };
-            };
+            var searchResults = new ObservableCollection<CertificateData>() { new CertificateData { Data1 = "asda", Data2 = "asodiaslk", Data3 = "asd", Data4 = "sad", Data5 = "asd", Data6 = "asd" } };
 
             return searchResults;
         }

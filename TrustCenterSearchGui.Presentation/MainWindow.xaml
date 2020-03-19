@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="TrustCenterSearch" Height="450" Width="800">
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -35,30 +35,43 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Watermark}"/>
+            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <Border Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,3,3" Margin="0,41,0,0">
-            <Border Margin="10,10,10,10">
-                <ItemsControl Margin="0,0,0,0" ItemsSource="{Binding CertificateSearchResultList}">
-                    <Border Height="150" Width="525" BorderBrush="Black" BorderThickness="1">
-                        <WrapPanel Margin="0,0,0,0">
-                            <StackPanel>
-                                <Label Content="{Binding Data1}" Height="75" Width="167" FontSize="20"></Label>
-                                <Label Content="{Binding Data2}" Height="75" Width="167" FontSize="20"></Label>
-                            </StackPanel>
-                            <StackPanel Height="146">
-                                <Label Content="{Binding Data3}" Height="75" Width="167" FontSize="20"></Label>
-                                <Label Content="{Binding Data4}" Height="75" Width="167" FontSize="20"></Label>
-                            </StackPanel>
-                            <StackPanel>
-                                <Label Content="{Binding Data5}" Height="75" Width="167" FontSize="20"></Label>
-                                <Label Content="{Binding Data6}" Height="75" Width="167" FontSize="20"></Label>
-                            </StackPanel>
-                        </WrapPanel>
-                    </Border>
+        <Border Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" Margin="0,41,0,0" >
+            <ScrollViewer>
+                <Border Margin="10,10,10,10">
+                <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="150" Width="525">
+                                <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
+                                    <WrapPanel Margin="0,0,0,0">
+                                        <StackPanel>
+                                            <Label Content="{Binding Data1}" Height="75" Width="167" FontSize="20"></Label>
+                                            <Label Content="{Binding Data2}" Height="75" Width="167" FontSize="20"></Label>
+                                        </StackPanel>
+                                        <StackPanel Height="146">
+                                            <Label Content="{Binding Data3}" Height="75" Width="167" FontSize="20"></Label>
+                                            <Label Content="{Binding Data4}" Height="75" Width="167" FontSize="20"></Label>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="{Binding Data5}" Height="75" Width="167" FontSize="20"></Label>
+                                            <Label Content="{Binding Data6}" Height="75" Width="167" FontSize="20"></Label>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
+            </ScrollViewer>
         </Border>
 
     </Grid>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TrustCenterSearchGui.Core.Models
 {
-    public class CertificateDatas
+    public class CertificateData
     {
         public string Data1 { get; set; }
         public string Data2 { get; set; }
