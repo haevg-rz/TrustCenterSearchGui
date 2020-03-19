@@ -11,7 +11,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Style/Watermark.xaml"/>
+                <ResourceDictionary Source="/TrustCenterSearchGui.Presentation;component/Style/Watermark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -35,10 +35,10 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Watermark123}"/>
         </StackPanel>
 
-        <Border Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" Margin="0,41,0,0" >
+        <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" Margin="0,41,0,0" >
             <ScrollViewer>
                 <Border Margin="10,10,10,10">
                 <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">

@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TrustCenterSearchGui.Presentation.Style">
 
-    <Style x:Key="Watermark" TargetType="{x:Type TextBox}">
+
+
+    <Style x:Key="Watermark123" TargetType="{x:Type TextBox}">
         <Setter Property="BorderBrush" Value="Black"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="Template">
@@ -12,8 +14,10 @@
                         <Grid>
                             <TextBlock Text="Search...">
                                 <TextBlock.Visibility>
-                                    <MultiBinding Converter="{StaticResource InputToVisibility}">
-                                        <Binding ElementName="inputText" Path="Text.IsEmpty"/>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <local:BoolToVisibilityConverter />
+                                        </MultiBinding.Converter>
                                         <Binding ElementName="inputText" Path="IsFocused"/>
                                     </MultiBinding>
                                 </TextBlock.Visibility>            

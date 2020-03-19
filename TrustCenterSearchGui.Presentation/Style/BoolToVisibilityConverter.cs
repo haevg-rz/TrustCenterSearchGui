@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace TrustCenterSearchGui.Presentation.Style
 {
-    class BoolToVisibilityConverter : IMultiValueConverter
+    public class BoolToVisibilityConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

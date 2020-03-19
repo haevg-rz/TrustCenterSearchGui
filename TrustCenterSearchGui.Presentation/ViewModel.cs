@@ -7,23 +7,23 @@ using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Presentation
 {
-    class ViewModel : ViewModelBase
+    public class ViewModel : ViewModelBase
     {
+        private string search;
         public string Search 
         { 
-            get => search;
+            get => this.search;
             set
             {
                 base.Set(ref this.search, value);
-                SearchCalcuclation();
+                this.SearchCalcuclation();
             }
         }
-        private string search;
 
         public ObservableCollection<CertificateData> CertificateSearchResultList
         { 
-            get => certificateSearchResultList; 
-            set => base.Set(ref this.certificateSearchResultList); 
+            get => this.certificateSearchResultList; 
+            set => base.Set(ref this.certificateSearchResultList, value);
         }
         private ObservableCollection<CertificateData> certificateSearchResultList = new ObservableCollection<CertificateData>();
 
@@ -42,7 +42,6 @@ namespace TrustCenterSearchGui.Presentation
             var searchResults = Search.SearchManagerConecter(this.Search);
 
             this.CertificateSearchResultList = searchResults;
-
         }
 
     }
