@@ -13,7 +13,7 @@ namespace TrustCenterSearchGui.Core.Test
                 #region Arrange
                 var downloadManager = new TrustCenterSearchGui.Core.DownloadManager();
 
-                var config = new Config {Webpages = new List<string>()};
+                var config = new Config {TrustCenterURLs = new List<string>()};
 
                 #endregion
 
