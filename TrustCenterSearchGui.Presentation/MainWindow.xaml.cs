@@ -20,9 +20,30 @@ namespace TrustCenterSearchGui.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string waterMark = "search...";
         public MainWindow()
         {
             InitializeComponent();
+
+            searchBox.Text = this.waterMark;
+
+            searchBox.GotFocus += RemoveText;
+            searchBox.LostFocus += AddText;
         }
+
+        public void RemoveText(object sender, EventArgs e)
+        {
+            if (searchBox.Text == this.waterMark)
+            {
+                searchBox.Text = "";
+            }
+        }
+
+        public void AddText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(searchBox.Text))
+                searchBox.Text = this.waterMark;
+        }
+
     }
 }
