@@ -11,10 +11,9 @@ namespace TrustCenterSearchGui.Presentation.Style
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            bool hasText = (bool)values[0];
-            bool hasFocus = (bool)values[1];
+            bool hasFocus = (bool)values[0];
 
-            if (hasText || hasFocus)
+            if (hasFocus)
                 return Visibility.Collapsed;
 
             return Visibility.Visible;
@@ -22,7 +21,7 @@ namespace TrustCenterSearchGui.Presentation.Style
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

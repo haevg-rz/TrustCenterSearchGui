@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource Watermark123}"/>
+            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Name="searchBox"/>
         </StackPanel>
 
         <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" Margin="0,41,0,0" >
@@ -53,16 +53,16 @@
                                 <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
                                     <WrapPanel Margin="0,0,0,0">
                                         <StackPanel>
-                                            <Label Content="{Binding Data1}" Height="75" Width="167" FontSize="20"></Label>
-                                            <Label Content="{Binding Data2}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding Subject}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding Issuer}" Height="75" Width="167" FontSize="20"></Label>
                                         </StackPanel>
                                         <StackPanel Height="146">
-                                            <Label Content="{Binding Data3}" Height="75" Width="167" FontSize="20"></Label>
-                                            <Label Content="{Binding Data4}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding SerialNumber}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding NotBefore}" Height="75" Width="167" FontSize="20"></Label>
                                         </StackPanel>
                                         <StackPanel>
-                                            <Label Content="{Binding Data5}" Height="75" Width="167" FontSize="20"></Label>
-                                            <Label Content="{Binding Data6}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding NotAfter}" Height="75" Width="167" FontSize="20"></Label>
+                                                <Label Content="{Binding Thumbprint}" Height="75" Width="167" FontSize="20"></Label>
                                         </StackPanel>
                                     </WrapPanel>
                                 </Border>

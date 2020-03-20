@@ -20,28 +20,20 @@ namespace TrustCenterSearchGui.Presentation
             }
         }
 
+        private ObservableCollection<CertificateData> certificateSearchResultList = new ObservableCollection<CertificateData>();
         public ObservableCollection<CertificateData> CertificateSearchResultList
         { 
             get => this.certificateSearchResultList; 
             set => base.Set(ref this.certificateSearchResultList, value);
         }
-        private ObservableCollection<CertificateData> certificateSearchResultList = new ObservableCollection<CertificateData>();
-
-        public ViewModel()
-        {
-            this.CertificateSearchResultList.Add(new CertificateData() { Data1 = "test zertifikat 1", Data2 = "1651", Data3 = "asda", Data4 = "test zertifikat 1", Data5 = "1651", Data6 = "asda" });
-            this.CertificateSearchResultList.Add(new CertificateData() { Data1 = "test zertifikat 1", Data2 = "1651", Data3 = "asda", Data4 = "test zertifikat 1", Data5 = "1651", Data6 = "asda" });
-            this.CertificateSearchResultList.Add(new CertificateData() { Data1 = "test zertifikat 1", Data2 = "1651", Data3 = "asda", Data4 = "test zertifikat 1", Data5 = "1651", Data6 = "asda" });
-            this.CertificateSearchResultList.Add(new CertificateData() { Data1 = "test zertifikat 1", Data2 = "1651", Data3 = "asda", Data4 = "test zertifikat 1", Data5 = "1651", Data6 = "asda" });
-            this.CertificateSearchResultList.Add(new CertificateData() { Data1 = "test zertifikat 1", Data2 = "1651", Data3 = "asda", Data4 = "test zertifikat 1", Data5 = "1651", Data6 = "asda" });
-        }
 
         private void SearchCalcuclation()
         {
             var Search = new Core.SearchManager();
-            var searchResults = Search.SearchManagerConecter(this.Search);
+            var searchResults = Search.SearchManagerConnecter(this.Search);
 
             this.CertificateSearchResultList = searchResults;
+
         }
 
     }
