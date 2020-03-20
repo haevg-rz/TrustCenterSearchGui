@@ -14,11 +14,11 @@ namespace TrustCenterSearchGui.Core.Test
             var configManager = new TrustCenterSearchGui.Core.ConfigManager();
 
             var config = new Config();
-            config.TrustCenterURLs = new List<string>()
+            config.TrustCenters = new List<TrustCenter>()
             {
-                new string("link1"),
-                new string("link2"),
-                new string("link3")
+                new TrustCenter(){Name = "Example1", TrustCenterURL = "link1"},
+                new TrustCenter(){Name = "Example2", TrustCenterURL = "link2"},
+                new TrustCenter(){Name = "Example3", TrustCenterURL = "link3"}
             };
 
             #endregion
@@ -31,7 +31,7 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Assert
 
-            Equal(result.TrustCenterURLs.Count, actual: 3);
+            Equal(result.TrustCenters.Count, actual: 3);
             object.Equals(result, config);
 
             #endregion

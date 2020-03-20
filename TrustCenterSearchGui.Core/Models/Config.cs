@@ -5,6 +5,12 @@ namespace TrustCenterSearchGui.Core
 {
     public class Config
     {
-        public List<string> TrustCenterURLs { get; set; }
+        public List<TrustCenter> TrustCenters { get; set; }
+    }
+
+    public class TrustCenter
+    {
+        public string Name { get; set; }
+        public string TrustCenterURL { get; set; }
     }
 }

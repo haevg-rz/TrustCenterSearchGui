@@ -13,11 +13,18 @@ namespace TrustCenterSearchGui.Core.Test
                 #region Arrange
                 var downloadManager = new TrustCenterSearchGui.Core.DownloadManager();
 
-                var config = new Config {TrustCenterURLs = new List<string>()};
+           
 
-                #endregion
+                var config = new Config();
+                config.TrustCenters = new List<TrustCenter>()
+                {
+                    new TrustCenter() {Name = "Example1", TrustCenterURL = "link"},
+                };
 
-                #region Act
+
+            #endregion
+
+            #region Act
 
                 downloadManager.DownloadDataFromConfic(config);
 
@@ -30,7 +37,5 @@ namespace TrustCenterSearchGui.Core.Test
 
                 #endregion
             }
-        
-    
-}
+    }
 }

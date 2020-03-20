@@ -11,26 +11,34 @@ namespace TrustCenterSearchGui.Core
     public class DownloadManager
     {
         private static string DataPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                  @"\TrustCenterSearch\Data";
+                                                  @"\TrustCenterSearch\Data\";
 
-        public void DownloadDataFromConfic(Config confic)
+        public void DownloadDataFromConfic(Config config)
         {
             CreateMissingPath();
             var client = new WebClient();
 
-            var dataList = confic.TrustCenterURLs.Select(link => (client.DownloadData(link))).ToList();
+            foreach (var trustCenter in config.TrustCenters)
+            {
+                var data = client.DownloadData(trustCenter.TrustCenterURL);
+                var str = Encoding.UTF8.GetString(data);
+                File.WriteAllText(GetFilePath(trustCenter.Name), str);
+            }
 
             var timeStamp = Convert.ToString(DateTime.Now);
-            File.WriteAllText(DataPath + @"\Timestamp.JSON", timeStamp);
+            File.WriteAllText(DataPath + @"Timestamp.JSON", timeStamp);
 
-            var jsonString = JsonConvert.SerializeObject(dataList);
-            File.WriteAllText(DataPath + @"\Data.JSON", (jsonString));
         }
 
         private void CreateMissingPath()
         {
             if (!Directory.Exists(DataPath))
                 Directory.CreateDirectory(DataPath);
+        }
+
+        private string GetFilePath(string name)
+        {
+            return DataPath + name + @".txt";
         }
     }
 }
