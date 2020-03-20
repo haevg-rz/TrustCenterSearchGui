@@ -14,7 +14,7 @@ namespace TrustCenterSearchGui.Core.Test
             var configManager = new TrustCenterSearchGui.Core.ConfigManager();
 
             var config = new Config();
-            config.Webpages = new List<string>()
+            config.TrustCenterURLs = new List<string>()
             {
                 new string("link1"),
                 new string("link2"),
@@ -31,7 +31,7 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Assert
 
-            Equal(result.Webpages.Count, actual: 3);
+            Equal(result.TrustCenterURLs.Count, actual: 3);
             object.Equals(result, config);
 
             #endregion

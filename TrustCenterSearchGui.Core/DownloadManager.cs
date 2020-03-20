@@ -18,7 +18,7 @@ namespace TrustCenterSearchGui.Core
             CreateMissingPath();
             var client = new WebClient();
 
-            var dataList = confic.Webpages.Select(link => (client.DownloadData(link))).ToList();
+            var dataList = confic.TrustCenterURLs.Select(link => (client.DownloadData(link))).ToList();
 
             var timeStamp = Convert.ToString(DateTime.Now);
             File.WriteAllText(DataPath + @"\Timestamp.JSON", timeStamp);

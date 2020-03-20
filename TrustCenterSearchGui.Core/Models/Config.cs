@@ -5,6 +5,6 @@ namespace TrustCenterSearchGui.Core
 {
     public class Config
     {
-        public List<string> Webpages { get; set; }
+        public List<string> TrustCenterURLs { get; set; }
     }
 }
