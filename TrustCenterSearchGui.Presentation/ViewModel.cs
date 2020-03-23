@@ -9,6 +9,19 @@ namespace TrustCenterSearchGui.Presentation
 {
     public class ViewModel : ViewModelBase
     {
+        public ViewModel()
+        {
+            if (base.IsInDesignMode)
+            {
+                CertificateSearchResultList.Add(new CertificateData()
+                {
+                    Issuer = "Issuer"
+                } );
+
+                this.Search = "My search";
+            }
+        }
+
         private string search;
         public string Search 
         { 

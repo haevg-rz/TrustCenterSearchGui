@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrustCenterSearchGui.Presentation"
+        xmlns:converter="clr-namespace:TrustCenterSearchGui.Presentation.Converter"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="TrustCenterSearch" Height="450" Width="800">
@@ -13,32 +14,24 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TrustCenterSearchGui.Presentation;component/Style/Watermark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBox Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Name="searchBox"/>
-        </StackPanel>
+        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding Search, Converter={StaticResource VisibilityConverter}}" />
 
-        <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="3" Background="White" BorderBrush="Black" BorderThickness="1" Margin="0,41,0,0" >
+        <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>
                 <Border Margin="10,10,10,10">
                 <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">
@@ -73,6 +66,11 @@
             </Border>
             </ScrollViewer>
         </Border>
+
+        <!-- Menu -->
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="Aqua">
+            <!-- Menu -->
+        </Grid>
 
     </Grid>
 </Window>
