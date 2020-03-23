@@ -11,9 +11,6 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TrustCenterSearchGui.Presentation;component/Style/Watermark.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
