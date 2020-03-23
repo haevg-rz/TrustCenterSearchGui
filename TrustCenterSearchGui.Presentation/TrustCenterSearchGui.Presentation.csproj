@@ -15,4 +15,5 @@
     <ProjectReference Include="..\TrustCenterSearchGui.Core\TrustCenterSearchGui.Core.csproj" />
   </ItemGroup>
 
+
 </Project>
