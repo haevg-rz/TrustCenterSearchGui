@@ -13,7 +13,7 @@ namespace TrustCenterSearchGui.Presentation
         {
             if (base.IsInDesignMode)
             {
-                CertificateSearchResultList.Add(new CertificateData()
+                CertificateSearchResultList.Add(new Certificate()
                 {
                     Issuer = "Issuer"
                 } );
