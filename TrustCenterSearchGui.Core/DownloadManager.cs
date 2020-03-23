@@ -15,7 +15,9 @@ namespace TrustCenterSearchGui.Core
 
         public void DownloadDataFromConfic(Config config)
         {
-            CreateMissingPath();
+            var dataManager = new DataManager();
+            dataManager.CreateMissingPath(DataPath);
+
             var client = new WebClient();
 
             foreach (var trustCenter in config.TrustCenters)
@@ -24,16 +26,6 @@ namespace TrustCenterSearchGui.Core
                 var str = Encoding.UTF8.GetString(data);
                 File.WriteAllText(GetFilePath(trustCenter.Name), str);
             }
-
-            var timeStamp = Convert.ToString(DateTime.Now);
-            File.WriteAllText(DataPath + @"Timestamp.JSON", timeStamp);
-
-        }
-
-        private void CreateMissingPath()
-        {
-            if (!Directory.Exists(DataPath))
-                Directory.CreateDirectory(DataPath);
         }
 
         private string GetFilePath(string name)

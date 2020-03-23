@@ -33,8 +33,8 @@ namespace TrustCenterSearchGui.Presentation
             }
         }
 
-        private ObservableCollection<CertificateData> certificateSearchResultList = new ObservableCollection<CertificateData>();
-        public ObservableCollection<CertificateData> CertificateSearchResultList
+        private ObservableCollection<Certificate> certificateSearchResultList = new ObservableCollection<Certificate>();
+        public ObservableCollection<Certificate> CertificateSearchResultList
         { 
             get => this.certificateSearchResultList; 
             set => base.Set(ref this.certificateSearchResultList, value);
