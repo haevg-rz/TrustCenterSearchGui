@@ -10,12 +10,82 @@ namespace TrustCenterSearchGui.Core
     {
 
         
-        public ObservableCollection<Certificate> SearchManagerConnecter(string search)
+        public ObservableCollection<SearchResultsAndBorder> MainSearchManager(string search)
         {
-            var searchResults = new ObservableCollection<Certificate>() { new Certificate { Subject = "asda", Issuer = "asodiaslk", SerialNumber = "12", NotBefore = new DateTime(2020,4,8), NotAfter = new DateTime(2021,6,3), Thumbprint = "asddsf" } };
-            
+            var test = new ObservableCollection<Certificate>()
+            {
+                new Certificate{Issuer = "Test", NotAfter = new DateTime(2,4,12), NotBefore = new DateTime(2020,12,3),SerialNumber = "12", Subject = "Test", Thumbprint = "okea" },
+                new Certificate{Issuer = "Tasdfest", NotAfter = new DateTime(2200,4,12), NotBefore = new DateTime(2020,12,3),SerialNumber = "12", Subject = "Testasd", Thumbprint = "oksafea" },
+                new Certificate{Issuer = "Tesadfst", NotAfter = new DateTime(2123,4,12), NotBefore = new DateTime(2020,12,3),SerialNumber = "12", Subject = "Tessadt", Thumbprint = "okesadfa" },
+                new Certificate{Issuer = "Tsdafest", NotAfter = new DateTime(2213,4,12), NotBefore = new DateTime(2020,12,3),SerialNumber = "12", Subject = "Tesasdt", Thumbprint = "oksadfea" }
+            };
+
+            var searchResults = SearchManagerConnector(search,test);
 
             return searchResults;
+        }
+
+        private ObservableCollection<SearchResultsAndBorder> SearchManagerConnector(string search, ObservableCollection<Certificate> certificates)
+        {
+
+            var searchResults = new ObservableCollection<SearchResultsAndBorder>();
+
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                for (int i = 0; i < certificates.Count; i++)
+                    searchResults.Add(new SearchResultsAndBorder { SearchCertificate = certificates[i]});
+
+                return searchResults;
+            }
+
+            for(int i = 0; i < certificates.Count;i++)
+            {
+                var searchAndCertifcateContentTheSame = new SearchResultsAndBorder();
+                var isASearchResult = false;
+
+                if (certificates[i].Issuer.Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.IssuerBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+                if(certificates[i].Subject.Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.SubjectBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+                if (certificates[i].SerialNumber.ToString().Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.SerialNumberBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+                if (certificates[i].NotBefore.ToString().Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.NotBeforeBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+                if (certificates[i].NotAfter.ToString().Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.NotAfterBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+                if (certificates[i].Thumbprint.ToString().Contains(search))
+                {
+                    searchAndCertifcateContentTheSame.ThumbprintBorder = 1;
+                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    isASearchResult = true;
+                }
+
+                if(isASearchResult)
+                    searchResults.Add(searchAndCertifcateContentTheSame);
+            }
+
+            return searchResults;
+
         }
 
     }

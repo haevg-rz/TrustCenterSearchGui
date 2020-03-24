@@ -11,15 +11,16 @@ namespace TrustCenterSearchGui.Presentation
     {
         public ViewModel()
         {
-            if (base.IsInDesignMode)
-            {
-                CertificateSearchResultList.Add(new Certificate()
-                {
-                    Issuer = "Issuer"
-                } );
+            //if (base.IsInDesignMode)
+            //{
+            //    CertificateSearchResultList.Add(new SearchResultsAndBorder());
+            //    {
+                    
+                    
+            //    } 
+            //}
 
-                this.Search = "My search";
-            }
+            this.SearchCalcuclation();
         }
 
         private string search;
@@ -33,8 +34,8 @@ namespace TrustCenterSearchGui.Presentation
             }
         }
 
-        private ObservableCollection<Certificate> certificateSearchResultList = new ObservableCollection<Certificate>();
-        public ObservableCollection<Certificate> CertificateSearchResultList
+        private ObservableCollection<SearchResultsAndBorder> certificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
+        public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList
         { 
             get => this.certificateSearchResultList; 
             set => base.Set(ref this.certificateSearchResultList, value);
@@ -43,7 +44,7 @@ namespace TrustCenterSearchGui.Presentation
         private void SearchCalcuclation()
         {
             var Search = new Core.SearchManager();
-            var searchResults = Search.SearchManagerConnecter(this.Search);
+            var searchResults = Search.MainSearchManager(this.Search);
 
             this.CertificateSearchResultList = searchResults;
 

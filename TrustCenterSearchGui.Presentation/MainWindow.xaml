@@ -7,7 +7,7 @@
         xmlns:converter="clr-namespace:TrustCenterSearchGui.Presentation.Converter"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
-        Title="TrustCenterSearch" Height="450" Width="800">
+        Title="TrustCenterSearch" Height="450" Width="850">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -39,21 +39,33 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Height="150" Width="525">
+                            <Border Height="150" Width="600">
                                 <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
                                     <WrapPanel Margin="0,0,0,0">
                                         <StackPanel>
-                                                <Label Content="{Binding Subject}" Height="75" Width="167" FontSize="20"></Label>
-                                                <Label Content="{Binding Issuer}" Height="75" Width="167" FontSize="20"></Label>
-                                        </StackPanel>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding SubjectBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.Subject}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding IssuerBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.Issuer}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                            </StackPanel>
                                         <StackPanel Height="146">
-                                                <Label Content="{Binding SerialNumber}" Height="75" Width="167" FontSize="20"></Label>
-                                                <Label Content="{Binding NotBefore}" Height="75" Width="167" FontSize="20"></Label>
-                                        </StackPanel>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding SerialNumberBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.SerialNumber}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding NotBeforeBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.NotBefore}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                            </StackPanel>
                                         <StackPanel>
-                                                <Label Content="{Binding NotAfter}" Height="75" Width="167" FontSize="20"></Label>
-                                                <Label Content="{Binding Thumbprint}" Height="75" Width="167" FontSize="20"></Label>
-                                        </StackPanel>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding NotAfterBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.NotAfter}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                                <Border Margin="10,10,10,10" BorderBrush="Red" BorderThickness="{Binding ThumbprintBorder}" Height="50" >
+                                                    <Label Content="{Binding SearchCertificate.Thumbprint}" Height="75" Width="167" FontSize="20"></Label>
+                                                </Border>
+                                            </StackPanel>
                                     </WrapPanel>
                                 </Border>
                             </Border>
