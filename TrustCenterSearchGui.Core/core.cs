@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using TrustCenterSearchGui.Core.Models;
 
@@ -7,8 +8,8 @@ namespace TrustCenterSearchGui.Core
 {
     public class Core
     {
-        public static Config Config { get; set; }
-        public static List<Certificate> Certificates { get; set; }
+        private static Config Config { get; set; }
+        private static List<Certificate> Certificates { get; set; }
 
         public void FunctionCollection()
         {

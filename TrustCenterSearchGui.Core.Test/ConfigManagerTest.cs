@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using Xunit;
 using static Xunit.Assert;
 
@@ -6,20 +9,18 @@ namespace TrustCenterSearchGui.Core.Test
 {
     public class ConfigManagerTest
     {
+        private static string ConfigTestPath { get; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\test";
+
+        private static string ConfigPath { get; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\Config.JSON";
+
         [Fact(DisplayName = "Get Config from AppData")]
         public void ReadConfig()
         {
             #region Arrange
 
             var configManager = new TrustCenterSearchGui.Core.ConfigManager();
-
-            var config = new Config();
-            config.TrustCenters = new List<TrustCenter>()
-            {
-                new TrustCenter(){Name = "Example1", TrustCenterURL = "link1"},
-                new TrustCenter(){Name = "Example2", TrustCenterURL = "link2"},
-                new TrustCenter(){Name = "Example3", TrustCenterURL = "link3"}
-            };
 
             #endregion
 
@@ -31,8 +32,13 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Assert
 
-            Equal(result.TrustCenters.Count, actual: 3);
-            object.Equals(result, config);
+            if (!Directory.Exists(ConfigTestPath))
+                Directory.CreateDirectory(ConfigTestPath);
+
+            var jsonString = JsonConvert.SerializeObject(result, Formatting.Indented);
+            System.IO.File.WriteAllText(ConfigTestPath+ @"\ConfigTest.JSON", jsonString);
+
+            object.Equals(ConfigPath, ConfigTestPath);
 
             #endregion
         }
