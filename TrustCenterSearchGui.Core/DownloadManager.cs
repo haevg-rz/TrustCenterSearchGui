@@ -11,7 +11,7 @@ namespace TrustCenterSearchGui.Core
     public class DownloadManager
     {
         private static string DataPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                  @"\TrustCenterSearch\Data\";
+                                                  @"\TrustCenterSearch\data\";
 
         public void DownloadDataFromConfic(Config config)
         {
