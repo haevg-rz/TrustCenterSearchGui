@@ -6,12 +6,12 @@ using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Core
 {
-    public class Core
+    public class core
     {
         private static Config Config { get; set; }
         private static List<Certificate> Certificates { get; set; }
 
-        public void FunctionCollection()
+        public static void RefreshButton()
         {
             var configManager = new ConfigManager();
             Config = configManager.GetConfig();
@@ -21,6 +21,17 @@ namespace TrustCenterSearchGui.Core
 
             var dataManager = new DataManager();
             Certificates = dataManager.GetCertificateFromAppData(Config);
+
+            var searchManager = new SearchManager();
+            var result = searchManager.SearchManagerConnector(" ", Certificates);
+        }
+
+        public static ObservableCollection<SearchResultsAndBorder> Searcher(string search)
+        {
+            var searchManager = new SearchManager();
+            var result = searchManager.SearchManagerConnector(search, Certificates);
+
+            return result;
         }
     }
 }

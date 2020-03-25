@@ -77,7 +77,13 @@
         </Border>
 
         <!-- Menu -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="Aqua">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="White">
+            <StackPanel>
+            <Button Margin="5" Height="30" Content="Refresh" Command="{Binding RefreshButton}"></Button>
+                <Button Margin="5" Height="30" Content="Config"></Button>
+                <Button Margin="5" Height="30" Content="Collapse" Click="Collapse_Click"></Button>
+            </StackPanel>
+           
             <!-- Menu -->
         </Grid>
 

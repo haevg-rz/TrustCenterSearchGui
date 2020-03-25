@@ -25,5 +25,10 @@ namespace TrustCenterSearchGui.Presentation
             InitializeComponent();
 
         }
+
+        private void Collapse_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
