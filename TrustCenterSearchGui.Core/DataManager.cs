@@ -10,11 +10,7 @@ namespace TrustCenterSearchGui.Core
 {
     public class DataManager
     {
-        private static string DataPathTimeStamp { get; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-            @"\TrustCenterSearch\data\TimeStamp.txt";
-
-        private static string DataPathDownloadedData { get; } =
+        private static string FilePath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
             @"\TrustCenterSearch\data\";
 
@@ -25,7 +21,7 @@ namespace TrustCenterSearchGui.Core
 
             foreach (var trustCenter in config.TrustCenters)
             {
-                var str = File.ReadAllLines(DataPathDownloadedData + trustCenter.Name + @".txt");
+                var str = File.ReadAllLines(FilePath + trustCenter.Name + @".txt");
 
                 var certificate = new List<string>();
                 certificate.Add("");
@@ -34,39 +30,36 @@ namespace TrustCenterSearchGui.Core
 
                 for (var i = 0; i < str.Length; i++)
                     if (str[i] != "")
-                    {
                         certificate[certificateCounter] += str[i];
-                    }
                     else
                     {
                         certificateCounter++;
                         certificate.Add("");
                     }
 
-                var certificats = (from inhaltW in certificate
+                var certificatsStr = (from inhaltW in certificate
                         where inhaltW != ""
                         select new X509Certificate2(Convert.FromBase64String(inhaltW))
                         into s
                         select Convert.ToString(s))
                        .ToList();
 
-                foreach (var certificat in certificats)
+                foreach (var certificat in certificatsStr)
                 {
                     var certificateWithoutSpaces = System.Text.RegularExpressions.Regex.Split(certificat, @"\n");
-                    var certificateWithoutSpacesTogether = "";
 
-                    foreach (var s in certificateWithoutSpaces) certificateWithoutSpacesTogether += s;
+                    var certificatInOneString = certificateWithoutSpaces.Aggregate("", (current, s) => current + s);
 
-                    var certificateOrded = System.Text.RegularExpressions.Regex.Split(certificateWithoutSpacesTogether, @"\r");
+                    certificateWithoutSpaces = System.Text.RegularExpressions.Regex.Split(certificatInOneString, @"\r");
 
                     certificates.Add(new Certificate()
                     { 
-                        Subject = (certificateOrded[1]),
-                        Issuer = (certificateOrded[4]),
-                        SerialNumber = (certificateOrded[7]),
-                        NotAfter = Convert.ToDateTime(certificateOrded[10]),
-                        NotBefore = Convert.ToDateTime(certificateOrded[13]),
-                        Thumbprint = (certificateOrded[16])
+                        Subject = (certificateWithoutSpaces[1]),
+                        Issuer = (certificateWithoutSpaces[4]),
+                        SerialNumber = (certificateWithoutSpaces[7]),
+                        NotAfter = Convert.ToDateTime(certificateWithoutSpaces[10]),
+                        NotBefore = Convert.ToDateTime(certificateWithoutSpaces[13]),
+                        Thumbprint = (certificateWithoutSpaces[16])
                     });
                 }
             }
@@ -74,19 +67,12 @@ namespace TrustCenterSearchGui.Core
             return certificates;
         }
 
-        public DateTime GetTimeStamp()
-        {
-            var str = File.ReadAllText(DataPathTimeStamp);
-            var timeStamp = Convert.ToDateTime(str);
-            return timeStamp;
-        }
-
         public void SetTimeStamp()
         {
-            CreateMissingPath(DataPathTimeStamp);
+            CreateMissingPath(FilePath);
 
             var timeStamp = DateTime.Now;
-            File.WriteAllText(DataPathTimeStamp, Convert.ToString(timeStamp));
+            File.WriteAllText(FilePath + "TimeStamp.JSON", Convert.ToString(timeStamp));
         }
 
         public void CreateMissingPath(string dataPath)
