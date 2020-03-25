@@ -1,25 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
+using GalaSoft.MvvmLight.Command;
 using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Presentation
 {
     public class ViewModel : ViewModelBase
     {
+        public RelayCommand RefreshButton { get; set; }
+
         public ViewModel()
         {
-            //if (base.IsInDesignMode)
-            //{
-            //    CertificateSearchResultList.Add(new SearchResultsAndBorder());
-            //    {
-                    
-                    
-            //    } 
-            //}
-
+            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.core.RefreshButton);
+            
             this.SearchCalcuclation();
         }
 
@@ -43,12 +36,9 @@ namespace TrustCenterSearchGui.Presentation
 
         private void SearchCalcuclation()
         {
-            var Search = new Core.SearchManager();
-            var searchResults = Search.MainSearchManager(this.Search);
+            var searchResult = TrustCenterSearchGui.Core.core.Searcher(this.Search);
 
-            this.CertificateSearchResultList = searchResults;
-
+            this.CertificateSearchResultList = searchResult;
         }
-
     }
 }
