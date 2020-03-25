@@ -21,9 +21,7 @@ namespace TrustCenterSearchGui.Core
 
             var dataManager = new DataManager();
             Certificates = dataManager.GetCertificateFromAppData(Config);
-
-            var searchManager = new SearchManager();
-            var result = searchManager.SearchManagerConnector(" ", Certificates);
+            dataManager.SetTimeStamp();
         }
 
         public static ObservableCollection<SearchResultsAndBorder> Searcher(string search)
