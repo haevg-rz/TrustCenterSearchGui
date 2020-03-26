@@ -11,32 +11,34 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.core.RefreshButton);
-            
-            this.SearchCalcuclation();
+            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.Core.RefreshButton);
+
+            this.SearchCalculation();
         }
 
         private string search;
-        public string Search 
-        { 
+
+        public string Search
+        {
             get => this.search;
             set
             {
                 base.Set(ref this.search, value);
-                this.SearchCalcuclation();
+                this.SearchCalculation();
             }
         }
 
         private ObservableCollection<SearchResultsAndBorder> certificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
+
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList
-        { 
-            get => this.certificateSearchResultList; 
+        {
+            get => this.certificateSearchResultList;
             set => base.Set(ref this.certificateSearchResultList, value);
         }
 
-        private void SearchCalcuclation()
+        private void SearchCalculation()
         {
-            var searchResult = TrustCenterSearchGui.Core.core.Searcher(this.Search);
+            var searchResult = TrustCenterSearchGui.Core.Core.GetFilterdList(this.Search);
 
             this.CertificateSearchResultList = searchResult;
         }

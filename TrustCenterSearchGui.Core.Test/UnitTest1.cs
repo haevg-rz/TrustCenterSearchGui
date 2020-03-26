@@ -46,7 +46,7 @@ namespace TrustCenterSearchGui.Core.Test
             var jsonString = JsonConvert.SerializeObject(result, Formatting.Indented);
             System.IO.File.WriteAllText(filePath + @"\ResultCertificate.JSON", jsonString);
 
-            object.Equals(filePath +@"\AspectedResultCertificate.JSON", filePath + @"\ResultCertificate.JSON");
+            object.Equals(filePath + @"\AspectedResultCertificate.JSON", filePath + @"\ResultCertificate.JSON");
 
             #endregion
         }

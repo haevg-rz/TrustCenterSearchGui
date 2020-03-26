@@ -36,7 +36,7 @@ namespace TrustCenterSearchGui.Core.Test
                 Directory.CreateDirectory(ConfigTestPath);
 
             var jsonString = JsonConvert.SerializeObject(result, Formatting.Indented);
-            System.IO.File.WriteAllText(ConfigTestPath+ @"\ConfigTest.JSON", jsonString);
+            System.IO.File.WriteAllText(ConfigTestPath + @"\ConfigTest.JSON", jsonString);
 
             object.Equals(ConfigPath, ConfigTestPath);
 

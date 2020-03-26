@@ -8,7 +8,6 @@ namespace TrustCenterSearchGui.Presentation.Test
         [Fact(DisplayName = "Empty test, TODO Remove")]
         public void Test1()
         {
-
         }
     }
 }

@@ -12,6 +12,9 @@ namespace TrustCenterSearchGui.Core
     {
         public List<Certificate> GetCertificateFromAppData(Config config, string filePath)
         {
+            if (config.TrustCenters == null)
+                return new List<Certificate>();
+
             var certificates = new List<Certificate>();
 
             foreach (var trustCenter in config.TrustCenters)
@@ -19,6 +22,7 @@ namespace TrustCenterSearchGui.Core
                 var str = File.ReadAllLines(filePath + trustCenter.Name + @".txt");
 
                 var certificate = new List<string>();
+                // TODO  Ähm, what are you doing?
                 certificate.Add("");
 
                 var certificateCounter = 0;
@@ -32,12 +36,14 @@ namespace TrustCenterSearchGui.Core
                         certificate.Add("");
                     }
 
+                // TODO  Use Linq with Method-Chaining 
+                // TODO Don't convert the X509Certificate2 to text and then extract the data wirh regex. Use the X509Certificate2-Instance with its properties
                 var certificatsStr = (from inhaltW in certificate
                         where inhaltW != ""
                         select new X509Certificate2(Convert.FromBase64String(inhaltW))
                         into s
                         select Convert.ToString(s))
-                       .ToList();
+                    .ToList();
 
                 foreach (var certificat in certificatsStr)
                 {
@@ -48,7 +54,7 @@ namespace TrustCenterSearchGui.Core
                     certificateWithoutSpaces = System.Text.RegularExpressions.Regex.Split(certificatInOneString, @"\r");
 
                     certificates.Add(new Certificate()
-                    { 
+                    {
                         Subject = (certificateWithoutSpaces[1]),
                         Issuer = (certificateWithoutSpaces[4]),
                         SerialNumber = (certificateWithoutSpaces[7]),
@@ -67,7 +73,18 @@ namespace TrustCenterSearchGui.Core
             CreateMissingPath(filePath);
 
             var timeStamp = DateTime.Now;
+            // TODO .json not .JSON, and this is not json!!!
             File.WriteAllText(filePath + "TimeStamp.JSON", Convert.ToString(timeStamp));
+        }
+
+        public DateTime GetTimeStamp(string filePath)
+        {
+            CreateMissingPath(filePath);
+
+            var timeStamp = DateTime.Now;
+            // TODO .json not .JSON, and this is not json!!!
+            var text = File.ReadAllText(filePath + "TimeStamp.JSON");
+            return DateTime.Parse(text);
         }
 
         public void CreateMissingPath(string dataPath)

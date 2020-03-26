@@ -17,71 +17,87 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding Search, Converter={StaticResource VisibilityConverter}}" />
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="10" Padding="3" Width="auto" Height="auto"
+                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Delay=200}" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray"
+                   Text="Enter search" IsHitTestVisible="False"
+                   Visibility="{Binding Search, Converter={StaticResource VisibilityConverter}}" />
 
-        <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
+        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>
                 <Border Margin="10,10,10,10">
-                <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="145" Width="830">
-                                <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
-                                    <WrapPanel Margin="0,0,0,0">
+                    <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Height="145" Width="830">
+                                    <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1"
+                                            CornerRadius="8,8,8,8">
+                                        <WrapPanel Margin="0,0,0,0">
                                             <StackPanel>
                                                 <WrapPanel>
-                                                    <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Subject}" Width="700" FontSize="16" Foreground="{Binding SubjectBorder}"></Label>
+                                                    <Label Content="Subject:" Foreground="Gray" FontSize="16" />
+                                                    <Label Content="{Binding SearchCertificate.Subject}" Width="700"
+                                                           FontSize="16" Foreground="{Binding SubjectBorder}" />
                                                 </WrapPanel>
                                                 <WrapPanel>
-                                                    <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Issuer}" Width="auto" FontSize="16" Foreground="{Binding IssuerBorder}"></Label>
+                                                    <Label Content="Issuer:" Foreground="Gray" FontSize="16" />
+                                                    <Label Content="{Binding SearchCertificate.Issuer}" Width="auto"
+                                                           FontSize="16" Foreground="{Binding IssuerBorder}" />
                                                 </WrapPanel>
                                                 <WrapPanel Margin="0,0,0,0">
-                                                    <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBeforeBorder}"></Label>
-                                                    <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto" Margin="20,0,0,0"></Label>
-                                                    <Label Content="{Binding SearchCertificate.NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfterBorder}"></Label>
-                                                    <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
-                                                    <Label Content="{Binding SearchCertificate.SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumberBorder}"></Label>
+                                                    <Label Content="Not Before:" Foreground="Gray" FontSize="16" />
+                                                    <Label Content="{Binding SearchCertificate.NotBefore}"
+                                                           Height="auto" Width="auto" FontSize="16"
+                                                           Foreground="{Binding NotBeforeBorder}" />
+                                                    <Label Content="Not After:" Foreground="Gray" FontSize="16"
+                                                           Width="auto" Margin="20,0,0,0" />
+                                                    <Label Content="{Binding SearchCertificate.NotAfter}" Height="auto"
+                                                           Width="auto" FontSize="16"
+                                                           Foreground="{Binding NotAfterBorder}" />
+                                                    <Label Content="Serialnumber:" Foreground="Gray" FontSize="16"
+                                                           Margin="20,0,0,0" />
+                                                    <Label Content="{Binding SearchCertificate.SerialNumber}"
+                                                           Height="auto" Width="auto" FontSize="16"
+                                                           Foreground="{Binding SerialNumberBorder}" />
                                                 </WrapPanel>
                                                 <WrapPanel>
-                                                    <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding ThumbprintBorder}"></Label>
+                                                    <Label Content="Thumbprint:" Foreground="Gray" FontSize="16" />
+                                                    <Label Content="{Binding SearchCertificate.Thumbprint}"
+                                                           Height="auto" Width="auto" FontSize="16"
+                                                           Foreground="{Binding ThumbprintBorder}" />
                                                 </WrapPanel>
                                             </StackPanel>
-                                     </WrapPanel>
+                                        </WrapPanel>
+                                    </Border>
                                 </Border>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
             </ScrollViewer>
         </Border>
 
         <!-- Menu -->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="White">
             <StackPanel>
-            <Button Margin="5" Height="30" Content="Refresh" Command="{Binding RefreshButton}"></Button>
-                <Button Margin="5" Height="30" Content="Config"></Button>
-                <Button Margin="5" Height="30" Content="Collapse" Click="Collapse_Click"></Button>
+                <Button Margin="5" Height="30" Content="Refresh" Command="{Binding RefreshButton}" />
+                <Button Margin="5" Height="30" Content="Config" />
+                <Button Margin="5" Height="30" Content="Collapse" Click="Collapse_Click" />
             </StackPanel>
-           
+
             <!-- Menu -->
         </Grid>
 

@@ -6,8 +6,10 @@ using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Core
 {
-    public class core
+    public class Core
     {
+        private const int RefreshAfterDays = 30;
+
         private static string FilePath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
             @"\TrustCenterSearch\data\";
@@ -17,18 +19,23 @@ namespace TrustCenterSearchGui.Core
 
         public static void RefreshButton()
         {
+            // TODO Why not keep the instance?
             var configManager = new ConfigManager();
             Config = configManager.GetConfig();
 
-            var downloadManager = new DownloadManager(); 
-            downloadManager.DownloadDataFromConfic(Config, FilePath);
-
             var dataManager = new DataManager();
+            if ((DateTime.Now - dataManager.GetTimeStamp(FilePath)).TotalDays > RefreshAfterDays)
+            {
+                var downloadManager = new DownloadManager();
+                downloadManager.DownloadDataFromConfig(Config, FilePath);
+
+                dataManager.SetTimeStamp(FilePath);
+            }
+
             Certificates = dataManager.GetCertificateFromAppData(Config, FilePath);
-            dataManager.SetTimeStamp(FilePath);
         }
 
-        public static ObservableCollection<SearchResultsAndBorder> Searcher(string search)
+        public static ObservableCollection<SearchResultsAndBorder> GetFilterdList(string search)
         {
             var searchManager = new SearchManager();
             var result = searchManager.SearchManagerConnector(search, Certificates);

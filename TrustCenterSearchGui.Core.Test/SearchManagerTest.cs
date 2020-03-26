@@ -9,18 +9,18 @@ namespace TrustCenterSearchGui.Core.Test
     public class SearchManagerTest
     {
         [Theory]
-        [InlineData("Test", "Test",true)]
-        [InlineData(null,"Test",false)]
-        public void SearchManager(string search, string issuer,bool testIssuerBorder)
+        [InlineData("Test", "Test", true)]
+        [InlineData(null, "Test", false)]
+        public void SearchManager(string search, string issuer, bool testIssuerBorder)
         {
             #region Arrange
 
             var searchManager = new SearchManager();
             var certificates = new List<Certificate>()
             {
-                new Certificate {Issuer = issuer, NotAfter = new DateTime (2020,2,1), NotBefore = new DateTime(2020,6,1),SerialNumber = "23", Subject = "Test", Thumbprint = "Test" }
-
+                new Certificate {Issuer = issuer, NotAfter = new DateTime(2020, 2, 1), NotBefore = new DateTime(2020, 6, 1), SerialNumber = "23", Subject = "Test", Thumbprint = "Test"}
             };
+
             #endregion
 
 
@@ -37,8 +37,6 @@ namespace TrustCenterSearchGui.Core.Test
             object.Equals(issuerBorder, testIssuerBorder);
 
             #endregion
-
         }
-
     }
 }

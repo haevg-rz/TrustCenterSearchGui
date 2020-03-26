@@ -23,7 +23,6 @@ namespace TrustCenterSearchGui.Presentation
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         private void Collapse_Click(object sender, RoutedEventArgs e)
