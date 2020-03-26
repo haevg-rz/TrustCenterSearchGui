@@ -10,13 +10,10 @@ namespace TrustCenterSearchGui.Core
 {
     public class DownloadManager
     {
-        private static string DataPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                  @"\TrustCenterSearch\data\";
-
-        public void DownloadDataFromConfic(Config config)
+        public void DownloadDataFromConfic(Config config, string filePath)
         {
             var dataManager = new DataManager();
-            dataManager.CreateMissingPath(DataPath);
+            dataManager.CreateMissingPath(filePath);
 
             var client = new WebClient();
 
@@ -24,13 +21,13 @@ namespace TrustCenterSearchGui.Core
             {
                 var data = client.DownloadData(trustCenter.TrustCenterURL);
                 var str = Encoding.UTF8.GetString(data);
-                File.WriteAllText(GetFilePath(trustCenter.Name), str);
+                File.WriteAllText(GetFilePath(trustCenter.Name, filePath), str);
             }
         }
 
-        private string GetFilePath(string name)
+        private string GetFilePath(string name, string filePath)
         {
-            return DataPath + name + @".txt";
+            return filePath + name + @".txt";
         }
     }
 }

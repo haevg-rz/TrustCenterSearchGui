@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using Newtonsoft.Json;
+using TrustCenterSearchGui.Core.Models;
 using Xunit;
 
 namespace TrustCenterSearchGui.Core.Test
@@ -21,10 +22,14 @@ namespace TrustCenterSearchGui.Core.Test
                 new TrustCenter()
                 {
                     Name = "MyGreatTrustCenter",
-                    TrustCenterURL = "link1"
+                    TrustCenterURL = "URL"
                 }
             };
-            
+            var filePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                           @"\TrustCenterSearch\test\";
+
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
 
             var downloadManager = new DownloadManager();
 
@@ -32,15 +37,16 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Act
 
-            downloadManager.DownloadDataFromConfic(config);
-
-            dataManager.GetCertificateFromAppData(config);
+            var result = dataManager.GetCertificateFromAppData(config, filePath);
 
             #endregion
 
             #region Assert
 
-            Assert.Equal(true, true);
+            var jsonString = JsonConvert.SerializeObject(result, Formatting.Indented);
+            System.IO.File.WriteAllText(filePath + @"\ResultCertificate.JSON", jsonString);
+
+            object.Equals(filePath +@"\AspectedResultCertificate.JSON", filePath + @"\ResultCertificate.JSON");
 
             #endregion
         }
