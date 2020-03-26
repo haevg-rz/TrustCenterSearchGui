@@ -10,18 +10,13 @@ namespace TrustCenterSearchGui.Core
 {
     public class DataManager
     {
-        private static string FilePath { get; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-            @"\TrustCenterSearch\data\";
-
-
-        public List<Certificate> GetCertificateFromAppData(Config config)
+        public List<Certificate> GetCertificateFromAppData(Config config, string filePath)
         {
             var certificates = new List<Certificate>();
 
             foreach (var trustCenter in config.TrustCenters)
             {
-                var str = File.ReadAllLines(FilePath + trustCenter.Name + @".txt");
+                var str = File.ReadAllLines(filePath + trustCenter.Name + @".txt");
 
                 var certificate = new List<string>();
                 certificate.Add("");
@@ -67,12 +62,12 @@ namespace TrustCenterSearchGui.Core
             return certificates;
         }
 
-        public void SetTimeStamp()
+        public void SetTimeStamp(string filePath)
         {
-            CreateMissingPath(FilePath);
+            CreateMissingPath(filePath);
 
             var timeStamp = DateTime.Now;
-            File.WriteAllText(FilePath + "TimeStamp.JSON", Convert.ToString(timeStamp));
+            File.WriteAllText(filePath + "TimeStamp.JSON", Convert.ToString(timeStamp));
         }
 
         public void CreateMissingPath(string dataPath)

@@ -8,6 +8,10 @@ namespace TrustCenterSearchGui.Core
 {
     public class core
     {
+        private static string FilePath { get; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+            @"\TrustCenterSearch\data\";
+
         private static Config Config { get; set; }
         private static List<Certificate> Certificates { get; set; }
 
@@ -17,11 +21,11 @@ namespace TrustCenterSearchGui.Core
             Config = configManager.GetConfig();
 
             var downloadManager = new DownloadManager(); 
-            downloadManager.DownloadDataFromConfic(Config);
+            downloadManager.DownloadDataFromConfic(Config, FilePath);
 
             var dataManager = new DataManager();
-            Certificates = dataManager.GetCertificateFromAppData(Config);
-            dataManager.SetTimeStamp();
+            Certificates = dataManager.GetCertificateFromAppData(Config, FilePath);
+            dataManager.SetTimeStamp(FilePath);
         }
 
         public static ObservableCollection<SearchResultsAndBorder> Searcher(string search)
