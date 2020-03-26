@@ -4,13 +4,13 @@ namespace TrustCenterSearchGui.Core.Models
 {
     public class SearchResultsAndBorder
     {
-        public int SubjectBorder { get; set; }
-        public int IssuerBorder { get; set; }
-        public int SerialNumberBorder { get; set; }
-        public int NotBeforeBorder { get; set; }
-        public int NotAfterBorder { get; set; }
-        public int ThumbprintBorder { get; set; }
-        public Certificate SearchCertificate { get; set; }
+        public string SubjectBorder { get; set; } = "Black";
+        public string IssuerBorder { get; set; } = "Black";
+        public string SerialNumberBorder { get; set; } = "Black";
+        public string NotBeforeBorder { get; set; } = "Black";
+        public string NotAfterBorder { get; set; } = "Black";
+        public string ThumbprintBorder { get; set; } = "Black";
+        public Certificate SearchCertificate { get; set; } 
 
     }
 }
