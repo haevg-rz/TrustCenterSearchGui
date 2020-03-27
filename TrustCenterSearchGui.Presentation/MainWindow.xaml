@@ -52,10 +52,10 @@
                                                     <Label Content="{Binding SearchCertificate.Issuer}" Width="auto" FontSize="16" Foreground="{Binding IssuerBorder}"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel Margin="0,0,0,0">
-                                                    <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto" Margin="20,0,0,0"></Label>
+                                                    <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
                                                     <Label Content="{Binding SearchCertificate.NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfterBorder}"></Label>
                                                     <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBeforeBorder}"></Label>
+                                                    <Label Content="{Binding SearchCertificate.NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBeforeBorder}"  Margin="20,0,0,0"></Label>
                                                     <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
                                                     <Label Content="{Binding SearchCertificate.SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumberBorder}"></Label>
                                                 </WrapPanel>
@@ -79,11 +79,11 @@
             <StackPanel>
             <Button Margin="5" Height="30" Content="Refresh" Command="{Binding RefreshButton}"></Button>
                 <Button Margin="5" Height="30" Content="Config"></Button>
-                <Button Margin="5" Height="30" Content="Collapse" Click="Collapse_Click"></Button>
+                <Button Margin="5" Height="30" Content="Collapse"></Button>
             </StackPanel>
-           
-            <!-- Menu -->
+         
         </Grid>
+        <!-- Menu -->
 
     </Grid>
 </Window>
