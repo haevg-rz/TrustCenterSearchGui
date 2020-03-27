@@ -7,7 +7,6 @@ namespace TrustCenterSearchGui.Presentation
 {
     public class ViewModel : ViewModelBase
     {
-        public RelayCommand RefreshButton { get; set; }
 
         public ViewModel()
         {
@@ -15,6 +14,9 @@ namespace TrustCenterSearchGui.Presentation
             
             this.SearchCalcuclation();
         }
+
+        public RelayCommand RefreshButton { get; set; }
+        public RelayCommand CollapseButton { get; set; }
 
         private string search;
         public string Search 

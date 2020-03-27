@@ -30,47 +30,46 @@ namespace TrustCenterSearchGui.Core
                 if (c.Issuer.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.IssuerBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
                 if (c.Subject.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SubjectBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
                 if (c.SerialNumber.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SerialNumberBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
                 if (c.NotBefore.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotBeforeBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
-
                 if (c.NotAfter.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotAfterBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
-
                 if (c.Thumbprint.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.ThumbprintBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    isASearchResult = true;
+                    isASearchResult = SetSearchResultTrue();
                 }
 
                 if (isASearchResult)
+                {
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     searchResults.Add(searchAndCertifcateContentTheSame);
+                }
             }
 
             return searchResults;
+        }
+        private bool SetSearchResultTrue()
+        {
+            return true;
         }
     }
 }
