@@ -4,7 +4,7 @@
 
 An application to search and filter in a certificate store from a trust center
 
-#Topic
+# Topic
 
 1. ![Intro](https://github.com/haevg-rz/TrustCenterSearchGui/blob/master/Intro/README.md)
 2. ![Features](https://github.com/haevg-rz/TrustCenterSearchGui/blob/master/Features/README.md)
