@@ -18,45 +18,31 @@ namespace TrustCenterSearchGui.Core
             {
                 var str = File.ReadAllLines(filePath + trustCenter.Name + @".txt");
 
-                var certificate = new List<string>();
-                certificate.Add("");
-
+                var certificate = new List<string> {""};
                 var certificateCounter = 0;
 
-                for (var i = 0; i < str.Length; i++)
-                    if (str[i] != "")
-                        certificate[certificateCounter] += str[i];
+                foreach (var s in str)
+                    if (s != "")
+                        certificate[certificateCounter] += s;
                     else
                     {
                         certificateCounter++;
                         certificate.Add("");
                     }
 
-                var certificatsStr = (from inhaltW in certificate
-                        where inhaltW != ""
-                        select new X509Certificate2(Convert.FromBase64String(inhaltW))
-                        into s
-                        select Convert.ToString(s))
-                       .ToList();
+                var cer = (from c in certificate
+                                      where c != ""
+                                      select new X509Certificate2(Convert.FromBase64String(c)));
 
-                foreach (var certificat in certificatsStr)
+                certificates.AddRange(cer.Select(c => new Certificate()
                 {
-                    var certificateWithoutSpaces = System.Text.RegularExpressions.Regex.Split(certificat, @"\n");
-
-                    var certificatInOneString = certificateWithoutSpaces.Aggregate("", (current, s) => current + s);
-
-                    certificateWithoutSpaces = System.Text.RegularExpressions.Regex.Split(certificatInOneString, @"\r");
-
-                    certificates.Add(new Certificate()
-                    { 
-                        Subject = (certificateWithoutSpaces[1]),
-                        Issuer = (certificateWithoutSpaces[4]),
-                        SerialNumber = (certificateWithoutSpaces[7]),
-                        NotAfter = Convert.ToDateTime(certificateWithoutSpaces[10]),
-                        NotBefore = Convert.ToDateTime(certificateWithoutSpaces[13]),
-                        Thumbprint = (certificateWithoutSpaces[16])
-                    });
-                }
+                    Subject = c.Subject,
+                    Issuer = c.Issuer,
+                    SerialNumber = c.SerialNumber,
+                    NotAfter = c.NotAfter,
+                    NotBefore = c.NotBefore,
+                    Thumbprint = c.Thumbprint
+                }));
             }
 
             return certificates;
@@ -67,7 +53,7 @@ namespace TrustCenterSearchGui.Core
             CreateMissingPath(filePath);
 
             var timeStamp = DateTime.Now;
-            File.WriteAllText(filePath + "TimeStamp.JSON", Convert.ToString(timeStamp));
+            File.WriteAllText(filePath + "TimeStamp.json", Convert.ToString(timeStamp));
         }
 
         public void CreateMissingPath(string dataPath)

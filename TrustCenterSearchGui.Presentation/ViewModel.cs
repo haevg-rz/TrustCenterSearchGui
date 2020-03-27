@@ -11,7 +11,7 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.core.RefreshButton);
+            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.Intersection.RefreshButton);
             
             this.SearchCalcuclation();
         }
@@ -36,7 +36,7 @@ namespace TrustCenterSearchGui.Presentation
 
         private void SearchCalcuclation()
         {
-            var searchResult = TrustCenterSearchGui.Core.core.Searcher(this.Search);
+            var searchResult = TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
 
             this.CertificateSearchResultList = searchResult;
         }
