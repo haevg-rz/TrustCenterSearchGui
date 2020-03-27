@@ -16,53 +16,53 @@ namespace TrustCenterSearchGui.Core
 
             if (string.IsNullOrWhiteSpace(search))
             {
-                for (var i = 0; i < certificates.Count; i++)
-                    searchResults.Add(new SearchResultsAndBorder {SearchCertificate = certificates[i]});
+                foreach (var c in certificates)
+                    searchResults.Add(new SearchResultsAndBorder {SearchCertificate = c});
 
                 return searchResults;
             }
 
-            for (var i = 0; i < certificates.Count; i++)
+            foreach (var c in certificates)
             {
                 var searchAndCertifcateContentTheSame = new SearchResultsAndBorder();
                 var isASearchResult = false;
 
-                if (certificates[i].Issuer.Contains(search))
+                if (c.Issuer.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.IssuerBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
-                if (certificates[i].Subject.Contains(search))
+                if (c.Subject.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SubjectBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
-                if (certificates[i].SerialNumber.ToString().Contains(search))
+                if (c.SerialNumber.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SerialNumberBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
-                if (certificates[i].NotBefore.ToString().Contains(search))
+                if (c.NotBefore.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotBeforeBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
 
-                if (certificates[i].NotAfter.ToString().Contains(search))
+                if (c.NotAfter.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotAfterBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
 
-                if (certificates[i].Thumbprint.ToString().Contains(search))
+                if (c.Thumbprint.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.ThumbprintBorder = "Red";
-                    searchAndCertifcateContentTheSame.SearchCertificate = certificates[i];
+                    searchAndCertifcateContentTheSame.SearchCertificate = c;
                     isASearchResult = true;
                 }
 
