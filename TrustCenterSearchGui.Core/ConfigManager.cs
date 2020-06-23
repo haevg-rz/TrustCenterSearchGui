@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace TrustCenterSearchGui.Core
@@ -10,12 +11,14 @@ namespace TrustCenterSearchGui.Core
 
         public Config GetConfig()
         {
-            
+            if (File.Exists(ConfigPath))
+            {
                 var jsonString = System.IO.File.ReadAllText(ConfigPath);
-
                 var config = JsonConvert.DeserializeObject<Config>(jsonString);
-
                 return config;
+            }
+            //TODO: Popup when no config
+            return new Config();
         }
     }
 }

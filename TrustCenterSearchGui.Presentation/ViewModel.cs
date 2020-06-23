@@ -10,9 +10,8 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.RefreshButton = new RelayCommand(TrustCenterSearchGui.Core.Intersection.RefreshButton);
-            
-            this.SearchCalcuclation();
+            this.SearchCalculation();
+            this.RefreshButton = new RelayCommand(RefreshAndSearch);
         }
 
         public RelayCommand RefreshButton { get; set; }
@@ -25,7 +24,7 @@ namespace TrustCenterSearchGui.Presentation
             set
             {
                 base.Set(ref this.search, value);
-                this.SearchCalcuclation();
+                this.SearchCalculation();
             }
         }
 
@@ -36,11 +35,17 @@ namespace TrustCenterSearchGui.Presentation
             set => base.Set(ref this.certificateSearchResultList, value);
         }
 
-        private void SearchCalcuclation()
+        private void SearchCalculation()
         {
             var searchResult = TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
 
             this.CertificateSearchResultList = searchResult;
+        }
+
+        private void RefreshAndSearch()
+        {
+            TrustCenterSearchGui.Core.Intersection.RefreshButton();
+            SearchCalculation();
         }
     }
 }
