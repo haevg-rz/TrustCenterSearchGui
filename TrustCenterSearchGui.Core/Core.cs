@@ -6,7 +6,7 @@ using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Core
 {
-    public class Core
+    public class Intersection
     {
         private static string FilePath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +

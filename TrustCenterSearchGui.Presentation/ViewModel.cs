@@ -14,7 +14,7 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.SearchCalculation();
+            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
             this.RefreshButton = new RelayCommand(RefreshAndSearch);
         }
 
@@ -28,7 +28,7 @@ namespace TrustCenterSearchGui.Presentation
             set
             {
                 base.Set(ref this.search, value);
-                this.SearchCalculation();
+                this.SearchCertificatesInTrustCenters();
             }
         }
 
@@ -39,19 +39,17 @@ namespace TrustCenterSearchGui.Presentation
             set => base.Set(ref this.certificateSearchResultList, value);
         }
 
-        private void SearchCalculation()
+        private ObservableCollection<SearchResultsAndBorder> SearchCertificatesInTrustCenters()
         {
-            var searchResult = TrustCenterSearchGui.Core.Core.Searcher(this.Search);
-
-            this.CertificateSearchResultList = searchResult;
+            return TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
         }
 
         private void RefreshAndSearch()
         {
-            TrustCenterSearchGui.Core.Core.RefreshButton();
-            SearchCalculation();
-            if (Core.Core.ConfigIsEmpty())
-                MessageBox.Show("There are no TrustCenters added in the Config.",
+            TrustCenterSearchGui.Core.Intersection.RefreshButton();
+            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
+            if (Intersection.ConfigIsEmpty())
+                MessageBox.Show("There are no TrustCenters added in the Config",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
