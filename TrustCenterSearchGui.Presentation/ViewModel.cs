@@ -1,10 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using TrustCenterSearchGui.Core;
 using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Presentation
@@ -14,9 +11,9 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
-            this.RefreshButton = new RelayCommand(RefreshAndSearch);
-            this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
+            this.CertificateSearchResultList = GetMatchingCertificatesFromSearch(this.search);
+            this.RefreshButton = new RelayCommand(RefreshAndSearchCommand);
+            this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
         }
 
         public RelayCommand RefreshButton { get; set; }
@@ -30,7 +27,7 @@ namespace TrustCenterSearchGui.Presentation
             set
             {
                 base.Set(ref this.search, value);
-                this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
+                this.CertificateSearchResultList = GetMatchingCertificatesFromSearch(this.search);
             }
         }
 
@@ -41,9 +38,9 @@ namespace TrustCenterSearchGui.Presentation
             set => base.Set(ref this.certificateSearchResultList, value);
         }
 
-        private ObservableCollection<SearchResultsAndBorder> SearchCertificatesInTrustCenters()
+        private ObservableCollection<SearchResultsAndBorder> GetMatchingCertificatesFromSearch(string searchInput)
         {
-            return TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
+            return TrustCenterSearchGui.Core.Core.Searcher(searchInput);
         }
 
         private ObservableCollection<TrustCenterHistoryElement> trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
@@ -53,17 +50,17 @@ namespace TrustCenterSearchGui.Presentation
             set => base.Set(ref this.trustCenterHistory, value);
         }
 
-        private void AddTrustCenter()
+        private void AddTrustCenterCommand()
         {
             TrustCenterHistory.Add(new TrustCenterHistoryElement("test"));
             TrustCenterHistory.Add(new TrustCenterHistoryElement("sehrsehrgroßertest"));
         }
 
-        private void RefreshAndSearch()
+        private void RefreshAndSearchCommand()
         {
-            TrustCenterSearchGui.Core.Intersection.RefreshButton();
-            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
-            if (Intersection.ConfigIsEmpty())
+            TrustCenterSearchGui.Core.Core.RefreshButtonCommand();
+            this.CertificateSearchResultList = GetMatchingCertificatesFromSearch(this.search);
+            if (Core.Core.ConfigIsEmpty())
                 MessageBox.Show("There are no TrustCenters added in the Config",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -10,29 +9,18 @@ namespace TrustCenterSearchGui.Core
 {
     public class DataManager
     {
-        public List<Certificate> GetCertificateFromAppData(Config config, string filePath)
+        public List<Certificate> GetCertificatesFromAppData(Config config, string filePath)
         {
             var certificates = new List<Certificate>();
 
             foreach (var trustCenter in config.TrustCenters)
             {
-                var str = File.ReadAllLines(filePath + trustCenter.Name + @".txt");
+                var textFromTrustCenter = File.ReadAllText(filePath + trustCenter.Name + @".txt");
+                var certificatesRaw = textFromTrustCenter.Split(new string[] { Environment.NewLine + Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries);
 
-                var certificate = new List<string> {""};
-                var certificateCounter = 0;
-
-                foreach (var s in str)
-                    if (s != "")
-                        certificate[certificateCounter] += s;
-                    else
-                    {
-                        certificateCounter++;
-                        certificate.Add("");
-                    }
-
-                var cer = (from c in certificate
-                                      where c != ""
-                                      select new X509Certificate2(Convert.FromBase64String(c)));
+                var cer = (from certificateRaw in certificatesRaw
+                    select new X509Certificate2(Convert.FromBase64String(certificateRaw)));
 
                 certificates.AddRange(cer.Select(c => new Certificate()
                 {
