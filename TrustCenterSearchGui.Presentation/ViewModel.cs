@@ -16,10 +16,12 @@ namespace TrustCenterSearchGui.Presentation
         {
             this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
             this.RefreshButton = new RelayCommand(RefreshAndSearch);
+            this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
         }
 
         public RelayCommand RefreshButton { get; set; }
         public RelayCommand CollapseButton { get; set; }
+        public RelayCommand AddTrustCenterButton { get; set; }
 
         private string search;
         public string Search 
@@ -28,7 +30,7 @@ namespace TrustCenterSearchGui.Presentation
             set
             {
                 base.Set(ref this.search, value);
-                this.SearchCertificatesInTrustCenters();
+                this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
             }
         }
 
@@ -42,6 +44,19 @@ namespace TrustCenterSearchGui.Presentation
         private ObservableCollection<SearchResultsAndBorder> SearchCertificatesInTrustCenters()
         {
             return TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
+        }
+
+        private ObservableCollection<TrustCenterHistoryElement> trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
+        public ObservableCollection<TrustCenterHistoryElement> TrustCenterHistory
+        {
+            get => this.trustCenterHistory;
+            set => base.Set(ref this.trustCenterHistory, value);
+        }
+
+        private void AddTrustCenter()
+        {
+            TrustCenterHistory.Add(new TrustCenterHistoryElement("test"));
+            TrustCenterHistory.Add(new TrustCenterHistoryElement("sehrsehrgroßertest"));
         }
 
         private void RefreshAndSearch()
