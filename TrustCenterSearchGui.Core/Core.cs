@@ -35,5 +35,10 @@ namespace TrustCenterSearchGui.Core
 
             return result;
         }
+
+        public static bool ConfigIsEmpty()
+        {
+            return Config.TrustCenters.Count == 0;
+        }
     }
 }

@@ -1,6 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using TrustCenterSearchGui.Core;
 using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Presentation
@@ -10,7 +14,7 @@ namespace TrustCenterSearchGui.Presentation
 
         public ViewModel()
         {
-            this.SearchCalculation();
+            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
             this.RefreshButton = new RelayCommand(RefreshAndSearch);
         }
 
@@ -24,7 +28,7 @@ namespace TrustCenterSearchGui.Presentation
             set
             {
                 base.Set(ref this.search, value);
-                this.SearchCalculation();
+                this.SearchCertificatesInTrustCenters();
             }
         }
 
@@ -35,17 +39,18 @@ namespace TrustCenterSearchGui.Presentation
             set => base.Set(ref this.certificateSearchResultList, value);
         }
 
-        private void SearchCalculation()
+        private ObservableCollection<SearchResultsAndBorder> SearchCertificatesInTrustCenters()
         {
-            var searchResult = TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
-
-            this.CertificateSearchResultList = searchResult;
+            return TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
         }
 
         private void RefreshAndSearch()
         {
             TrustCenterSearchGui.Core.Intersection.RefreshButton();
-            SearchCalculation();
+            this.CertificateSearchResultList = SearchCertificatesInTrustCenters();
+            if (Intersection.ConfigIsEmpty())
+                MessageBox.Show("There are no TrustCenters added in the Config",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
