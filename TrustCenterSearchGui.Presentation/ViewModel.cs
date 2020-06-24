@@ -41,16 +41,16 @@ namespace TrustCenterSearchGui.Presentation
 
         private void SearchCalculation()
         {
-            var searchResult = TrustCenterSearchGui.Core.Intersection.Searcher(this.Search);
+            var searchResult = TrustCenterSearchGui.Core.Core.Searcher(this.Search);
 
             this.CertificateSearchResultList = searchResult;
         }
 
         private void RefreshAndSearch()
         {
-            TrustCenterSearchGui.Core.Intersection.RefreshButton();
+            TrustCenterSearchGui.Core.Core.RefreshButton();
             SearchCalculation();
-            if (Intersection.ConfigIsEmpty())
+            if (Core.Core.ConfigIsEmpty())
                 MessageBox.Show("There are no TrustCenters added in the Config.",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }
