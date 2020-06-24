@@ -37,7 +37,7 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Act
 
-            var result = dataManager.GetCertificateFromAppData(config, filePath);
+            var result = dataManager.GetCertificatesFromAppData(config, filePath);
 
             #endregion
 
