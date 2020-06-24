@@ -10,7 +10,7 @@ namespace TrustCenterSearchGui.Core
 {
     public class DownloadManager
     {
-        public void DownloadDataFromConfic(Config config, string filePath)
+        public void DownloadDataFromConfig(Config config, string filePath)
         {
             var dataManager = new DataManager();
             dataManager.CreateMissingPath(filePath);

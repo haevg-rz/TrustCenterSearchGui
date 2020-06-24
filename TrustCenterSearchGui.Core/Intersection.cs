@@ -21,7 +21,7 @@ namespace TrustCenterSearchGui.Core
             Config = configManager.GetConfig();
 
             var downloadManager = new DownloadManager(); 
-            downloadManager.DownloadDataFromConfic(Config, FilePath);
+            downloadManager.DownloadDataFromConfig(Config, FilePath);
 
             var dataManager = new DataManager();
             Certificates = dataManager.GetCertificateFromAppData(Config, FilePath);

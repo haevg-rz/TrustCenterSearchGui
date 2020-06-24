@@ -30,32 +30,32 @@ namespace TrustCenterSearchGui.Core
                 if (c.Issuer.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.IssuerBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
                 if (c.Subject.Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SubjectBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
                 if (c.SerialNumber.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.SerialNumberBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
                 if (c.NotBefore.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotBeforeBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
                 if (c.NotAfter.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.NotAfterBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
                 if (c.Thumbprint.ToString().Contains(search))
                 {
                     searchAndCertifcateContentTheSame.ThumbprintBorder = "Red";
-                    isASearchResult = SetSearchResultTrue();
+                    isASearchResult = true;
                 }
 
                 if (isASearchResult)
@@ -66,10 +66,6 @@ namespace TrustCenterSearchGui.Core
             }
 
             return searchResults;
-        }
-        private bool SetSearchResultTrue()
-        {
-            return true;
         }
     }
 }
