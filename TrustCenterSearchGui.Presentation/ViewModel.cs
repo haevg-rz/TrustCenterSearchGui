@@ -1,6 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using TrustCenterSearchGui.Core;
 using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Presentation
@@ -46,6 +50,9 @@ namespace TrustCenterSearchGui.Presentation
         {
             TrustCenterSearchGui.Core.Intersection.RefreshButton();
             SearchCalculation();
+            if (Intersection.ConfigIsEmpty())
+                MessageBox.Show("There are no TrustCenters added in the Config.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

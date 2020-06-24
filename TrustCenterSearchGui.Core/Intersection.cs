@@ -12,7 +12,7 @@ namespace TrustCenterSearchGui.Core
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
             @"\TrustCenterSearch\data\";
 
-        private static Config Config { get; set; }
+        public static Config Config { get; set; }
         private static List<Certificate> Certificates { get; set; }
 
         public static void RefreshButton()
@@ -34,6 +34,11 @@ namespace TrustCenterSearchGui.Core
             var result = searchManager.SearchManagerConnector(search, Certificates);
 
             return result;
+        }
+
+        public static bool ConfigIsEmpty()
+        {
+            return Config.TrustCenters.Count == 0;
         }
     }
 }
