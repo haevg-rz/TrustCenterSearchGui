@@ -79,6 +79,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="160"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -108,9 +109,12 @@
 
             <!-- TrustCenterHistory -->
             <Grid Grid.Column="0" Grid.Row="2">
+                <Label Content="Trust Center History" FontSize="20" Margin ="10,0,0,0"></Label>
+            </Grid>
+
+            <Grid Grid.Row="3">
                 <ScrollViewer>
                     <StackPanel>
-                        <Label Content="Trust Center History" FontSize="20" Margin ="10,0,0,0"></Label>
                         <ItemsControl ItemsSource="{Binding Path=TrustCenterHistory}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -135,6 +139,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
+
             <!-- TrustCenterHistory -->
 
         </Grid>
