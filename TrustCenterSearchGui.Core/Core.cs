@@ -27,7 +27,7 @@ namespace TrustCenterSearchGui.Core
             dataManager.SetTimeStamp(FilePath);
         }
 
-        public static ObservableCollection<SearchResultsAndBorder> Searcher(string search)
+        public static List<SearchResultsAndBorder> Searcher(string search)
         {
             var searchManager = new SearchManager();
             var result = searchManager.SearchManagerConnector(search, Certificates);
