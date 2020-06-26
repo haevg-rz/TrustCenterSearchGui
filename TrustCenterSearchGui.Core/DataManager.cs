@@ -19,10 +19,8 @@ namespace TrustCenterSearchGui.Core
                  
                 var certificatesInTrustCenter = new List<Certificate>();
                 certificatesInTrustCenter = GetCertificateFromString(textFromTrustCenter);
-
-                foreach (var certificate in certificatesInTrustCenter)
-                {
-                    certificates.AddRange(certificates.Select(c => new Certificate()
+            
+                    certificates.AddRange(certificatesInTrustCenter.Select(c => new Certificate()
                     {
                         Subject = c.Subject,
                         Issuer = c.Issuer,
@@ -31,7 +29,6 @@ namespace TrustCenterSearchGui.Core
                         NotBefore = c.NotBefore,
                         Thumbprint = c.Thumbprint
                     }));
-                }
             }
             return certificates;
         }
