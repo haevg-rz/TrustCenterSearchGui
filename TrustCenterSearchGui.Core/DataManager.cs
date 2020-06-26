@@ -18,7 +18,7 @@ namespace TrustCenterSearchGui.Core
                 var textFromTrustCenter = File.ReadAllText(filePath + trustCenter.Name + @".txt");
                  
                 var certificatesInTrustCenter = new List<Certificate>();
-                certificatesInTrustCenter = GetCertificateFromString(textFromTrustCenter));
+                certificatesInTrustCenter = GetCertificateFromString(textFromTrustCenter);
 
                 foreach (var certificate in certificatesInTrustCenter)
                 {
