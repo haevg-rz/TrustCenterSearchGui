@@ -37,9 +37,6 @@ namespace TrustCenterSearchGui.Presentation
         #endregion
 
         #region Commands
-
-        public RelayCommand RefreshButton { get; set; }
-        public RelayCommand CollapseButton { get; set; }
         public RelayCommand AddTrustCenterButton { get; set; }
 
         #endregion
@@ -52,7 +49,6 @@ namespace TrustCenterSearchGui.Presentation
 
             CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
 
-            this.RefreshButton = new RelayCommand(RefreshAndSearchCommand);
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
 
             ExecuteSearch();
@@ -65,23 +61,15 @@ namespace TrustCenterSearchGui.Presentation
             TrustCenterHistory.Add(new TrustCenterHistoryElement("test"));
             TrustCenterHistory.Add(new TrustCenterHistoryElement("sehrsehrgroßertest"));
         }
-
-        private void RefreshAndSearchCommand()
-        {
-            this.Core.RefreshButtonCommand();
-
-            this.ExecuteSearch();
-            if (Core.ConfigManager.ConfigIsEmpty(Core.Config))
-                MessageBox.Show("There are no TrustCenters added in the Config",
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
         #endregion
 
         public void ExecuteSearch()
         {
+            if (Core.ConfigManager.ConfigIsEmpty(Core.Config))
+                MessageBox.Show("There are no TrustCenters added in the Config",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             this.CertificateSearchResultList.Clear();
-            foreach (var certificate in this.Core.SearchManager.SearchManagerConnector(this.Search, Core.Certificates))
+            foreach (var certificate in this.Core.SearchManager.GetSearchResults(this.Search, Core.Certificates))
             {
                 this.CertificateSearchResultList.Add(certificate);
             }

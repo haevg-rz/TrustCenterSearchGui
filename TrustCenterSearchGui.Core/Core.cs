@@ -31,14 +31,5 @@ namespace TrustCenterSearchGui.Core
 
             this.SearchManager = new SearchManager();
         }
-
-        public void RefreshButtonCommand()
-        {
-            this.Config = this.ConfigManager.GetConfig();
-
-            this.DownloadManager.DownloadDataFromConfig(this.Config, DataFolderPath);
-
-            this.Certificates = DataManager.GetCertificatesFromAppData(Config, DataFolderPath);
-        }
     }
 }
