@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchGui.Core
+namespace TrustCenterSearch.Core
 {
     public class ConfigManager
     {

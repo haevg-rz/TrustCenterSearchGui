@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TrustCenterSearchGui.Core.Models
+namespace TrustCenterSearch.Core.Models
 {
     public class Certificate
     {

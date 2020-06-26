@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using TrustCenterSearchGui.Core.Models;
+using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.Models;
 using Xunit;
 
-namespace TrustCenterSearchGui.Core.Test
+namespace TrustCenterSearchCore.Test
 {
     public class SearchManagerTest
     {

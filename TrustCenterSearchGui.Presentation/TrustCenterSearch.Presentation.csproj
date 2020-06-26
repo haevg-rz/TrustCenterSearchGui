@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrustCenterSearchGui.Core\TrustCenterSearchGui.Core.csproj" />
+    <ProjectReference Include="..\TrustCenterSearchGui.Core\TrustCenterSearch.Core.csproj" />
   </ItemGroup>
 
 

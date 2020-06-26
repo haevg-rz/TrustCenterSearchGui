@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TrustCenterSearchGui.Core.Models;
+using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchGui.Core
+namespace TrustCenterSearch.Core
 {
     public class SearchManager
     {

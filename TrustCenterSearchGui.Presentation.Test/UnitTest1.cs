@@ -1,7 +1,6 @@
-using System;
 using Xunit;
 
-namespace TrustCenterSearchGui.Presentation.Test
+namespace TrustCenterSearchPresentation.Test
 {
     public class UnitTest1
     {
