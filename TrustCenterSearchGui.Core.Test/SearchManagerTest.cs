@@ -26,7 +26,7 @@ namespace TrustCenterSearchGui.Core.Test
 
             #region Act
 
-            var searchresult = searchManager.SearchManagerConnector(search, certificates);
+            var searchresult = searchManager.GetSearchResults(search, certificates);
             var issuerBorder = searchresult[0].IssuerBorder;
 
             #endregion

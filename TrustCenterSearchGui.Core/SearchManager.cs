@@ -5,7 +5,7 @@ namespace TrustCenterSearchGui.Core
 {
     public class SearchManager
     {
-        public List<SearchResultsAndBorder> SearchManagerConnector(string search, List<Certificate> certificates)
+        public List<SearchResultsAndBorder> GetSearchResults(string search, List<Certificate> certificates)
         {
             if (certificates == null) return new List<SearchResultsAndBorder>();
 
