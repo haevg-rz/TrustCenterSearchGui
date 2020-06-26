@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Net;
 using System.Text;
+using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchGui.Core
+namespace TrustCenterSearch.Core
 {
     public class DownloadManager
     {

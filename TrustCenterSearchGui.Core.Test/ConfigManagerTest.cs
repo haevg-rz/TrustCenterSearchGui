@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using TrustCenterSearch.Core;
 using Xunit;
-using static Xunit.Assert;
 
-namespace TrustCenterSearchGui.Core.Test
+namespace TrustCenterSearchCore.Test
 {
     public class ConfigManagerTest
     {
@@ -20,7 +19,7 @@ namespace TrustCenterSearchGui.Core.Test
         {
             #region Arrange
 
-            var configManager = new TrustCenterSearchGui.Core.ConfigManager();
+            var configManager = new ConfigManager();
 
             #endregion
 

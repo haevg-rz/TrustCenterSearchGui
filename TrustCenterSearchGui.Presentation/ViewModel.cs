@@ -1,11 +1,11 @@
-﻿using GalaSoft.MvvmLight;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using TrustCenterSearchGui.Core.Models;
+using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchGui.Presentation
+namespace TrustCenterSearch.Presentation
 {
     public class ViewModel : ViewModelBase
     {
@@ -18,7 +18,7 @@ namespace TrustCenterSearchGui.Presentation
 
         #region Properties
 
-        public Core.Core Core { get; set; }
+        public TrustCenterSearch.Core.Core Core { get; set; }
 
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
 
@@ -45,7 +45,7 @@ namespace TrustCenterSearchGui.Presentation
         {
             SimpleIoc.Default.Register<ViewModel>();
 
-            this.Core = new Core.Core();
+            this.Core = new TrustCenterSearch.Core.Core();
 
             CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
 

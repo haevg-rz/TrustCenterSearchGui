@@ -1,6 +1,6 @@
 ﻿
 
-namespace TrustCenterSearchGui.Core.Models
+namespace TrustCenterSearch.Core.Models
 {
     public class SearchResultsAndBorder
     {

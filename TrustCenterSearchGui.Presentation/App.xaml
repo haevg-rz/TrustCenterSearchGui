@@ -1,9 +1,9 @@
-﻿<Application x:Class="TrustCenterSearchGui.Presentation.App"
+﻿<Application x:Class="TrustCenterSearch.Presentation.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TrustCenterSearchGui.Presentation"
+             xmlns:presentation="clr-namespace:TrustCenterSearch.Presentation"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:ViewModel x:Key="ViewModel" />
+        <presentation:ViewModel x:Key="ViewModel" />
     </Application.Resources>
 </Application>
