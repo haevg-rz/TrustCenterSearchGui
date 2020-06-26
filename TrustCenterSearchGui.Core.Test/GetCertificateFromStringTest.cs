@@ -8,7 +8,7 @@ using Xunit;
 
 namespace TrustCenterSearchGui.Core.Test
 {
-    public class UnitTest1
+    public class GetCertificateFromStringTest
     {
         [Fact(DisplayName = "test")]
         public void ReadConfig()
