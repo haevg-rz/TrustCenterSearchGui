@@ -16,13 +16,37 @@ namespace TrustCenterSearchGui.Core
             foreach (var trustCenter in config.TrustCenters)
             {
                 var textFromTrustCenter = File.ReadAllText(filePath + trustCenter.Name + @".txt");
-                var certificatesRaw = textFromTrustCenter.Split(new string[] { Environment.NewLine + Environment.NewLine },
+                 
+                var certificatesInTrustCenter = new List<Certificate>();
+                certificatesInTrustCenter = GetCertificateFromString(textFromTrustCenter);
+
+                foreach (var certificate in certificatesInTrustCenter)
+                {
+                    certificates.AddRange(certificates.Select(c => new Certificate()
+                    {
+                        Subject = c.Subject,
+                        Issuer = c.Issuer,
+                        SerialNumber = c.SerialNumber,
+                        NotAfter = c.NotAfter,
+                        NotBefore = c.NotBefore,
+                        Thumbprint = c.Thumbprint
+                    }));
+                }
+            }
+            return certificates;
+        }
+
+        private List<Certificate> GetCertificateFromString(string textFromTrustCenter)
+        {
+            var certificatesRaw = textFromTrustCenter.Split(new string[] { Environment.NewLine + Environment.NewLine },
                     StringSplitOptions.RemoveEmptyEntries);
 
-                var cer = (from certificateRaw in certificatesRaw
+            var cer = (from certificateRaw in certificatesRaw
                     select new X509Certificate2(Convert.FromBase64String(certificateRaw)));
 
-                certificates.AddRange(cer.Select(c => new Certificate()
+            var certificates = new List<Certificate>();
+
+            certificates.AddRange(cer.Select(c => new Certificate()
                 {
                     Subject = c.Subject,
                     Issuer = c.Issuer,
@@ -31,7 +55,6 @@ namespace TrustCenterSearchGui.Core
                     NotBefore = c.NotBefore,
                     Thumbprint = c.Thumbprint
                 }));
-            }
 
             return certificates;
         }
