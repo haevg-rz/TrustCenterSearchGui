@@ -16,33 +16,22 @@ namespace TrustCenterSearch.Core
             foreach (var trustCenter in config.TrustCenters)
             {
                 var textFromTrustCenter = File.ReadAllText(filePath + trustCenter.Name + @".txt");
-                 
-                var certificatesInTrustCenter = new List<Certificate>();
-                certificatesInTrustCenter = GetCertificateFromString(textFromTrustCenter);
-            
-                    certificates.AddRange(certificatesInTrustCenter.Select(c => new Certificate()
-                    {
-                        Subject = c.Subject,
-                        Issuer = c.Issuer,
-                        SerialNumber = c.SerialNumber,
-                        NotAfter = c.NotAfter,
-                        NotBefore = c.NotBefore,
-                        Thumbprint = c.Thumbprint
-                    }));
+                var certificatesInTrustCenter = GetCertificatesFromString(textFromTrustCenter);
+                certificates.AddRange(certificatesInTrustCenter);
             }
             return certificates;
         }
 
-        private List<Certificate> GetCertificateFromString(string textFromTrustCenter)
+        private static IEnumerable<Certificate> GetCertificatesFromString(string textFromTrustCenter)
         {
-            var certificatesRaw = textFromTrustCenter.Split(new string[] { Environment.NewLine + Environment.NewLine },
+            var certificatesTxt = textFromTrustCenter.Split(new [] { Environment.NewLine + Environment.NewLine },
                     StringSplitOptions.RemoveEmptyEntries);
-
-            var cer = (from certificateRaw in certificatesRaw
-                    select new X509Certificate2(Convert.FromBase64String(certificateRaw)));
-
+            
+            var cer = (from certificateTxt in certificatesTxt
+                                                select new X509Certificate2(Convert.FromBase64String(certificateTxt)));
+            
             var certificates = new List<Certificate>();
-
+            
             certificates.AddRange(cer.Select(c => new Certificate()
                 {
                     Subject = c.Subject,
@@ -58,13 +47,13 @@ namespace TrustCenterSearch.Core
 
         public void SetTimeStamp(string filePath)
         {
-            CreateMissingPath(filePath);
+            CreateDirectoryIfMissing(filePath);
 
             var timeStamp = DateTime.Now;
             File.WriteAllText(filePath + "TimeStamp.json", Convert.ToString(timeStamp));
         }
 
-        public void CreateMissingPath(string dataPath)
+        public void CreateDirectoryIfMissing(string dataPath)
         {
             if (!Directory.Exists(dataPath))
                 Directory.CreateDirectory(dataPath);

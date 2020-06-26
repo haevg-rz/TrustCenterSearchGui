@@ -10,7 +10,7 @@ namespace TrustCenterSearch.Core
         public void DownloadDataFromConfig(Config config, string filePath)
         {
             var dataManager = new DataManager();
-            dataManager.CreateMissingPath(filePath);
+            dataManager.CreateDirectoryIfMissing(filePath);
 
             var client = new WebClient();
 
