@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace TrustCenterSearchGui.Core
 {
@@ -13,7 +9,7 @@ namespace TrustCenterSearchGui.Core
         public void DownloadDataFromConfig(Config config, string filePath)
         {
             var dataManager = new DataManager();
-            dataManager.CreateMissingPath(filePath);
+            dataManager.CreateDirectoryIfMissing(filePath);
 
             var client = new WebClient();
 
