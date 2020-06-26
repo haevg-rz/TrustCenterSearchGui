@@ -17,7 +17,6 @@ namespace TrustCenterSearchGui.Core
                 var config = JsonConvert.DeserializeObject<Config>(jsonString);
                 return config;
             }
-            //TODO: Popup when no config
             return new Config();
         }
     }

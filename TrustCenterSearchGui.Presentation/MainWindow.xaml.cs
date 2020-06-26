@@ -37,7 +37,7 @@ namespace TrustCenterSearchGui.Presentation
             if (e.Key != Key.Enter)
                 return;
 
-            SimpleIoc.Default.GetInstance<ViewModel>().ExecuteSearch(((TextBox)sender).Text);
+            (this.DataContext as ViewModel).ExecuteSearch();
         }
     }
 }
