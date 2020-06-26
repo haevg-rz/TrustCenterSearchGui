@@ -18,6 +18,8 @@ namespace TrustCenterSearchGui.Presentation
 
         #region Properties
 
+        public Core.Core Core { get; set; }
+
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
 
         public ObservableCollection<TrustCenterHistoryElement> TrustCenterHistory
@@ -46,13 +48,14 @@ namespace TrustCenterSearchGui.Presentation
         {
             SimpleIoc.Default.Register<ViewModel>();
 
-            CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
+            this.Core = new Core.Core();
 
+            CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
 
             this.RefreshButton = new RelayCommand(RefreshAndSearchCommand);
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
 
-
+            ExecuteSearch();
         }
 
         #region CommandHandlings
@@ -65,10 +68,10 @@ namespace TrustCenterSearchGui.Presentation
 
         private void RefreshAndSearchCommand()
         {
-            TrustCenterSearchGui.Core.Core.RefreshButtonCommand();
+            this.Core.RefreshButtonCommand();
 
             this.ExecuteSearch();
-            if (Core.Core.ConfigIsEmpty())
+            if (Core.ConfigManager.ConfigIsEmpty(Core.Config))
                 MessageBox.Show("There are no TrustCenters added in the Config",
                     "Error", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -78,7 +81,7 @@ namespace TrustCenterSearchGui.Presentation
         public void ExecuteSearch()
         {
             this.CertificateSearchResultList.Clear();
-            foreach (var certificate in TrustCenterSearchGui.Core.Core.Searcher(this.Search))
+            foreach (var certificate in this.Core.SearchManager.SearchManagerConnector(this.Search, Core.Certificates))
             {
                 this.CertificateSearchResultList.Add(certificate);
             }
