@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using TrustCenterSearchGui.Core.Models;
 
 namespace TrustCenterSearchGui.Core
 {
     public class SearchManager
     {
-        public ObservableCollection<SearchResultsAndBorder> SearchManagerConnector(string search, List<Certificate> certificates)
+        public List<SearchResultsAndBorder> SearchManagerConnector(string search, List<Certificate> certificates)
         {
-            if (certificates == null) return null;
+            if (certificates == null) return new List<SearchResultsAndBorder>();
 
-            var searchResults = new ObservableCollection<SearchResultsAndBorder>();
+            var searchResults = new List<SearchResultsAndBorder>();
 
             if (string.IsNullOrWhiteSpace(search))
             {

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace TrustCenterSearchGui.Presentation
 {
@@ -29,6 +30,14 @@ namespace TrustCenterSearchGui.Presentation
         private void Collapse_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SearchBoxInputDone(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            (this.DataContext as ViewModel).ExecuteSearch();
         }
     }
 }

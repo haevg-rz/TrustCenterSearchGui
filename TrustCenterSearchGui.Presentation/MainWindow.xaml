@@ -11,8 +11,13 @@
 
     <Window.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Ressources/Styles/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
+        
     </Window.Resources>
 
     <Grid>
@@ -25,8 +30,8 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding Search, Converter={StaticResource VisibilityConverter}}" />
+        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" KeyUp="SearchBoxInputDone"></TextBox>
+            <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding Search, Converter={StaticResource VisibilityConverter}}" />
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>
@@ -102,7 +107,7 @@
                         <Label Width="45" Content="URL" Margin ="10,0,0,0"></Label>
                             <TextBox Padding="3" Width="200" Height="auto"></TextBox>
                         </WrapPanel>
-                    <Button Background ="DarkGray" Margin="10" Height="30" Width="150" HorizontalAlignment="Left" Content="Add" FontWeight="DemiBold" Command="{Binding AddTrustCenterButton}"></Button>
+                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButton}"></Button>
                 </StackPanel>
             </Grid>
             <!-- AddTrustCenter -->
