@@ -92,11 +92,11 @@
                     <Label Content="Add Trust Center" FontSize="20" Margin ="10,0,0,0"></Label>
                         <WrapPanel Margin="5">
                         <Label Width="45" Content="Name" Margin ="10,0,0,0"></Label>
-                            <TextBox Padding="3" Width="200" Height="auto"></TextBox>
+                        <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </WrapPanel>
                         <WrapPanel Margin="5">
                         <Label Width="45" Content="URL" Margin ="10,0,0,0"></Label>
-                            <TextBox Padding="3" Width="200" Height="auto"></TextBox>
+                        <TextBox Padding="3" Width="200" Height="auto" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </WrapPanel>
                     <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButton}"></Button>
                 </StackPanel>
