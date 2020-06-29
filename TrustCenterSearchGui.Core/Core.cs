@@ -6,10 +6,7 @@ namespace TrustCenterSearch.Core
 {
     public class Core
     {
-        private static string DataFolderPath { get; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-            @"\TrustCenterSearch\data\";
-
+        public string DataFolderPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
         public DataManager DataManager { get; set; }
         public DownloadManager DownloadManager { get; set; }
         public SearchManager SearchManager { get; set; }

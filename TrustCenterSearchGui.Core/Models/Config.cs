@@ -16,5 +16,17 @@ namespace TrustCenterSearch.Core.Models
     {
         public string Name { get; set; }
         public string TrustCenterURL { get; set; }
+
+        public TrustCenter(string name, string url)
+        {
+            this.Name = name;
+            this.TrustCenterURL = url;
+        }
+
+        public TrustCenter()
+        {
+            this.Name = string.Empty;
+            this.TrustCenterURL = string.Empty;
+        }
     }
 }

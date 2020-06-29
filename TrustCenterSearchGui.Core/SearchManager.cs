@@ -55,11 +55,11 @@ namespace TrustCenterSearch.Core
                     isASearchResult = true;
                 }
 
-                if (isASearchResult)
-                {
-                    searchAndCertifcateContentTheSame.SearchCertificate = c;
-                    searchResults.Add(searchAndCertifcateContentTheSame);
-                }
+                if (!isASearchResult) 
+                    continue;
+
+                searchAndCertifcateContentTheSame.SearchCertificate = c;
+                searchResults.Add(searchAndCertifcateContentTheSame);
             }
 
             return searchResults;

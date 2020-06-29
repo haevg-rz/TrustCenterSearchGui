@@ -13,12 +13,11 @@ namespace TrustCenterSearch.Core
         {
             var certificates = new List<Certificate>();
 
-            foreach (var trustCenter in config.TrustCenters)
-            {
-                var textFromTrustCenter = File.ReadAllText(filePath + trustCenter.Name + @".txt");
-                var certificatesInTrustCenter = GetCertificatesFromString(textFromTrustCenter);
+            foreach (var certificatesInTrustCenter in config.TrustCenters.
+                    Select(trustCenter => File.ReadAllText(filePath + trustCenter.Name + @".txt")).
+                    Select(textFromTrustCenter => GetCertificatesFromString(textFromTrustCenter)))
                 certificates.AddRange(certificatesInTrustCenter);
-            }
+
             return certificates;
         }
 
