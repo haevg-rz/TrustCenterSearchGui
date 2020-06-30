@@ -64,7 +64,13 @@ namespace TrustCenterSearch.Presentation
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
 
             if (!Core.ConfigManager.ConfigIsEmpty(Core.Config))
+            {
                 this.ExecuteSearch();
+
+                foreach (var trustCenter in Core.Config.TrustCenters)
+                    TrustCenterHistory.Add(new TrustCenterHistoryElement(trustCenter.Name));
+            }
+                
         }
 
         #region CommandHandlings
