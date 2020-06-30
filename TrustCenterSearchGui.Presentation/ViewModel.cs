@@ -63,7 +63,8 @@ namespace TrustCenterSearch.Presentation
 
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
 
-            this.ExecuteSearch();
+            if (!Core.ConfigManager.ConfigIsEmpty(Core.Config))
+                this.ExecuteSearch();
         }
 
         #region CommandHandlings
