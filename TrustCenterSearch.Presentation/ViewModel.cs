@@ -93,7 +93,7 @@ namespace TrustCenterSearch.Presentation
             }
             
             Core.Config = Core.ConfigManager.AddTrustCenterToConfig(this.Name, this.Url, Core.Config);
-            Core.DownloadManager.DownloadDataFromConfig(Core.Config, Core.DataFolderPath);
+            Core.DownloadManager.DownloadTrustCenter(this.Name, this.Url, Core.DataFolderPath);
             Core.Certificates = Core.DataManager.GetCertificatesFromAppData(Core.Config, Core.DataFolderPath);
 
             TrustCenterHistory.Add(new TrustCenterHistoryElement(this.name));

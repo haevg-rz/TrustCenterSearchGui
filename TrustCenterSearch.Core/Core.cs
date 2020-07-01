@@ -20,7 +20,6 @@ namespace TrustCenterSearch.Core
             this.Config = this.ConfigManager.GetConfig();
 
             this.DownloadManager = new DownloadManager();
-            this.DownloadManager.DownloadDataFromConfig(this.Config, DataFolderPath);
 
             this.DataManager = new DataManager();
             this.Certificates = this.DataManager.GetCertificatesFromAppData(this.Config, DataFolderPath);
