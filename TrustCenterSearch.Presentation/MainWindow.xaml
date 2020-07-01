@@ -6,7 +6,7 @@
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
-        Title="TrustCenterExecuteSearchbarInput" Height="550" Width="1100">
+        Title="TrustCenterExecuteSearchBarInput" Height="550" Width="1100">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -29,8 +29,8 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding SearchbarInput, UpdateSourceTrigger=PropertyChanged}" KeyUp="SearchBoxInputDone"></TextBox>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding SearchbarInput, Converter={StaticResource VisibilityConverter}}" />
+        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding SearchBarInput, UpdateSourceTrigger=PropertyChanged}" KeyUp="SearchBoxInputDone"></TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding SearchBarInput, Converter={StaticResource VisibilityConverter}}" />
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>

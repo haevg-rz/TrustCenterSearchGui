@@ -1,20 +1,23 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TrustCenterSearch.Core.DataManagement;
 using TrustCenterSearch.Core.Models;
 
+[assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
+
 namespace TrustCenterSearch.Core
 {
     public class Core
     {
-        public string DataFolderPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
-        public ImportManager ImportManager { get; set; }
-        public DownloadManager DownloadManager { get; set; }
-        public SearchManager SearchManager { get; set; }
-        public ConfigManager ConfigManager { get; set; }
-        public Config Config { get; set; }
-        public List<Certificate> Certificates { get; set; }
+        internal string DataFolderPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
+        internal ImportManager ImportManager { get; set; }
+        internal DownloadManager DownloadManager { get; set; }
+        internal SearchManager SearchManager { get; set; }
+        internal ConfigManager ConfigManager { get; set; }
+        internal Config Config { get; set; }
+        internal List<Certificate> Certificates { get; set; }
 
         public Core()
         {
@@ -31,11 +34,20 @@ namespace TrustCenterSearch.Core
 
         public List<SearchResultsAndBorder> ExecuteSearch(string searchInput)
         {
+            if (this.ConfigManager.IsConfigEmpty(this.Config))
+                throw new ArgumentException("There are no TrustCenters added in the Config");
+
             return this.SearchManager.GetSearchResults(searchInput, this.Certificates);
         }
 
         public void AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
         {
+            if (newTrustCenterName == string.Empty)
+                throw new ArgumentException("The entered name is not valid.");
+
+            if (!DownloadManager.IsUrlExisting(newTrustCenterUrl))
+                throw new ArgumentException("The entered Url is not valid.");
+
             this.Config = this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName, newTrustCenterUrl, this.Config);
             this.DownloadManager.DownloadTrustCenter(newTrustCenterName, newTrustCenterUrl, this.DataFolderPath);
             this.Certificates = this.ImportManager.ImportCertificatesFromDownloadedTrustCenters(this.Config, this.DataFolderPath);
@@ -43,7 +55,7 @@ namespace TrustCenterSearch.Core
 
         public List<TrustCenterHistoryElement> LoadTrustCenterHistory()
         {
-            return Config.TrustCenters.Select(trustCenter => new TrustCenterHistoryElement(trustCenter.Name)).ToList();
+            return this.Config.TrustCenters.Select(trustCenter => new TrustCenterHistoryElement(trustCenter.Name)).ToList();
         }
     }
 }

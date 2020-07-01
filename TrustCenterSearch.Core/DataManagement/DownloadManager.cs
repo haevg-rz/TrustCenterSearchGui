@@ -7,7 +7,7 @@ namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
-        public void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
+        internal void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
@@ -19,12 +19,12 @@ namespace TrustCenterSearch.Core.DataManagement
             File.WriteAllText(GetFilePath(trustCenterName, filePath), str);
         }
 
-        public string GetFilePath(string name, string filePath)
+        internal string GetFilePath(string name, string filePath)
         {
             return filePath + name + @".txt";
         }
 
-        public bool IsUrlExisting(string url)
+        internal bool IsUrlExisting(string url)
         {
             if (url == string.Empty)
                 return false;
