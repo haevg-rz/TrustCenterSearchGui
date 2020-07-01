@@ -4,29 +4,9 @@ using System.Text;
 
 namespace TrustCenterSearchCore.Test
 {
-    class ConfigManagerTest
+    class DataManagerTest
     {
-        public void AddToConfigTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-
-            #endregion
-
-
-            #region Assert
-
-
-            #endregion
-
-        }
-
-        public void IsConfigEmptyTest()
+        public void GetCertificatesFromStringTest()
         {
             #region Arrange
 
@@ -46,5 +26,4 @@ namespace TrustCenterSearchCore.Test
 
         }
     }
-}
 }
