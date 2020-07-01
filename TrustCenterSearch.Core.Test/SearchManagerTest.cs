@@ -11,7 +11,7 @@ namespace TrustCenterSearchCore.Test
         [Theory]
         [InlineData("Test", "Test",true)]
         [InlineData(null,"Test",false)]
-        public void SearchManager(string search, string issuer,bool testIssuerBorder)
+        public void GetSearchResultsTest(string search, string issuer,bool testIssuerBorder)
         {
             #region Arrange
 
