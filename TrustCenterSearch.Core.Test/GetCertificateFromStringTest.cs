@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.DataManagement;
 using TrustCenterSearch.Core.Models;
 using Xunit;
 
@@ -15,7 +16,7 @@ namespace TrustCenterSearchCore.Test
         {
             #region Arrange
 
-            var dataManager = new DataManager();
+            var dataManager = new ImportManager();
             var config = new Config();
             config.TrustCenters = new List<TrustCenter>()
             {
@@ -37,7 +38,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            var result = dataManager.GetCertificatesFromAppData(config, filePath);
+            var result = dataManager.ImportCertificatesFromDownloadedTrustCenters(config, filePath);
 
             #endregion
 

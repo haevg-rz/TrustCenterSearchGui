@@ -11,9 +11,9 @@ namespace TrustCenterSearch.Presentation
     {
         #region fields
 
-        private string search = string.Empty;
-        private string name = string.Empty;
-        private string url = string.Empty;
+        private string _searchbarInput = string.Empty;
+        private string _addTrustCenterName = string.Empty;
+        private string _addTrustCenterUrl = string.Empty;
         private ObservableCollection<TrustCenterHistoryElement> trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
 
         #endregion
@@ -30,21 +30,21 @@ namespace TrustCenterSearch.Presentation
             set => base.Set(ref this.trustCenterHistory, value);
         }
 
-        public string Search
+        public string SearchbarInput
         {
-            get => this.search;
-            set => base.Set(ref this.search, value);
+            get => this._searchbarInput;
+            set => base.Set(ref this._searchbarInput, value);
         }
 
-        public string Name
+        public string AddTrustCenterName
         {
-            get => this.name;
-            set => base.Set(ref this.name, value);
+            get => this._addTrustCenterName;
+            set => base.Set(ref this._addTrustCenterName, value);
         } 
-        public string Url
+        public string AddTrustCenterUrl
         {
-            get => this.url;
-            set => base.Set(ref this.url, value);
+            get => this._addTrustCenterUrl;
+            set => base.Set(ref this._addTrustCenterUrl, value);
         }
         #endregion
 
@@ -55,48 +55,45 @@ namespace TrustCenterSearch.Presentation
 
         public ViewModel()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             SimpleIoc.Default.Register<ViewModel>();
 
-            this.Core = new TrustCenterSearch.Core.Core();
+            this.Core = new Core.Core();
 
             CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
 
-            this.AddTrustCenterButton = new RelayCommand(AddTrustCenterCommand);
+            this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
 
-            if (!Core.ConfigManager.ConfigIsEmpty(Core.Config))
+            if (!Core.ConfigManager.IsConfigEmpty(Core.Config))
             {
-                this.ExecuteSearch();
-
-                foreach (var trustCenter in Core.Config.TrustCenters)
-                    TrustCenterHistory.Add(new TrustCenterHistoryElement(trustCenter.Name));
+                this.LoadTrustCenterHistory();
             }
-                
         }
 
         #region CommandHandlings
 
-        private void AddTrustCenterCommand()
+        private void AddTrustCenter()
         {
-            
-
-            if (this.Name == string.Empty)
+            if (this.AddTrustCenterName == string.Empty)
             {
-                MessageBox.Show("There is no name for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                MessageBox.Show(this.Name);
+                MessageBox.Show("There is no _addTrustCenterName for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(this.AddTrustCenterName);
                 return;
             }
 
-            if (!Core.DownloadManager.IsUrlExisting(this.Url))
+            if (!Core.DownloadManager.IsUrlExisting(this.AddTrustCenterUrl))
             {
-                MessageBox.Show("There is no valid url for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("There is no valid _addTrustCenterUrl for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            
-            Core.Config = Core.ConfigManager.AddTrustCenterToConfig(this.Name, this.Url, Core.Config);
-            Core.DownloadManager.DownloadTrustCenter(this.Name, this.Url, Core.DataFolderPath);
-            Core.Certificates = Core.DataManager.GetCertificatesFromAppData(Core.Config, Core.DataFolderPath);
 
-            TrustCenterHistory.Add(new TrustCenterHistoryElement(this.name));
+            Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
+
+            TrustCenterHistory.Add(new TrustCenterHistoryElement(this._addTrustCenterName));
 
             this.ExecuteSearch();
         }
@@ -104,14 +101,23 @@ namespace TrustCenterSearch.Presentation
 
         public void ExecuteSearch()
         {
-            if (Core.ConfigManager.ConfigIsEmpty(Core.Config))
+            if (Core.ConfigManager.IsConfigEmpty(Core.Config))
                 MessageBox.Show("There are no TrustCenters added in the Config", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
 
             this.CertificateSearchResultList.Clear();
-            foreach (var certificate in this.Core.SearchManager.GetSearchResults(this.Search, Core.Certificates))
+            
+            foreach (var certificate in this.Core.ExecuteSearch(this.SearchbarInput))
             {
                 this.CertificateSearchResultList.Add(certificate);
             }
+        }
+
+        private void LoadTrustCenterHistory()
+        {
+            foreach (var trustCenterHistoryElement in Core.LoadTrustCenterHistory())
+                TrustCenterHistory.Add(trustCenterHistoryElement);
+
+            this.ExecuteSearch();
         }
     }
 }

@@ -3,14 +3,14 @@ using System.IO;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core
+namespace TrustCenterSearch.Core.DataManagement
 {
     public class ConfigManager
     {
         private static string ConfigPath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\Config.JSON";
 
-        public Config GetConfig()
+        public Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
                 return new Config();
@@ -22,28 +22,21 @@ namespace TrustCenterSearch.Core
 
         public Config AddTrustCenterToConfig(string name, string url, Config config)
         {
-            config = this.AddToConfig(name, url, config);  //TODO: review naming
-            this.SaveConfig(config);
+            config.TrustCenters.Add(new TrustCenter(name, url));
+            SaveConfig(config);
 
             return config;
         }
 
-        private Config AddToConfig(string name, string url, Config config)
-        {
-           config.TrustCenters.Add(new TrustCenter(name, url));
-
-           return config;
-        }
-
-        private void SaveConfig(Config config)
-        {
-            var jsonString = JsonConvert.SerializeObject(config);
-            System.IO.File.WriteAllText(ConfigPath, jsonString);
-        }
-
-        public bool ConfigIsEmpty(Config config)
+        public bool IsConfigEmpty(Config config)
         {
             return config.TrustCenters.Count == 0;
+        }
+
+        private static void SaveConfig(Config config)
+        {
+            var jsonString = JsonConvert.SerializeObject(config);
+            File.WriteAllText(ConfigPath, jsonString);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.DataManagement;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -25,7 +26,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            var result = configManager.GetConfig();
+            var result = configManager.LoadConfig();
 
             #endregion
 
