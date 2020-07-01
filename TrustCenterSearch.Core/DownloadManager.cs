@@ -8,6 +8,19 @@ namespace TrustCenterSearch.Core
 {
     public class DownloadManager
     {
+        public void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
+        {
+            var dataManager = new DataManager();
+            dataManager.CreateDirectoryIfMissing(filePath);
+
+            var client = new WebClient();
+
+            var data = client.DownloadData(trustCenterUrl);
+            var str = Encoding.UTF8.GetString(data);
+            File.WriteAllText(GetFilePath(trustCenterName, filePath), str);
+        }
+
+        /*
         public void DownloadDataFromConfig(Config config, string filePath)
         {
             var dataManager = new DataManager();
@@ -22,6 +35,7 @@ namespace TrustCenterSearch.Core
                 File.WriteAllText(GetFilePath(trustCenter.Name, filePath), str);
             }
         }
+       */
 
         private string GetFilePath(string name, string filePath)
         {
