@@ -2,9 +2,9 @@ using Xunit;
 
 namespace TrustCenterSearchPresentation.Test
 {
-    public class UnitTest1
+    public class ViewModelTest
     {
-        [Fact(DisplayName = "Empty test, TODO Remove")]
+        [Fact(DisplayName = "ViewModelTest")]
         public void Test1()
         {
 

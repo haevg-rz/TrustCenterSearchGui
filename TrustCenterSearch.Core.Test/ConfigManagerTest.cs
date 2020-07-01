@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xunit;
 
 namespace TrustCenterSearchCore.Test
 {
-    class ConfigManagerTest
+    public class ConfigManagerTest
     {
+        [Fact(DisplayName = "AddToConfigTest")]
         public void AddToConfigTest()
         {
             #region Arrange
@@ -26,6 +25,7 @@ namespace TrustCenterSearchCore.Test
 
         }
 
+        [Fact(DisplayName = "IsConfigEmptyTest")]
         public void IsConfigEmptyTest()
         {
             #region Arrange
