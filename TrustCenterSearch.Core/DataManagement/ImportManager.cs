@@ -5,11 +5,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core
+namespace TrustCenterSearch.Core.DataManagement
 {
-    public class DataManager
+    public class ImportManager
     {
-        public List<Certificate> GetCertificatesFromAppData(Config config, string filePath)
+        public List<Certificate> ImportCertificatesFromDownloadedTrustCenters(Config config, string filePath)
         {
             var certificates = new List<Certificate>();
 
@@ -46,16 +46,11 @@ namespace TrustCenterSearch.Core
 
         public void SetTimeStamp(string filePath)
         {
-            CreateDirectoryIfMissing(filePath);
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
 
             var timeStamp = DateTime.Now;
             File.WriteAllText(filePath + "TimeStamp.json", Convert.ToString(timeStamp));
-        }
-
-        public void CreateDirectoryIfMissing(string dataPath)
-        {
-            if (!Directory.Exists(dataPath))
-                Directory.CreateDirectory(dataPath);
         }
     }
 }

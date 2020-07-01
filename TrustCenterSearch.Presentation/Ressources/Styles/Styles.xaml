@@ -7,7 +7,7 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="150"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Content" Value="Add"/>
+        <Setter Property="Content" Value="AddTrustCenter"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
 </ResourceDictionary>

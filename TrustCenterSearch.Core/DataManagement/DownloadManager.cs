@@ -2,16 +2,15 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core
+namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
         public void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
-            var dataManager = new DataManager();
-            dataManager.CreateDirectoryIfMissing(filePath);
+            if (!Directory.Exists(filePath))
+                Directory.CreateDirectory(filePath);
 
             var client = new WebClient();
 
@@ -20,24 +19,7 @@ namespace TrustCenterSearch.Core
             File.WriteAllText(GetFilePath(trustCenterName, filePath), str);
         }
 
-        /*
-        public void DownloadDataFromConfig(Config config, string filePath)
-        {
-            var dataManager = new DataManager();
-            dataManager.CreateDirectoryIfMissing(filePath);
-
-            var client = new WebClient();
-
-            foreach (var trustCenter in config.TrustCenters)
-            {
-                var data = client.DownloadData(trustCenter.TrustCenterURL);
-                var str = Encoding.UTF8.GetString(data);
-                File.WriteAllText(GetFilePath(trustCenter.Name, filePath), str);
-            }
-        }
-       */
-
-        private string GetFilePath(string name, string filePath)
+        public string GetFilePath(string name, string filePath)
         {
             return filePath + name + @".txt";
         }
