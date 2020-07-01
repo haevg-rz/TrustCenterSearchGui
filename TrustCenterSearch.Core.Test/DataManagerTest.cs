@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xunit;
 
 namespace TrustCenterSearchCore.Test
 {
-    class DataManagerTest
+    public class DataManagerTest
     {
+        [Fact(DisplayName = "GetCertificatesFromStringTest")]
         public void GetCertificatesFromStringTest()
         {
             #region Arrange
