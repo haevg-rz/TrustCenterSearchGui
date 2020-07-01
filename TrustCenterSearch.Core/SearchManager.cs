@@ -7,8 +7,6 @@ namespace TrustCenterSearch.Core
     {
         internal List<SearchResultsAndBorder> GetSearchResults(string search, List<Certificate> certificates)
         {
-            if (certificates == null) return new List<SearchResultsAndBorder>();
-
             var searchResults = new List<SearchResultsAndBorder>();
 
             if (string.IsNullOrWhiteSpace(search))
