@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using TrustCenterSearch.Core.DataManagement;
 using TrustCenterSearch.Core.Models;
