@@ -1,8 +1,11 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TrustCenterSearch.Core.DataManagement;
 using TrustCenterSearch.Core.Models;
+
+[assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
 
 namespace TrustCenterSearch.Core
 {
