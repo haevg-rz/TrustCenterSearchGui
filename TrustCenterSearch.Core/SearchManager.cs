@@ -3,9 +3,9 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core
 {
-    public class SearchManager
+    internal class SearchManager
     {
-        public List<SearchResultsAndBorder> GetSearchResults(string search, List<Certificate> certificates)
+        internal List<SearchResultsAndBorder> GetSearchResults(string search, List<Certificate> certificates)
         {
             if (certificates == null) return new List<SearchResultsAndBorder>();
 

@@ -7,9 +7,9 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement
 {
-    public class ImportManager
+    internal class ImportManager
     {
-        public List<Certificate> ImportCertificatesFromDownloadedTrustCenters(Config config, string filePath)
+        internal List<Certificate> ImportCertificatesFromDownloadedTrustCenters(Config config, string filePath)
         {
             var certificates = new List<Certificate>();
 
@@ -44,7 +44,7 @@ namespace TrustCenterSearch.Core.DataManagement
             return certificates;
         }
 
-        public void SetTimeStamp(string filePath)
+        internal void SetTimeStamp(string filePath)
         {
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);

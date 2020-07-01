@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -11,36 +12,37 @@ namespace TrustCenterSearch.Presentation
     {
         #region fields
 
-        private string _searchbarInput = string.Empty;
+        private string _searchBarInput = string.Empty;
         private string _addTrustCenterName = string.Empty;
         private string _addTrustCenterUrl = string.Empty;
-        private ObservableCollection<TrustCenterHistoryElement> trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
+        private ObservableCollection<TrustCenterHistoryElement> _trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
 
         #endregion
 
         #region Properties
 
-        public TrustCenterSearch.Core.Core Core { get; set; }
+        public Core.Core Core { get; set; }
 
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
 
         public ObservableCollection<TrustCenterHistoryElement> TrustCenterHistory
         {
-            get => this.trustCenterHistory;
-            set => base.Set(ref this.trustCenterHistory, value);
+            get => this._trustCenterHistory;
+            set => base.Set(ref this._trustCenterHistory, value);
         }
 
-        public string SearchbarInput
+        public string SearchBarInput
         {
-            get => this._searchbarInput;
-            set => base.Set(ref this._searchbarInput, value);
+            get => this._searchBarInput;
+            set => base.Set(ref this._searchBarInput, value);
         }
 
         public string AddTrustCenterName
         {
             get => this._addTrustCenterName;
             set => base.Set(ref this._addTrustCenterName, value);
-        } 
+        }
+        
         public string AddTrustCenterUrl
         {
             get => this._addTrustCenterUrl;
@@ -68,47 +70,39 @@ namespace TrustCenterSearch.Presentation
 
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
 
-            if (!Core.ConfigManager.IsConfigEmpty(Core.Config))
-            {
-                this.LoadTrustCenterHistory();
-            }
+            this.LoadTrustCenterHistory();
         }
 
-        #region CommandHandlings
+        #region TrustCenterSearchManager Interface
 
         private void AddTrustCenter()
         {
-            if (this.AddTrustCenterName == string.Empty)
+            try
             {
-                MessageBox.Show("There is no _addTrustCenterName for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                MessageBox.Show(this.AddTrustCenterName);
+                Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
-            if (!Core.DownloadManager.IsUrlExisting(this.AddTrustCenterUrl))
-            {
-                MessageBox.Show("There is no valid _addTrustCenterUrl for the TrustCenter", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
 
             TrustCenterHistory.Add(new TrustCenterHistoryElement(this._addTrustCenterName));
-
-            this.ExecuteSearch();
         }
-        #endregion
 
         public void ExecuteSearch()
         {
-            if (Core.ConfigManager.IsConfigEmpty(Core.Config))
-                MessageBox.Show("There are no TrustCenters added in the Config", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-
             this.CertificateSearchResultList.Clear();
-            
-            foreach (var certificate in this.Core.ExecuteSearch(this.SearchbarInput))
+            try
             {
-                this.CertificateSearchResultList.Add(certificate);
+                foreach (var certificate in this.Core.ExecuteSearch(this.SearchBarInput))
+                {
+                    this.CertificateSearchResultList.Add(certificate);
+                }
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -117,7 +111,10 @@ namespace TrustCenterSearch.Presentation
             foreach (var trustCenterHistoryElement in Core.LoadTrustCenterHistory())
                 TrustCenterHistory.Add(trustCenterHistoryElement);
 
-            this.ExecuteSearch();
+            if(this.TrustCenterHistory.Count>0)
+                this.ExecuteSearch();
         }
+
+        #endregion
     }
 }
