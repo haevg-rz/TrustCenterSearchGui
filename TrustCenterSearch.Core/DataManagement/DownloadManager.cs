@@ -32,7 +32,7 @@ namespace TrustCenterSearch.Core.DataManagement
             {
                 var urlCheck = new Uri(url);
                 var request = WebRequest.Create(urlCheck);
-                var response = request.GetResponse();
+                request.GetResponse();
             }
             catch (Exception)
             {

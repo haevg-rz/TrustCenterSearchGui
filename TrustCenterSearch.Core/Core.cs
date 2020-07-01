@@ -48,7 +48,8 @@ namespace TrustCenterSearch.Core
             if (!DownloadManager.IsUrlExisting(newTrustCenterUrl))
                 throw new ArgumentException("The entered Url is not valid.");
 
-            this.Config = this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName, newTrustCenterUrl, this.Config);
+            this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName,newTrustCenterUrl,Config);
+            this.ConfigManager.SaveConfig(Config);
             this.DownloadManager.DownloadTrustCenter(newTrustCenterName, newTrustCenterUrl, this.DataFolderPath);
             this.Certificates = this.ImportManager.ImportCertificatesFromDownloadedTrustCenters(this.Config, this.DataFolderPath);
         }
