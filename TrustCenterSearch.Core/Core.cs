@@ -14,7 +14,6 @@ namespace TrustCenterSearch.Core
         internal string DataFolderPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
         internal ImportManager ImportManager { get; set; }
         internal DownloadManager DownloadManager { get; set; }
-        internal SearchManager SearchManager { get; set; }
         internal ConfigManager ConfigManager { get; set; }
         internal Config Config { get; set; }
         internal List<Certificate> Certificates { get; set; }
@@ -29,15 +28,6 @@ namespace TrustCenterSearch.Core
             this.ImportManager.SetTimeStamp(DataFolderPath);
 
             this.DownloadManager = new DownloadManager();
-            this.SearchManager = new SearchManager();
-        }
-
-        public List<SearchResultsAndBorder> ExecuteSearch(string searchInput)
-        {
-            if (this.ConfigManager.IsConfigEmpty(this.Config))
-                throw new ArgumentException("There are no TrustCenters added in the Config");
-
-            return this.SearchManager.GetSearchResults(searchInput, this.Certificates);
         }
 
         public void AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
@@ -56,7 +46,12 @@ namespace TrustCenterSearch.Core
 
         public List<string> LoadTrustCenterHistory()
         {
-            return Config.TrustCenters.Select(trustCenter => trustCenter.Name).ToList();
+            return this.Config.TrustCenters.Select(trustCenter => trustCenter.Name).ToList();
+        }
+
+        public List<Certificate> LoadCertificates()
+        {
+            return this.Certificates;
         }
     }
 }
