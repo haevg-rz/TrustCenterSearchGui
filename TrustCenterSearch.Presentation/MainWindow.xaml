@@ -89,9 +89,9 @@
             <!-- AddTrustCenter -->
             <Grid Grid.Column="0" Grid.Row="0">
                 <StackPanel>
-                    <Label Content="AddTrustCenter Trust Center" FontSize="20" Margin ="10,0,0,0"></Label>
+                    <Label Content="Add TrustCenter" FontSize="20" Margin ="10,0,0,0"></Label>
                         <WrapPanel Margin="5">
-                        <Label Width="45" Content="AddTrustCenterTrustCenterName" Margin ="10,0,0,0"></Label>
+                        <Label Width="45" Content="Name" Margin ="10,0,0,0"></Label>
                         <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged" Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </WrapPanel>
                         <WrapPanel Margin="5">
