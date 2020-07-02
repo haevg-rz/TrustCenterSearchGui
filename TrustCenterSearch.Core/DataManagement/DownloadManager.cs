@@ -39,6 +39,13 @@ namespace TrustCenterSearch.Core.DataManagement
                 return false;
             }
 
+            var trustCenetrUrl = "https://trustcenter-data.itsg.de/";
+            for (var i = 0; i < url.Length || i < 33; i++)
+            {
+                if (!(url[i] == trustCenetrUrl[i]))
+                    return false;
+            }
+
             return true;
         }
     }
