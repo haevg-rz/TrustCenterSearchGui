@@ -54,9 +54,9 @@ namespace TrustCenterSearch.Core
             this.Certificates = this.ImportManager.ImportCertificatesFromDownloadedTrustCenters(this.Config, this.DataFolderPath);
         }
 
-        public List<TrustCenterHistoryElement> LoadTrustCenterHistory()
+        public List<string> LoadTrustCenterHistory()
         {
-            return this.Config.TrustCenters.Select(trustCenter => new TrustCenterHistoryElement(trustCenter.Name)).ToList();
+            return Config.TrustCenters.Select(trustCenter => trustCenter.Name).ToList();
         }
     }
 }
