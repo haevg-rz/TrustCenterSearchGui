@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using TrustCenterSearch.Core.Models;
+using TrustCenterSearch.Presentation.Models;
 
 namespace TrustCenterSearch.Presentation
 {
@@ -15,7 +16,7 @@ namespace TrustCenterSearch.Presentation
         private string _searchBarInput = string.Empty;
         private string _addTrustCenterName = string.Empty;
         private string _addTrustCenterUrl = string.Empty;
-        private ObservableCollection<TrustCenterHistoryElement> _trustCenterHistory = new ObservableCollection<TrustCenterHistoryElement>();
+        private ObservableCollection<string> _trustCenterHistory = new ObservableCollection<string>();
 
         #endregion
 
@@ -25,7 +26,7 @@ namespace TrustCenterSearch.Presentation
 
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
 
-        public ObservableCollection<TrustCenterHistoryElement> TrustCenterHistory
+        public ObservableCollection<string> TrustCenterHistory
         {
             get => this._trustCenterHistory;
             set => base.Set(ref this._trustCenterHistory, value);
@@ -87,7 +88,7 @@ namespace TrustCenterSearch.Presentation
                 return;
             }
 
-            TrustCenterHistory.Add(new TrustCenterHistoryElement(this._addTrustCenterName));
+            TrustCenterHistory.Add(this._addTrustCenterName);
         }
 
         public void ExecuteSearch()
@@ -108,8 +109,8 @@ namespace TrustCenterSearch.Presentation
 
         private void LoadTrustCenterHistory()
         {
-            foreach (var trustCenterHistoryElement in Core.LoadTrustCenterHistory())
-                TrustCenterHistory.Add(trustCenterHistoryElement);
+            foreach (var trustCenterHistoryName in Core.LoadTrustCenterHistory())
+                TrustCenterHistory.Add(trustCenterHistoryName);
 
             if(this.TrustCenterHistory.Count>0)
                 this.ExecuteSearch();

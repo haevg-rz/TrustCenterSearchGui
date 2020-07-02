@@ -11,7 +11,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Ressources/Styles/Styles.xaml">
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
@@ -122,11 +122,11 @@
                                 <DataTemplate>
                                     <WrapPanel Margin="10,5,5,5">
                                         <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment ="Center" Source ="{Binding ImageAddPath}"></Image>
+                                            <Image VerticalAlignment ="Center" Source ="/Resources/Images/add.png"></Image>
                                         </Button>
-                                        <Label Width="200" Content="{Binding TrustCenterName}" Background="LightGray"></Label>
+                                        <Label Width="200" Content="{Binding}" Background="LightGray"></Label>
                                         <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment="Center" Source ="{Binding ImageBinBlackPath}"></Image>
+                                            <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
                                         </Button>
                                     </WrapPanel>
                                 </DataTemplate>
