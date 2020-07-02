@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -25,6 +28,8 @@ namespace TrustCenterSearch.Presentation
 
         public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
 
+        public ICollectionView CollectionView { get; set; }
+
         public ObservableCollection<string> TrustCenterHistory
         {
             get => this._trustCenterHistory;
@@ -34,7 +39,11 @@ namespace TrustCenterSearch.Presentation
         public string SearchBarInput
         {
             get => this._searchBarInput;
-            set => base.Set(ref this._searchBarInput, value);
+            set
+            {
+                base.Set(ref this._searchBarInput, value);
+                this.CollectionView.Refresh();
+            }
         }
 
         public string AddTrustCenterName
@@ -58,6 +67,48 @@ namespace TrustCenterSearch.Presentation
         public ViewModel()
         {
             Initialize();
+
+            var collectionView = CollectionViewSource.GetDefaultView(this.CertificateSearchResultList);
+            collectionView.Filter = this.Filter;
+            this.CollectionView = collectionView;
+        }
+
+        private bool Filter(object obj)
+        {
+            var entry = obj as SearchResultsAndBorder;
+            if (entry == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(this.SearchBarInput))
+                return true;
+
+            var searchBarInputToLower = SearchBarInput.ToLower();
+
+            if (entry.SearchCertificate.Issuer.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SearchCertificate.Subject.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SearchCertificate.SerialNumber.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SearchCertificate.NotBefore.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SearchCertificate.NotAfter.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SearchCertificate.Thumbprint.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void Initialize()

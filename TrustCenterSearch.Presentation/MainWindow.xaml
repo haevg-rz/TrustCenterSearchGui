@@ -29,13 +29,17 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto" Text="{Binding SearchBarInput, UpdateSourceTrigger=PropertyChanged}" KeyUp="SearchBoxInputDone"></TextBox>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="Enter search" IsHitTestVisible="False" Visibility="{Binding SearchBarInput, Converter={StaticResource VisibilityConverter}}" />
+        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto">
+            <TextBox.Text>
+                <Binding Path="SearchBarInput" Delay="100" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"></Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" Visibility="{Binding SearchBarWatermark, Converter={StaticResource VisibilityConverter}}" />
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>
                 <Border Margin="10,10,10,10">
-                <ItemsControl ItemsSource="{Binding Path=CertificateSearchResultList}">
+                <ItemsControl ItemsSource="{Binding Path=CollectionView}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel/>
