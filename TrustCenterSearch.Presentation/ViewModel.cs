@@ -26,7 +26,7 @@ namespace TrustCenterSearch.Presentation
 
         public Core.Core Core { get; set; }
 
-        public ObservableCollection<SearchResultsAndBorder> CertificateSearchResultList { get; set; }
+        public ObservableCollection<Certificate> DisplayedCertificates { get; set; }
 
         public ICollectionView CollectionView { get; set; }
 
@@ -67,48 +67,6 @@ namespace TrustCenterSearch.Presentation
         public ViewModel()
         {
             Initialize();
-
-            var collectionView = CollectionViewSource.GetDefaultView(this.CertificateSearchResultList);
-            collectionView.Filter = this.Filter;
-            this.CollectionView = collectionView;
-        }
-
-        private bool Filter(object obj)
-        {
-            var entry = obj as SearchResultsAndBorder;
-            if (entry == null)
-                return false;
-            if (string.IsNullOrWhiteSpace(this.SearchBarInput))
-                return true;
-
-            var searchBarInputToLower = SearchBarInput.ToLower();
-
-            if (entry.SearchCertificate.Issuer.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SearchCertificate.Subject.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SearchCertificate.SerialNumber.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SearchCertificate.NotBefore.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SearchCertificate.NotAfter.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SearchCertificate.Thumbprint.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         private void Initialize()
@@ -117,14 +75,26 @@ namespace TrustCenterSearch.Presentation
 
             this.Core = new Core.Core();
 
-            CertificateSearchResultList = new ObservableCollection<SearchResultsAndBorder>();
-
+            DisplayedCertificates = new ObservableCollection<Certificate>();
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
 
             this.LoadTrustCenterHistory();
+            this.LoadCertificates();
+
+            var collectionView = CollectionViewSource.GetDefaultView(this.DisplayedCertificates);
+            collectionView.Filter = this.Filter;
+            this.CollectionView = collectionView;
         }
 
         #region TrustCenterSearchManager Interface
+
+        private void LoadCertificates()
+        {
+            foreach (var certificate in Core.LoadCertificates())
+            {
+                DisplayedCertificates.Add(certificate);
+            }
+        }
 
         private void AddTrustCenter()
         {
@@ -137,35 +107,55 @@ namespace TrustCenterSearch.Presentation
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
             TrustCenterHistory.Add(this._addTrustCenterName);
-        }
-
-        public void ExecuteSearch()
-        {
-            this.CertificateSearchResultList.Clear();
-            try
-            {
-                foreach (var certificate in this.Core.ExecuteSearch(this.SearchBarInput))
-                {
-                    this.CertificateSearchResultList.Add(certificate);
-                }
-            }
-            catch (ArgumentException e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            
+            LoadCertificates();
         }
 
         private void LoadTrustCenterHistory()
         {
             foreach (var trustCenterHistoryName in Core.LoadTrustCenterHistory())
                 TrustCenterHistory.Add(trustCenterHistoryName);
-
-            if(this.TrustCenterHistory.Count>0)
-                this.ExecuteSearch();
         }
 
         #endregion
+
+        private bool Filter(object obj)
+        {
+            var entry = obj as Certificate;
+            if (entry == null)
+                return false;
+            if (string.IsNullOrWhiteSpace(this.SearchBarInput))
+                return true;
+
+            var searchBarInputToLower = SearchBarInput.ToLower();
+
+            if (entry.Issuer.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.Subject.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.SerialNumber.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.NotBefore.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.NotAfter.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+            if (entry.Thumbprint.ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

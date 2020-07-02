@@ -31,10 +31,10 @@
 
         <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto">
             <TextBox.Text>
-                <Binding Path="SearchBarInput" Delay="100" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"></Binding>
+                <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"></Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" Visibility="{Binding SearchBarWatermark, Converter={StaticResource VisibilityConverter}}" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer>
@@ -53,23 +53,23 @@
                                             <StackPanel>
                                                 <WrapPanel>
                                                     <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Subject}" Width="700" FontSize="16" Foreground="{Binding SubjectBorder}"></Label>
+                                                    <Label Content="{Binding Subject}" Width="700" FontSize="16" Foreground="Black"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel>
                                                     <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Issuer}" Width="auto" FontSize="16" Foreground="{Binding IssuerBorder}"></Label>
+                                                    <Label Content="{Binding Issuer}" Width="auto" FontSize="16" Foreground="Black"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel Margin="0,0,0,0">
                                                     <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
-                                                    <Label Content="{Binding SearchCertificate.NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfterBorder}"></Label>
+                                                    <Label Content="{Binding NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
                                                     <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBeforeBorder}"  Margin="20,0,0,0"></Label>
+                                                    <Label Content="{Binding NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="Black"  Margin="20,0,0,0"></Label>
                                                     <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
-                                                    <Label Content="{Binding SearchCertificate.SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumberBorder}"></Label>
+                                                    <Label Content="{Binding SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel>
                                                     <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding SearchCertificate.Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding ThumbprintBorder}"></Label>
+                                                    <Label Content="{Binding Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
                                                 </WrapPanel>
                                             </StackPanel>
                                      </WrapPanel>
