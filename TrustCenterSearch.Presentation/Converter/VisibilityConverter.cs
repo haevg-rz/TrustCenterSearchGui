@@ -9,7 +9,7 @@ namespace TrustCenterSearch.Presentation.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (String.IsNullOrEmpty((string) value))
+            if ((String)value == "visible")
             {
                 return Visibility.Visible;
             }
