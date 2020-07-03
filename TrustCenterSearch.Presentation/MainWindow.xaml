@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml">
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:HighlightConverter x:Key="HighlightConverter" />
         </ResourceDictionary>
         
     </Window.Resources>
@@ -29,7 +29,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto">
+        <TextBox Name ="SearchBar"  Grid.Column="1" Grid.Row="0"  Margin="10"  Padding="3" Width="auto" Height="auto">
             <TextBox.Text>
                 <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay"></Binding>
             </TextBox.Text>
@@ -53,23 +53,23 @@
                                             <StackPanel>
                                                 <WrapPanel>
                                                     <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding Subject}" Width="700" FontSize="16" Foreground="Black"></Label>
+                                                    <Label Content="{Binding Subject}" Width="700" FontSize="16" Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel>
                                                     <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding Issuer}" Width="auto" FontSize="16" Foreground="Black"></Label>
+                                                    <Label Content="{Binding Issuer}" Width="auto" FontSize="16" Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel Margin="0,0,0,0">
                                                     <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
-                                                    <Label Content="{Binding NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
+                                                    <Label Content="{Binding NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
                                                     <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="Black"  Margin="20,0,0,0"></Label>
+                                                    <Label Content="{Binding NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"  Margin="20,0,0,0"></Label>
                                                     <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
-                                                    <Label Content="{Binding SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
+                                                    <Label Content="{Binding SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
                                                 </WrapPanel>
                                                 <WrapPanel>
                                                     <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
-                                                    <Label Content="{Binding Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="Black"></Label>
+                                                    <Label Content="{Binding Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
                                                 </WrapPanel>
                                             </StackPanel>
                                      </WrapPanel>
