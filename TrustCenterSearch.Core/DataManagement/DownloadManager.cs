@@ -28,6 +28,11 @@ namespace TrustCenterSearch.Core.DataManagement
         {
             if (url == string.Empty)
                 return false;
+
+            var trustCenetrUrl = "https://trustcenter-data.itsg.de/";
+            if (!url.Contains(trustCenetrUrl))
+                return false;
+
             try
             {
                 var urlCheck = new Uri(url);
@@ -38,13 +43,6 @@ namespace TrustCenterSearch.Core.DataManagement
             {
                 return false;
             }
-
-            var trustCenetrUrl = "https://trustcenter-data.itsg.de/";
-            /*for (var i = 0; i < url.Length || i < 33; i++)
-            {
-                if (!(url[i] == trustCenetrUrl[i]))
-                    return false;
-            }*/
 
             return true;
         }
