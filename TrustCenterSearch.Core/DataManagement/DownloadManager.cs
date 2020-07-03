@@ -7,6 +7,8 @@ namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
+
+        public string TrustCenetrUrl { get; set; } = "https://trustcenter-data.itsg.de/";
         internal void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
             if (!Directory.Exists(filePath))
@@ -29,8 +31,7 @@ namespace TrustCenterSearch.Core.DataManagement
             if (url == string.Empty)
                 return false;
 
-            var trustCenetrUrl = "https://trustcenter-data.itsg.de/";
-            if (!url.Contains(trustCenetrUrl))
+            if (!url.Contains(this.TrustCenetrUrl))
                 return false;
 
             try
