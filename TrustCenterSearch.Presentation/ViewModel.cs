@@ -72,16 +72,18 @@ namespace TrustCenterSearch.Presentation
             Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             SimpleIoc.Default.Register<ViewModel>();
 
-            this.Core = new Core.Core();
-            Core.ImportAllCertificatesFromTrustCenters();
+            Task t = Task.Run(() => this.Core = new Core.Core());
+            t.Wait();
+            t = Task.Run(() => Core.ImportAllCertificatesFromTrustCenters());
 
             DisplayedCertificates = new ObservableCollection<Certificate>();
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
 
+            t.Wait();
             this.LoadTrustCenterHistory();
             this.GetCertificates();
 

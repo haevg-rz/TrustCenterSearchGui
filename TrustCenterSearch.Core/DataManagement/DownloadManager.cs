@@ -9,7 +9,7 @@ namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
-        private string TrustCenterUrl { get; set; } = "https://trustcenter-data.itsg.de/";
+        private string TrustCenterUrl { get; } = "https://trustcenter-data.itsg.de/";
         internal async Task DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
             if (!Directory.Exists(filePath))
@@ -19,11 +19,12 @@ namespace TrustCenterSearch.Core.DataManagement
 
             var response = await client.GetAsync(trustCenterUrl);
 
-            var content = response.Content.ReadAsStringAsync();
+            var content = response.Content.ReadAsByteArrayAsync();
 
-            //var str = Encoding.UTF8.GetString(content);
-
-            File.WriteAllText(GetFilePath(trustCenterName, filePath), content.Result);
+            using (var stream = File.OpenWrite(GetFilePath(trustCenterName, filePath)))
+            {
+                await stream.WriteAsync(content.Result, 0, content.Result.Length-1);
+            }
         }
 
         internal string GetFilePath(string name, string filePath)
