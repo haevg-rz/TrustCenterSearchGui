@@ -1,7 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using TrustCenterSearch.Core.DataManagement;
 using TrustCenterSearch.Core.Models;
 
@@ -20,17 +22,25 @@ namespace TrustCenterSearch.Core
 
         public Core()
         {
-            this.ConfigManager = new ConfigManager();
-            this.Config = this.ConfigManager.LoadConfig();
-            
-            this.ImportManager = new ImportManager();
-            this.Certificates = this.ImportManager.ImportCertificatesFromDownloadedTrustCenters(this.Config, DataFolderPath);
-            this.ImportManager.SetTimeStamp(DataFolderPath);
+            Certificates = new List<Certificate>();
 
+            this.ConfigManager = new ConfigManager();
+            this.ImportManager = new ImportManager();
+
+            this.Config = this.ConfigManager.LoadConfig();
             this.DownloadManager = new DownloadManager();
         }
 
-        public void AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
+        public async Task ImportAllCertificatesFromTrustCenters()
+        {
+            foreach (var trustCenter in Config.TrustCenters)
+            {
+                this.Certificates = await this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(
+                    this.Certificates, trustCenter, DataFolderPath);
+            }
+        }
+
+        public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (newTrustCenterName == string.Empty)
                 throw new ArgumentException("The entered name is not valid.");
@@ -38,10 +48,10 @@ namespace TrustCenterSearch.Core
             if (!DownloadManager.IsUrlExisting(newTrustCenterUrl))
                 throw new ArgumentException("The entered Url is not valid.");
 
-            this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName,newTrustCenterUrl,Config);
+            var newTrustCenter =  this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName,newTrustCenterUrl,Config);
             this.ConfigManager.SaveConfig(Config);
-            this.DownloadManager.DownloadTrustCenter(newTrustCenterName, newTrustCenterUrl, this.DataFolderPath);
-            this.Certificates = this.ImportManager.ImportCertificatesFromDownloadedTrustCenters(this.Config, this.DataFolderPath);
+            await this.DownloadManager.DownloadTrustCenter(newTrustCenterName, newTrustCenterUrl, this.DataFolderPath);
+            this.Certificates = await this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(this.Certificates, newTrustCenter, this.DataFolderPath);
         }
 
         public List<string> LoadTrustCenterHistory()

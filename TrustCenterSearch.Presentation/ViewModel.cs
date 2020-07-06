@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -51,7 +54,7 @@ namespace TrustCenterSearch.Presentation
             get => this._addTrustCenterName;
             set => base.Set(ref this._addTrustCenterName, value);
         }
-        
+
         public string AddTrustCenterUrl
         {
             get => this._addTrustCenterUrl;
@@ -69,11 +72,12 @@ namespace TrustCenterSearch.Presentation
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             SimpleIoc.Default.Register<ViewModel>();
 
             this.Core = new Core.Core();
+            await Core.ImportAllCertificatesFromTrustCenters();
 
             DisplayedCertificates = new ObservableCollection<Certificate>();
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
@@ -90,26 +94,40 @@ namespace TrustCenterSearch.Presentation
 
         private void LoadCertificates()
         {
-            foreach (var certificate in Core.LoadCertificates())
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() =>
             {
-                DisplayedCertificates.Add(certificate);
-            }
+                List<Certificate> certificates = Core.LoadCertificates();
+                if (certificates.Count > 0)
+                {
+                    for (int i = 0; i < 1000 || i < certificates.Count - 1; i++)
+                    {
+                        DisplayedCertificates.Add(certificates[i]);
+                    }
+                }
+                /*foreach (var certificate in Core.LoadCertificates())
+                {
+                    DisplayedCertificates.Add(certificate);
+                }*/
+            }));
         }
 
-        private void AddTrustCenter()
+        private async void AddTrustCenter()
         {
             try
             {
-                Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
+                await Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
             }
             catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
+
             TrustCenterHistory.Add(this._addTrustCenterName);
-            
+
             LoadCertificates();
+
         }
 
         private void LoadTrustCenterHistory()

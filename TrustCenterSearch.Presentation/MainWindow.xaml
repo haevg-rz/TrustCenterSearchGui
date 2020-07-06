@@ -37,7 +37,7 @@
         <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
 
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
-            <ScrollViewer>
+            <ScrollViewer >
                 <Border Margin="10,10,10,10">
                 <ItemsControl ItemsSource="{Binding Path=CollectionView}">
                     <ItemsControl.ItemsPanel>
