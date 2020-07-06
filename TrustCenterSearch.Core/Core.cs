@@ -31,6 +31,8 @@ namespace TrustCenterSearch.Core
             this.DownloadManager = new DownloadManager();
         }
 
+        #region PublicMethods
+
         public async Task ImportAllCertificatesFromTrustCenters()
         {
             foreach (var trustCenter in Config.TrustCenters)
@@ -42,14 +44,11 @@ namespace TrustCenterSearch.Core
 
         public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
         {
-            if (newTrustCenterName == string.Empty)
-                throw new ArgumentException("The entered name is not valid.");
+            if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
+                return;
 
-            if (!DownloadManager.IsUrlExisting(newTrustCenterUrl))
-                throw new ArgumentException("The entered Url is not valid.");
-
-            var newTrustCenter =  this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName,newTrustCenterUrl,Config);
-            this.ConfigManager.SaveConfig(Config);
+            var newTrustCenter = this.ConfigManager.AddTrustCenterToConfig(newTrustCenterName, newTrustCenterUrl, this.Config);
+            this.ConfigManager.SaveConfig(this.Config);
             await this.DownloadManager.DownloadTrustCenter(newTrustCenterName, newTrustCenterUrl, this.DataFolderPath);
             this.Certificates = await this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(this.Certificates, newTrustCenter, this.DataFolderPath);
         }
@@ -59,9 +58,32 @@ namespace TrustCenterSearch.Core
             return this.Config.TrustCenters.Select(trustCenter => trustCenter.Name).ToList();
         }
 
-        public List<Certificate> LoadCertificates()
+        public List<Certificate> GetCertificates()
         {
             return this.Certificates;
         }
+
+        #endregion
+
+        #region PrivateMethods
+
+        private bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
+        {
+            if (newTrustCenterName == string.Empty)
+                throw new ArgumentException("The entered name must not be empty.");
+
+            if (!this.DownloadManager.IsUrlExisting(newTrustCenterUrl))
+                throw new ArgumentException("The entered Url is not valid.");
+
+            if (this.Config.TrustCenters.Any(tc => tc.Name.Equals(newTrustCenterName)))
+                throw new ArgumentException("The entered name is already added.");
+
+            if (this.Config.TrustCenters.Any(tc => tc.TrustCenterUrl.Equals(newTrustCenterUrl)))
+                throw new ArgumentException("The entered Url is already added.");
+
+            return true;
+        }
+
+        #endregion
     }
 }

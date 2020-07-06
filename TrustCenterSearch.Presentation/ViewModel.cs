@@ -77,13 +77,13 @@ namespace TrustCenterSearch.Presentation
             SimpleIoc.Default.Register<ViewModel>();
 
             this.Core = new Core.Core();
-            await Core.ImportAllCertificatesFromTrustCenters();
+            Core.ImportAllCertificatesFromTrustCenters();
 
             DisplayedCertificates = new ObservableCollection<Certificate>();
             this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
 
             this.LoadTrustCenterHistory();
-            this.LoadCertificates();
+            this.GetCertificates();
 
             var collectionView = CollectionViewSource.GetDefaultView(this.DisplayedCertificates);
             collectionView.Filter = this.Filter;
@@ -92,22 +92,14 @@ namespace TrustCenterSearch.Presentation
 
         #region TrustCenterSearchManager Interface
 
-        private void LoadCertificates()
+        private void GetCertificates()
         {
             Application.Current.Dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() =>
             {
-                List<Certificate> certificates = Core.LoadCertificates();
-                if (certificates.Count > 0)
-                {
-                    for (int i = 0; i < 1000 || i < certificates.Count - 1; i++)
-                    {
-                        DisplayedCertificates.Add(certificates[i]);
-                    }
-                }
-                /*foreach (var certificate in Core.LoadCertificates())
+                foreach (var certificate in Core.GetCertificates())
                 {
                     DisplayedCertificates.Add(certificate);
-                }*/
+                }
             }));
         }
 
@@ -126,7 +118,7 @@ namespace TrustCenterSearch.Presentation
 
             TrustCenterHistory.Add(this._addTrustCenterName);
 
-            LoadCertificates();
+            GetCertificates();
 
         }
 
