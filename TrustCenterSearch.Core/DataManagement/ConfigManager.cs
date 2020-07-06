@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
@@ -20,10 +21,11 @@ namespace TrustCenterSearch.Core.DataManagement
             return config;
         }
 
-        internal Config AddTrustCenterToConfig(string name, string url, Config config)
+        internal TrustCenter AddTrustCenterToConfig(string name, string url, Config config)
         {
-            config.TrustCenters.Add(new TrustCenter(name, url));
-            return config;
+            var trustCenter = new TrustCenter(name, url);
+            config.TrustCenters.Add(trustCenter);
+            return trustCenter;
         }
 
         internal Config SaveConfig(Config config)

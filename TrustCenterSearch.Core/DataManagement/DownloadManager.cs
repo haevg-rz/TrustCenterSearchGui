@@ -1,24 +1,29 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
-
-        private string TrustCenetrUrl { get; set; } = "https://trustcenter-data.itsg.de/";
-        internal void DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
+        private string TrustCenterUrl { get; set; } = "https://trustcenter-data.itsg.de/";
+        internal async Task DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
 
-            var client = new WebClient();
+            var client = new HttpClient();
 
-            var data = client.DownloadData(trustCenterUrl);
-            var str = Encoding.UTF8.GetString(data);
-            File.WriteAllText(GetFilePath(trustCenterName, filePath), str);
+            var response = await client.GetAsync(trustCenterUrl);
+
+            var content = response.Content.ReadAsStringAsync();
+
+            //var str = Encoding.UTF8.GetString(content);
+
+            File.WriteAllText(GetFilePath(trustCenterName, filePath), content.Result);
         }
 
         internal string GetFilePath(string name, string filePath)
@@ -31,7 +36,7 @@ namespace TrustCenterSearch.Core.DataManagement
             if (url == string.Empty)
                 return false;
 
-            if (!url.Contains(this.TrustCenetrUrl))
+            if (!url.Contains(this.TrustCenterUrl))
                 return false;
 
             try
