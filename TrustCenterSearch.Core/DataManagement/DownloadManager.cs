@@ -35,8 +35,7 @@ namespace TrustCenterSearch.Core.DataManagement
             if (url == string.Empty)
                 return false;
 
-            var trustCenetrUrl = "https://trustcenter-data.itsg.de/";
-            if (!url.Contains(trustCenetrUrl))
+            if (!url.Contains(this.TrustCenetrUrl))
                 return false;
 
             try
