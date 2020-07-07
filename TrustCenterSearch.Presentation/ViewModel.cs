@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
@@ -63,7 +61,8 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Commands
-        public RelayCommand AddTrustCenterButton { get; set; }
+        public RelayCommand AddTrustCenterButtonCommand { get; set; }
+        public RelayCommand LoadDataCommand { get; set; }
 
         #endregion
 
@@ -76,14 +75,15 @@ namespace TrustCenterSearch.Presentation
         {
             SimpleIoc.Default.Register<ViewModel>();
 
-            Task t = Task.Run(() => this.Core = new Core.Core());
-            t.Wait();
-            t = Task.Run(() => Core.ImportAllCertificatesFromTrustCenters());
+            this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenter);
+            this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
 
-            DisplayedCertificates = new ObservableCollection<Certificate>();
-            this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
+            this.Core = new Core.Core();
+            this.DisplayedCertificates = new ObservableCollection<Certificate>();
 
+            Task t = Task.Run(() => Core.ImportAllCertificatesFromTrustCenters());
             t.Wait();
+
             this.LoadTrustCenterHistory();
             this.GetCertificates();
 
@@ -92,17 +92,18 @@ namespace TrustCenterSearch.Presentation
             this.CollectionView = collectionView;
         }
 
+        private void LoadDataCommandExecute()
+        {
+        }
+
         #region TrustCenterSearchManager Interface
 
         private void GetCertificates()
         {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() =>
+            foreach (var certificate in Core.GetCertificates())
             {
-                foreach (var certificate in Core.GetCertificates())
-                {
-                    DisplayedCertificates.Add(certificate);
-                }
-            }));
+                DisplayedCertificates.Add(certificate);
+            }
         }
 
         private async void AddTrustCenter()
