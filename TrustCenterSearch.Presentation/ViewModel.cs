@@ -72,7 +72,7 @@ namespace TrustCenterSearch.Presentation
             Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             SimpleIoc.Default.Register<ViewModel>();
 

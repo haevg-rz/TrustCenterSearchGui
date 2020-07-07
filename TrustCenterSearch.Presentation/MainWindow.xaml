@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
         </ResourceDictionary>
-        
+
     </Window.Resources>
 
     <Grid>
@@ -36,7 +36,7 @@
         </TextBox>
         <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
 
-        <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
+        <!--<Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ScrollViewer >
                 <Border Margin="10,10,10,10">
                 <ItemsControl ItemsSource="{Binding Path=CollectionView}">
@@ -80,70 +80,123 @@
                 </ItemsControl>
             </Border>
             </ScrollViewer>
-        </Border>
+        </Border>-->
 
-        <!-- Menu -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="LightGray">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="160"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <!-- AddTrustCenter -->
-            <Grid Grid.Column="0" Grid.Row="0">
-                <StackPanel>
-                    <Label Content="Add TrustCenter" FontSize="20" Margin ="10,0,0,0"></Label>
-                        <WrapPanel Margin="5">
-                        <Label Width="45" Content="Name" Margin ="10,0,0,0"></Label>
-                        <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged" Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel Margin="5">
-                        <Label Width="45" Content="URL" Margin ="10,0,0,0"></Label>
-                        <TextBox Padding="3" Width="200" Height="auto" Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        </WrapPanel>
-                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButton}"></Button>
-                </StackPanel>
-            </Grid>
-            <!-- AddTrustCenter -->
-
-            <!-- TrustCenterHistory -->
-            <Grid Grid.Column="0" Grid.Row="1">
-                <Label Content="Trust Center History" FontSize="20" Margin ="10,0,0,0"></Label>
-            </Grid>
-
-            <Grid Grid.Row="2">
-                <ScrollViewer>
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding Path=TrustCenterHistory}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel>
-                                    </StackPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <WrapPanel Margin="10,5,5,5">
-                                        <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment ="Center" Source ="/Resources/Images/add.png"></Image>
-                                        </Button>
-                                        <Label Width="200" Content="{Binding}" Background="LightGray"></Label>
-                                        <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
-                                        </Button>
+        <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
+            <ItemsControl ItemsSource="{Binding Path=CollectionView}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="145" Width="830">
+                                <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
+                                    <WrapPanel Margin="0,0,0,0">
+                                        <StackPanel>
+                                            <WrapPanel>
+                                                <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
+                                                <Label Content="{Binding Subject}" Width="700" FontSize="16" Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
+                                                <Label Content="{Binding Issuer}" Width="auto" FontSize="16" Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            </WrapPanel>
+                                            <WrapPanel Margin="0,0,0,0">
+                                                <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
+                                                <Label Content="{Binding NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                                <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
+                                                <Label Content="{Binding NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"  Margin="20,0,0,0"></Label>
+                                                <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
+                                                <Label Content="{Binding SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
+                                                <Label Content="{Binding Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            </WrapPanel>
+                                        </StackPanel>
                                     </WrapPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling"></VirtualizingStackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer CanContentScroll="True" 
+                              Focusable="False">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                </ItemsControl>
+            </Border>
+
+            <!-- Menu -->
+            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!-- AddTrustCenter -->
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <StackPanel>
+                        <Label Content="Add TrustCenter" FontSize="20" Margin ="10,0,0,0"></Label>
+                        <WrapPanel Margin="5">
+                            <Label Width="45" Content="Name" Margin ="10,0,0,0"></Label>
+                            <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged" Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </WrapPanel>
+                        <WrapPanel Margin="5">
+                            <Label Width="45" Content="URL" Margin ="10,0,0,0"></Label>
+                            <TextBox Padding="3" Width="200" Height="auto" Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </WrapPanel>
+                        <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButton}"></Button>
                     </StackPanel>
-                </ScrollViewer>
+                </Grid>
+                <!-- AddTrustCenter -->
+
+                <!-- TrustCenterHistory -->
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Label Content="Trust Center History" FontSize="20" Margin ="10,0,0,0"></Label>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <ScrollViewer>
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding Path=TrustCenterHistory}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel>
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Margin="10,5,5,5">
+                                            <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
+                                                <Image VerticalAlignment ="Center" Source ="/Resources/Images/add.png"></Image>
+                                            </Button>
+                                            <Label Width="200" Content="{Binding}" Background="LightGray"></Label>
+                                            <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
+                                                <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
+                                            </Button>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!-- TrustCenterHistory -->
+
             </Grid>
-
-            <!-- TrustCenterHistory -->
-
-        </Grid>
-        <!-- Menu -->
+            <!-- Menu -->
 
     </Grid>
 </Window>
