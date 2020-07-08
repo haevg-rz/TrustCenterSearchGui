@@ -66,7 +66,7 @@ namespace TrustCenterSearch.Presentation
         #region Commands
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
-        public RelayCommand DeleteTrustCenterFromHistoryCommand { get; set; }
+        public RelayCommand<string> DeleteTrustCenterFromHistoryCommand { get; set; }
 
         #endregion
 
@@ -74,14 +74,14 @@ namespace TrustCenterSearch.Presentation
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
-            this.DeleteTrustCenterFromHistoryCommand = new RelayCommand(this.DeleteTrustCenterFroHistoryCommandExecute);
+            this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<string>(this.DeleteTrustCenterFroHistoryCommandExecute);
 
             this.Core = new Core.Core();
         }
 
-        private void DeleteTrustCenterFroHistoryCommandExecute()
+        private void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
         {
-            MessageBox.Show("test");
+            MessageBox.Show(trustCenterToDelete);
         }
 
         private async Task Initialize()
