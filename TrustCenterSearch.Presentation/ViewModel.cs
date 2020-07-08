@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Presentation
@@ -27,14 +26,12 @@ namespace TrustCenterSearch.Presentation
 
         public Core.Core Core { get; set; }
 
-        public ObservableCollection<Certificate> DisplayedCertificates { get; set; }
+        private ICollectionView _certificatesCollectionView;
 
-        private ICollectionView collectionView;
-
-        public ICollectionView CollectionView
+        public ICollectionView CertificatesCollectionView
         {
-            get => this.collectionView;
-            set => base.Set(ref this.collectionView, value);
+            get => this._certificatesCollectionView;
+            set => base.Set(ref this._certificatesCollectionView, value);
         }
 
         public ObservableCollection<string> TrustCenterHistory
@@ -49,7 +46,7 @@ namespace TrustCenterSearch.Presentation
             set
             {
                 base.Set(ref this._searchBarInput, value);
-                this.CollectionView.Refresh();
+                this.CertificatesCollectionView.Refresh();
             }
         }
 
@@ -78,7 +75,6 @@ namespace TrustCenterSearch.Presentation
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
 
             this.Core = new Core.Core();
-            this.DisplayedCertificates = new ObservableCollection<Certificate>();
         }
 
         private async Task Initialize()
@@ -89,7 +85,7 @@ namespace TrustCenterSearch.Presentation
 
             var defaultView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
             defaultView.Filter = this.Filter;
-            this.CollectionView = defaultView;
+            this.CertificatesCollectionView = defaultView;
         }
 
         private async void LoadDataCommandExecute()
@@ -98,14 +94,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         #region TrustCenterSearchManager Interface
-
-        //private void GetCertificates()
-        //{
-        //    foreach (var certificate in this.Core.GetCertificates())
-        //    {
-        //        this.DisplayedCertificates.Add(certificate);
-        //    }
-        //}
 
         private async void AddTrustCenter()
         {
@@ -121,9 +109,7 @@ namespace TrustCenterSearch.Presentation
 
 
             this.TrustCenterHistory.Add(this._addTrustCenterName);
-
-            //GetCertificates();
-
+            CertificatesCollectionView.Refresh();
         }
 
         private void LoadTrustCenterHistory()
