@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -79,11 +80,6 @@ namespace TrustCenterSearch.Presentation
             this.Core = new Core.Core();
         }
 
-        private void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
-        {
-            MessageBox.Show(trustCenterToDelete);
-        }
-
         private async Task Initialize()
         {
             await this.Core.ImportAllCertificatesFromTrustCenters();
@@ -117,6 +113,14 @@ namespace TrustCenterSearch.Presentation
 
             this.TrustCenterHistory.Add(this._addTrustCenterName);
             CertificatesCollectionView.Refresh();
+        }
+
+        private async void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
+        {
+            await this.Core.DeleteTrustCenter(trustCenterToDelete);
+
+            this.TrustCenterHistory.Remove(TrustCenterHistory.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
+            this.CertificatesCollectionView.Refresh();
         }
 
         private void LoadTrustCenterHistory()
