@@ -74,12 +74,12 @@ namespace TrustCenterSearch.Presentation
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
-            this.DeleteTrustCenterFromHistoryCommand = new RelayCommand(this.DeleteTrustCenterFroHistoryCommandExecute);
+            this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<string>(this.DeleteTrustCenterFroHistoryCommandExecute);
 
             this.Core = new Core.Core();
         }
 
-        private void DeleteTrustCenterFroHistoryCommandExecute()
+        private void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
         {
             MessageBox.Show(trustCenterToDelete);
         }
