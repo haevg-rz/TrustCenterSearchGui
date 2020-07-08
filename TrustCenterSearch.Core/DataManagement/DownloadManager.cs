@@ -2,14 +2,20 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TrustCenterSearch.Core.DataManagement
 {
     public class DownloadManager
     {
+        #region Properties
+
         private string TrustCenterUrl { get; } = "https://trustcenter-data.itsg.de/";
+
+        #endregion
+
+        #region InternalMethods
+
         internal async Task DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
         {
             if (!Directory.Exists(filePath))
@@ -23,7 +29,7 @@ namespace TrustCenterSearch.Core.DataManagement
 
             using (var stream = File.OpenWrite(GetFilePath(trustCenterName, filePath)))
             {
-                await stream.WriteAsync(content.Result, 0, content.Result.Length-1);
+                await stream.WriteAsync(content.Result, 0, content.Result.Length - 1);
             }
         }
 
@@ -53,5 +59,8 @@ namespace TrustCenterSearch.Core.DataManagement
 
             return true;
         }
+
+        #endregion
+
     }
 }

@@ -10,6 +10,8 @@ namespace TrustCenterSearch.Core.DataManagement
 {
     internal class ImportManager
     {
+        #region InternalMethods
+
         internal async Task<List<Certificate>> ImportCertificatesFromDownloadedTrustCenter(
             List<Certificate> certificates, TrustCenter trustCenter, string filePath)
         {
@@ -31,20 +33,6 @@ namespace TrustCenterSearch.Core.DataManagement
             return certificates;
         }
 
-        private static async Task<string[]> ReadFile(TrustCenter trustCenter, string filePath)
-        {
-            byte[] result;
-            using (var stream = File.Open(filePath + trustCenter.Name + @".txt", FileMode.Open))
-            {
-                result = new byte[stream.Length];
-                await stream.ReadAsync(result, 0, (int) stream.Length);
-            }
-
-            return System.Text.Encoding.ASCII.GetString(result).
-                Split(new[] { Environment.NewLine + Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries);
-        }
-
         internal void SetTimeStamp(string filePath)
         {
             if (!Directory.Exists(filePath))
@@ -53,5 +41,25 @@ namespace TrustCenterSearch.Core.DataManagement
             var timeStamp = DateTime.Now;
             File.WriteAllText(filePath + "TimeStamp.json", Convert.ToString(timeStamp));
         }
+
+        #endregion
+
+        #region PrivateMethods
+
+        private static async Task<string[]> ReadFile(TrustCenter trustCenter, string filePath)
+        {
+            byte[] result;
+            using (var stream = File.Open(filePath + trustCenter.Name + @".txt", FileMode.Open))
+            {
+                result = new byte[stream.Length];
+                await stream.ReadAsync(result, 0, (int)stream.Length);
+            }
+
+            return System.Text.Encoding.ASCII.GetString(result).
+                Split(new[] { Environment.NewLine + Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        #endregion
     }
 }

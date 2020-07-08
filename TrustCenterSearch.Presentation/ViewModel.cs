@@ -71,7 +71,7 @@ namespace TrustCenterSearch.Presentation
 
         public ViewModel()
         {
-            this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenter);
+            this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
 
             this.Core = new Core.Core();
@@ -95,7 +95,7 @@ namespace TrustCenterSearch.Presentation
 
         #region TrustCenterSearchManager Interface
 
-        private async void AddTrustCenter()
+        private async void AddTrustCenterCommandExecute()
         {
             try
             {

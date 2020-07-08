@@ -22,11 +22,5 @@ namespace TrustCenterSearch.Core.Models
             this.Name = name;
             this.TrustCenterUrl = url;
         }
-
-        public TrustCenter()
-        {
-            this.Name = string.Empty;
-            this.TrustCenterUrl = string.Empty;
-        }
     }
 }
