@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Presentation
@@ -29,9 +26,13 @@ namespace TrustCenterSearch.Presentation
 
         public Core.Core Core { get; set; }
 
-        public ObservableCollection<Certificate> DisplayedCertificates { get; set; }
+        private ICollectionView _certificatesCollectionView;
 
-        public ICollectionView CollectionView { get; set; }
+        public ICollectionView CertificatesCollectionView
+        {
+            get => this._certificatesCollectionView;
+            set => base.Set(ref this._certificatesCollectionView, value);
+        }
 
         public ObservableCollection<string> TrustCenterHistory
         {
@@ -45,7 +46,7 @@ namespace TrustCenterSearch.Presentation
             set
             {
                 base.Set(ref this._searchBarInput, value);
-                this.CollectionView.Refresh();
+                this.CertificatesCollectionView.Refresh();
             }
         }
 
@@ -63,47 +64,38 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Commands
-        public RelayCommand AddTrustCenterButton { get; set; }
+        public RelayCommand AddTrustCenterButtonCommand { get; set; }
+        public RelayCommand LoadDataCommand { get; set; }
 
         #endregion
 
         public ViewModel()
         {
-            Initialize();
-        }
-
-        private async void Initialize()
-        {
-            SimpleIoc.Default.Register<ViewModel>();
+            this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenterCommandExecute);
+            this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
 
             this.Core = new Core.Core();
-            Core.ImportAllCertificatesFromTrustCenters();
+        }
 
-            DisplayedCertificates = new ObservableCollection<Certificate>();
-            this.AddTrustCenterButton = new RelayCommand(AddTrustCenter);
+        private async Task Initialize()
+        {
+            await this.Core.ImportAllCertificatesFromTrustCenters();
 
             this.LoadTrustCenterHistory();
-            this.GetCertificates();
 
-            var collectionView = CollectionViewSource.GetDefaultView(this.DisplayedCertificates);
-            collectionView.Filter = this.Filter;
-            this.CollectionView = collectionView;
+            var defaultView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
+            defaultView.Filter = this.Filter;
+            this.CertificatesCollectionView = defaultView;
+        }
+
+        private async void LoadDataCommandExecute()
+        {
+            await this.Initialize();
         }
 
         #region TrustCenterSearchManager Interface
 
-        private void GetCertificates()
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.DataBind, (Action)(() =>
-            {
-                foreach (var certificate in Core.GetCertificates())
-                {
-                    DisplayedCertificates.Add(certificate);
-                }
-            }));
-        }
-
-        private async void AddTrustCenter()
+        private async void AddTrustCenterCommandExecute()
         {
             try
             {
@@ -116,10 +108,8 @@ namespace TrustCenterSearch.Presentation
             }
 
 
-            TrustCenterHistory.Add(this._addTrustCenterName);
-
-            GetCertificates();
-
+            this.TrustCenterHistory.Add(this._addTrustCenterName);
+            CertificatesCollectionView.Refresh();
         }
 
         private void LoadTrustCenterHistory()

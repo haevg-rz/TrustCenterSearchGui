@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
@@ -8,9 +7,14 @@ namespace TrustCenterSearch.Core.DataManagement
 {
     public class ConfigManager
     {
+        #region Properties
+
         private static string ConfigPath { get; } =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\Config.JSON";
 
+        #endregion
+
+        #region InternalMethods
         internal Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
@@ -39,5 +43,7 @@ namespace TrustCenterSearch.Core.DataManagement
         {
             return config.TrustCenters.Count == 0;
         }
+
+        #endregion
     }
 }

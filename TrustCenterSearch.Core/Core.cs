@@ -35,11 +35,13 @@ namespace TrustCenterSearch.Core
 
         public async Task ImportAllCertificatesFromTrustCenters()
         {
+            var importTasks = new List<Task<List<Certificate>>>();
             foreach (var trustCenter in Config.TrustCenters)
             {
-                this.Certificates = await this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(
-                    this.Certificates, trustCenter, DataFolderPath);
+                importTasks.Add(this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(
+                    this.Certificates, trustCenter, DataFolderPath));
             }
+            await Task.WhenAll(importTasks);
         }
 
         public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
