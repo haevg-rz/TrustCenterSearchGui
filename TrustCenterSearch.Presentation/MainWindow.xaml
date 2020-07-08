@@ -142,7 +142,7 @@
                                         <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
                                             <Image VerticalAlignment ="Center" Source ="/Resources/Images/add.png"></Image>
                                         </Button>
-                                        <Label Width="200" Background="LightGray"></Label>
+                                        <Label Width="200" Background="LightGray" Content="{Binding}"></Label>
                                         <Button Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="LightGray" Height="20" Width="20" BorderThickness="0">
                                             <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
                                         </Button>
