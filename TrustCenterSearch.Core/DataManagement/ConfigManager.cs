@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
@@ -45,5 +46,10 @@ namespace TrustCenterSearch.Core.DataManagement
         }
 
         #endregion
+
+        public void DeleteTrustCenterFromConfig(string trustCenterName, Config config)
+        {
+            config.TrustCenters.Remove(config.TrustCenters.FirstOrDefault(tc => tc.Name.Equals(trustCenterName)));
+        }
     }
 }

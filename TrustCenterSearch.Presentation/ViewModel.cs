@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -66,13 +67,15 @@ namespace TrustCenterSearch.Presentation
         #region Commands
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
+        public RelayCommand<string> DeleteTrustCenterFromHistoryCommand { get; set; }
 
         #endregion
 
         public ViewModel()
         {
-            this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenterCommandExecute);
+            this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
+            this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<string>(this.DeleteTrustCenterFroHistoryCommandExecute);
 
             this.Core = new Core.Core();
         }
@@ -110,6 +113,14 @@ namespace TrustCenterSearch.Presentation
 
             this.TrustCenterHistory.Add(this._addTrustCenterName);
             CertificatesCollectionView.Refresh();
+        }
+
+        private async void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
+        {
+            await this.Core.DeleteTrustCenter(trustCenterToDelete);
+
+            this.TrustCenterHistory.Remove(TrustCenterHistory.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
+            this.CertificatesCollectionView.Refresh();
         }
 
         private void LoadTrustCenterHistory()

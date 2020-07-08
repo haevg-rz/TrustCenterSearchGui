@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.DataManagement;
@@ -55,6 +56,15 @@ namespace TrustCenterSearch.Core
             this.Certificates = await this.ImportManager.ImportCertificatesFromDownloadedTrustCenter(this.Certificates, newTrustCenter, this.DataFolderPath);
         }
 
+        public async Task DeleteTrustCenter(string trustCenterName)
+        {
+            this.ConfigManager.DeleteTrustCenterFromConfig(trustCenterName, this.Config);
+            this.ConfigManager.SaveConfig(this.Config);
+            this.DeleteTrustCenterFile(trustCenterName);
+            this.Certificates.Clear();
+            await this.ImportAllCertificatesFromTrustCenters();
+        }
+
         public List<string> LoadTrustCenterHistory()
         {
             return this.Config.TrustCenters.Select(trustCenter => trustCenter.Name).ToList();
@@ -86,6 +96,10 @@ namespace TrustCenterSearch.Core
             return true;
         }
 
+        private void DeleteTrustCenterFile(string trustCenterName)
+        {
+            File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this.DataFolderPath));
+        }
         #endregion
     }
 }
