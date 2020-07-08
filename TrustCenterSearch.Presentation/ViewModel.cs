@@ -79,7 +79,7 @@ namespace TrustCenterSearch.Presentation
             this.Core = new Core.Core();
         }
 
-        private void DeleteTrustCenterFroHistoryCommandExecute(string tcName)
+        private void DeleteTrustCenterFroHistoryCommandExecute()
         {
             MessageBox.Show("test");
         }
