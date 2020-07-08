@@ -23,7 +23,6 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
         </ResourceDictionary>
-
     </Window.Resources>
 
     <Grid>
@@ -43,6 +42,7 @@
         </TextBox>
         <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
 
+        <!-- Search results -->
         <Border Grid.Column="1" Grid.Row="1" Margin="10"  Background="White" BorderBrush="Black" BorderThickness="1">
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
@@ -53,23 +53,23 @@
                                     <StackPanel>
                                         <WrapPanel>
                                             <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
-                                            <Label Content="{Binding Subject}" Width="700" FontSize="16" Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Subject}" Width="700" Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel>
                                             <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
-                                            <Label Content="{Binding Issuer}" Width="auto" FontSize="16" Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Issuer}" Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel Margin="0,0,0,0">
                                             <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
-                                            <Label Content="{Binding NotAfter}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding NotAfter}" Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                             <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
-                                            <Label Content="{Binding NotBefore}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"  Margin="20,0,0,0"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding NotBefore}" Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                             <Label Content="Serialnumber:" Foreground="Gray" FontSize="16" Margin="20,0,0,0"></Label>
-                                            <Label Content="{Binding SerialNumber}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding SerialNumber}" Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel>
                                             <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
-                                            <Label Content="{Binding Thumbprint}" Height="auto" Width="auto" FontSize="16" Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></Label>
+                                            <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Thumbprint}" Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                     </StackPanel>
                                 </WrapPanel>
@@ -95,6 +95,7 @@
 
             </ItemsControl>
         </Border>
+        <!-- Search results -->
 
         <!-- Menu -->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="LightGray">
