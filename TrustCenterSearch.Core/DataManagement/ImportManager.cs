@@ -13,7 +13,7 @@ namespace TrustCenterSearch.Core.DataManagement
         internal async Task<List<Certificate>> ImportCertificatesFromDownloadedTrustCenter(
             List<Certificate> certificates, TrustCenter trustCenter, string filePath)
         {
-            var certificatesTxt = await ReadFile(trustCenter, filePath);
+            var certificatesTxt = await ReadFile(trustCenter, filePath).ConfigureAwait(false);
 
             var cer = from certificateTxt in certificatesTxt
                 select new X509Certificate2(Convert.FromBase64String(certificateTxt));
@@ -26,7 +26,7 @@ namespace TrustCenterSearch.Core.DataManagement
                 NotAfter = c.NotAfter,
                 NotBefore = c.NotBefore,
                 Thumbprint = c.Thumbprint
-            }).AsParallel());
+            }));
 
             return certificates;
         }

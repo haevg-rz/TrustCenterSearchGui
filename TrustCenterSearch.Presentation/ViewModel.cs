@@ -29,7 +29,13 @@ namespace TrustCenterSearch.Presentation
 
         public ObservableCollection<Certificate> DisplayedCertificates { get; set; }
 
-        public ICollectionView CollectionView { get; set; }
+        private ICollectionView collectionView;
+
+        public ICollectionView CollectionView
+        {
+            get => this.collectionView;
+            set => base.Set(ref this.collectionView, value);
+        }
 
         public ObservableCollection<string> TrustCenterHistory
         {
@@ -68,43 +74,38 @@ namespace TrustCenterSearch.Presentation
 
         public ViewModel()
         {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            SimpleIoc.Default.Register<ViewModel>();
-
             this.AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenter);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
 
             this.Core = new Core.Core();
             this.DisplayedCertificates = new ObservableCollection<Certificate>();
-
-            Task t = Task.Run(() => Core.ImportAllCertificatesFromTrustCenters());
-            t.Wait();
-
-            this.LoadTrustCenterHistory();
-            this.GetCertificates();
-
-            var collectionView = CollectionViewSource.GetDefaultView(this.DisplayedCertificates);
-            collectionView.Filter = this.Filter;
-            this.CollectionView = collectionView;
         }
 
-        private void LoadDataCommandExecute()
+        private async Task Initialize()
         {
+            await this.Core.ImportAllCertificatesFromTrustCenters();
+
+            this.LoadTrustCenterHistory();
+
+            var defaultView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
+            defaultView.Filter = this.Filter;
+            this.CollectionView = defaultView;
+        }
+
+        private async void LoadDataCommandExecute()
+        {
+            await this.Initialize();
         }
 
         #region TrustCenterSearchManager Interface
 
-        private void GetCertificates()
-        {
-            foreach (var certificate in Core.GetCertificates())
-            {
-                DisplayedCertificates.Add(certificate);
-            }
-        }
+        //private void GetCertificates()
+        //{
+        //    foreach (var certificate in this.Core.GetCertificates())
+        //    {
+        //        this.DisplayedCertificates.Add(certificate);
+        //    }
+        //}
 
         private async void AddTrustCenter()
         {
@@ -119,9 +120,9 @@ namespace TrustCenterSearch.Presentation
             }
 
 
-            TrustCenterHistory.Add(this._addTrustCenterName);
+            this.TrustCenterHistory.Add(this._addTrustCenterName);
 
-            GetCertificates();
+            //GetCertificates();
 
         }
 
