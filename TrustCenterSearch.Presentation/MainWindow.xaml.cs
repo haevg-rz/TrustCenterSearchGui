@@ -23,5 +23,10 @@ namespace TrustCenterSearch.Presentation
         {
 
         }
+
+        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         internal ImportManager ImportManager { get; set; }
         internal DownloadManager DownloadManager { get; set; }
-        internal List<TrustCenter> TrustCenters { get; set; }
 
         #endregion
 
@@ -24,7 +23,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         {
             this.DownloadManager = new DownloadManager();
             this.ImportManager = new ImportManager();
-            this.TrustCenters = new List<TrustCenter>();
         }
 
         #region InternalMethods
@@ -37,13 +35,17 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         internal async Task ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, List<Certificate> certificates)
         {
             var importedCertificates = await ImportManager.ImportCertificates(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
-            this.TrustCenters.Add(new TrustCenter(trustCenterMetaInfo, importedCertificates));
             certificates.AddRange(importedCertificates);
         }
 
         internal void DeleteTrustCenterFile(string trustCenterName)
         {
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+        }
+
+        internal void DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName)
+        {
+            certificates.RemoveAll(c => c.TrustCenterName.Equals(trustCenterName));
         }
 
         #endregion

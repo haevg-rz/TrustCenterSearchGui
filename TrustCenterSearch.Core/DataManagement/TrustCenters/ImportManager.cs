@@ -28,7 +28,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 SerialNumber = c.SerialNumber,
                 NotAfter = c.NotAfter,
                 NotBefore = c.NotBefore,
-                Thumbprint = c.Thumbprint
+                Thumbprint = c.Thumbprint,
+                TrustCenterName = trustCenterMetaInfo.Name
             }));
 
             return certificates;
