@@ -3,8 +3,9 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core.DataManagement
+namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
     public class DownloadManager
     {
@@ -16,26 +17,26 @@ namespace TrustCenterSearch.Core.DataManagement
 
         #region InternalMethods
 
-        internal async Task DownloadTrustCenter(string trustCenterName, string trustCenterUrl, string filePath)
+        internal async Task DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            if (!Directory.Exists(filePath))
-                Directory.CreateDirectory(filePath);
+            if (!Directory.Exists(dataFolderPath))
+                Directory.CreateDirectory(dataFolderPath);
 
             var client = new HttpClient();
 
-            var response = await client.GetAsync(trustCenterUrl);
+            var response = await client.GetAsync(trustCenterMetaInfo.TrustCenterUrl);
 
             var content = response.Content.ReadAsByteArrayAsync();
 
-            using (var stream = File.OpenWrite(GetFilePath(trustCenterName, filePath)))
+            using (var stream = File.OpenWrite(GetFilePath(trustCenterMetaInfo.Name, dataFolderPath)))
             {
                 await stream.WriteAsync(content.Result, 0, content.Result.Length - 1);
             }
         }
 
-        internal string GetFilePath(string name, string filePath)
+        internal string GetFilePath(string name, string dataFolderPath)
         {
-            return filePath + name + @".txt";
+            return dataFolderPath + name + @".txt";
         }
 
         internal bool IsUrlExisting(string url)

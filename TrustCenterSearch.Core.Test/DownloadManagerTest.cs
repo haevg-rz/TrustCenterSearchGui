@@ -22,7 +22,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            var result = core.DownloadManager.IsUrlExisting(url);
+            var result = core.TrustCenterManager.DownloadManager.IsUrlExisting(url);
 
             #endregion
 

@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core.DataManagement
+namespace TrustCenterSearch.Core.DataManagement.Configuration
 {
     public class ConfigManager
     {
@@ -15,26 +15,33 @@ namespace TrustCenterSearch.Core.DataManagement
 
         #endregion
 
+        #region Fields
+
+        private readonly string _trustCenterSearchGuiPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch";
+
+        #endregion
+
         #region InternalMethods
         internal Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
-                return new Config();
+                return new Models.Config();
 
             var jsonString = File.ReadAllText(ConfigPath);
             var config = JsonConvert.DeserializeObject<Config>(jsonString);
             return config;
         }
 
-        internal TrustCenter AddTrustCenterToConfig(string name, string url, Config config)
+        internal void AddTrustCenterToConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
         {
-            var trustCenter = new TrustCenter(name, url);
-            config.TrustCenters.Add(trustCenter);
-            return trustCenter;
+            config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
         }
 
-        internal Config SaveConfig(Config config)
+        internal Models.Config SaveConfig(Config config)
         {
+            if (!Directory.Exists(_trustCenterSearchGuiPath))
+                Directory.CreateDirectory(_trustCenterSearchGuiPath);
+
             var jsonString = JsonConvert.SerializeObject(config);
             File.WriteAllText(ConfigPath, jsonString);
             return config;
@@ -42,14 +49,14 @@ namespace TrustCenterSearch.Core.DataManagement
 
         internal bool IsConfigEmpty(Config config)
         {
-            return config.TrustCenters.Count == 0;
+            return config.TrustCenterMetaInfos.Count == 0;
         }
 
         #endregion
 
         public void DeleteTrustCenterFromConfig(string trustCenterName, Config config)
         {
-            config.TrustCenters.Remove(config.TrustCenters.FirstOrDefault(tc => tc.Name.Equals(trustCenterName)));
+            config.TrustCenterMetaInfos.Remove(config.TrustCenterMetaInfos.FirstOrDefault(tc => tc.Name.Equals(trustCenterName)));
         }
     }
 }

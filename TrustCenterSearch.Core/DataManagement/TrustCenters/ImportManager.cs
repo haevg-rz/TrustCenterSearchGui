@@ -6,16 +6,17 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core.DataManagement
+namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
     internal class ImportManager
     {
         #region InternalMethods
 
-        internal async Task<List<Certificate>> ImportCertificatesFromDownloadedTrustCenter(
-            List<Certificate> certificates, TrustCenter trustCenter, string filePath)
+        internal async Task<List<Certificate>> ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            var certificatesTxt = await ReadFile(trustCenter, filePath).ConfigureAwait(false);
+            var certificates = new List<Certificate>();
+
+            var certificatesTxt = await ReadFile(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
             var cer = from certificateTxt in certificatesTxt
                 select new X509Certificate2(Convert.FromBase64String(certificateTxt));
@@ -46,10 +47,10 @@ namespace TrustCenterSearch.Core.DataManagement
 
         #region PrivateMethods
 
-        private static async Task<string[]> ReadFile(TrustCenter trustCenter, string filePath)
+        private static async Task<string[]> ReadFile(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;
-            using (var stream = File.Open(filePath + trustCenter.Name + @".txt", FileMode.Open))
+            using (var stream = File.Open(dataFolderPath + trustCenter.Name + @".txt", FileMode.Open))
             {
                 result = new byte[stream.Length];
                 await stream.ReadAsync(result, 0, (int)stream.Length);
