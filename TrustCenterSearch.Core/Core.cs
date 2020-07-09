@@ -57,8 +57,7 @@ namespace TrustCenterSearch.Core
             this.ConfigManager.DeleteTrustCenterFromConfig(trustCenterName, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
             this.TrustCenterManager.DeleteTrustCenterFile(trustCenterName);
-            this.TrustCenterManager.DeleteTrustCenterFromTrustCentersList(trustCenterName);
-            this.TrustCenterManager.GetCertificatesFromTrustCenterList(this.Certificates);
+            this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, trustCenterName);
         }
 
         public List<string> LoadTrustCenterHistory()

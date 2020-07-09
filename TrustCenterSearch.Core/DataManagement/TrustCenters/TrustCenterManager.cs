@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
@@ -13,7 +12,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         internal ImportManager ImportManager { get; set; }
         internal DownloadManager DownloadManager { get; set; }
-        internal List<TrustCenter> TrustCenters { get; set; }
 
         #endregion
 
@@ -25,7 +23,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         {
             this.DownloadManager = new DownloadManager();
             this.ImportManager = new ImportManager();
-            this.TrustCenters = new List<TrustCenter>();
         }
 
         #region InternalMethods
@@ -38,7 +35,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         internal async Task ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, List<Certificate> certificates)
         {
             var importedCertificates = await ImportManager.ImportCertificates(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
-            this.TrustCenters.Add(new TrustCenter(trustCenterMetaInfo, importedCertificates));
             certificates.AddRange(importedCertificates);
         }
 
@@ -47,22 +43,11 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
         }
 
-        internal void DeleteTrustCenterFromTrustCentersList(string trustCenterName)
+        internal void DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName)
         {
-            this.TrustCenters.Remove(TrustCenters.FirstOrDefault(tc => tc.TrustCenterMetaInfo.Name.Equals(trustCenterName)));
+            certificates.RemoveAll(c => c.TrustCenterName.Equals(trustCenterName));
         }
 
         #endregion
-
-        internal List<Certificate> GetCertificatesFromTrustCenterList(List<Certificate> certificates)
-        {
-            certificates.Clear();
-            Parallel.ForEach(TrustCenters, trustCenter =>
-            {
-                certificates.AddRange(trustCenter.Certificates);
-            });
-
-            return certificates;
-        }
     }
 }

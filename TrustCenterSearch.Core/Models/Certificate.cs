@@ -10,5 +10,6 @@ namespace TrustCenterSearch.Core.Models
         public DateTime NotBefore { get; set; }
         public DateTime NotAfter { get; set; }
         public string Thumbprint { get; set; }
+        public string TrustCenterName { get; set; }
     }
 }

@@ -102,7 +102,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="160"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
             </Grid.RowDefinitions>
 
             <!-- AddTrustCenter -->
@@ -127,36 +127,79 @@
                 <Label Content="Trust Center History" FontSize="20" Margin ="10,0,0,0"></Label>
             </Grid>
 
-            <Grid Grid.Row="2">
-                <ScrollViewer>
-                    <StackPanel>
-                        <ItemsControl ItemsSource="{Binding Path=TrustCenterHistory}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel>
-                                    </StackPanel>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Height="32" Margin="4" BorderBrush="DimGray" BorderThickness="0.8" CornerRadius="8" Background="#bfbfbf">
-                                    <WrapPanel Margin="5,5,5,5" Background="Transparent">
-                                            <Button Margin="0,0,5,0"  Height="20" Width="20" BorderThickness="0" Background="#bfbfbf">
-                                            <Image Height="11" Width="11" Source ="/Resources/Images/add.png"></Image>
-                                        </Button>
-                                        <TextBlock VerticalAlignment ="Center" Width="200" Text="{Binding}"></TextBlock>
-                                        <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
-                                        </Button>
-                                    </WrapPanel>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
+            <!-- TrustCenter Active Filter -->
+            <Grid Grid.Column="0" Grid.Row="2">
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <!-- TrustCenter Active Filter -->
+                        <Grid Grid.Row ="0">
+                            <StackPanel Margin ="4,4,4,0">
+                                <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryActive}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel>
+                                            </StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="2" Height="32" Margin="2" BorderBrush="DimGray" BorderThickness="0.8" CornerRadius="8" Background="DarkGray">
+                                                <WrapPanel Margin="2" Background="Transparent">
+                                                    <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
+                                                        <Image Height="10" Width="10" Source ="/Resources/Images/add.png"></Image>
+                                                    </Button>
+                                                    <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
+                                                    <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
+                                                        <Image Source ="/Resources/Images/binBlack.png"></Image>
+                                                    </Button>
+                                                </WrapPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+                        <!-- TrustCenter Active Filter -->
+
+                        <!-- TrustCenter Inactive Filter -->
+                        <Grid Grid.Row ="1">
+                            <StackPanel Margin="4,0,4,4">
+                                <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryInactive}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel>
+                                            </StackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Padding="2" Height="32" Margin="2" BorderBrush="DimGray" BorderThickness="0.8" CornerRadius="8" Background="#bfbfbf">
+                                                <WrapPanel Margin="2" Background="Transparent">
+                                                    <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
+                                                        <Image Height="10" Width="10" Source ="/Resources/Images/add.png"></Image>
+                                                    </Button>
+                                                    <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
+                                                    <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
+                                                        <Image Source ="/Resources/Images/binBlack.png"></Image>
+                                                    </Button>
+                                                </WrapPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
                 </ScrollViewer>
             </Grid>
-
+            <!-- TrustCenter Inactive Filter -->
+            
             <!-- TrustCenterHistory -->
 
         </Grid>

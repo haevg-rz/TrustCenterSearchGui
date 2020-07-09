@@ -19,7 +19,9 @@ namespace TrustCenterSearch.Presentation
         private string _searchBarInput = string.Empty;
         private string _addTrustCenterName = string.Empty;
         private string _addTrustCenterUrl = string.Empty;
-        private ObservableCollection<string> _trustCenterHistory = new ObservableCollection<string>();
+        private ObservableCollection<string> _trustCenterHistoryActive = new ObservableCollection<string>();
+        private ObservableCollection<string> _trustCenterHistoryInactive = new ObservableCollection<string>();
+        private ICollectionView _certificatesCollectionView;
 
         #endregion
 
@@ -27,18 +29,21 @@ namespace TrustCenterSearch.Presentation
 
         public Core.Core Core { get; set; }
 
-        private ICollectionView _certificatesCollectionView;
-
         public ICollectionView CertificatesCollectionView
         {
             get => this._certificatesCollectionView;
             set => base.Set(ref this._certificatesCollectionView, value);
         }
 
-        public ObservableCollection<string> TrustCenterHistory
+        public ObservableCollection<string> TrustCenterHistoryActive
         {
-            get => this._trustCenterHistory;
-            set => base.Set(ref this._trustCenterHistory, value);
+            get => this._trustCenterHistoryActive;
+            set => base.Set(ref this._trustCenterHistoryActive, value);
+        }        
+        public ObservableCollection<string> TrustCenterHistoryInactive
+        {
+            get => this._trustCenterHistoryInactive;
+            set => base.Set(ref this._trustCenterHistoryInactive, value);
         }
 
         public string SearchBarInput
@@ -67,6 +72,8 @@ namespace TrustCenterSearch.Presentation
         #region Commands
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
+        public RelayCommand<string> AddTrustCenterToFilterCommand { get; set; }
+        public RelayCommand<string> RemoveTrustCenterFromFilterCommand { get; set; }
         public RelayCommand<string> DeleteTrustCenterFromHistoryCommand { get; set; }
 
         #endregion
@@ -75,6 +82,8 @@ namespace TrustCenterSearch.Presentation
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
+            this.AddTrustCenterToFilterCommand = new RelayCommand<string>(this.AddTrustCenterToFilterCommandExecute);
+            this.RemoveTrustCenterFromFilterCommand = new RelayCommand<string>(this.RemoveTrustCenterFromFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<string>(this.DeleteTrustCenterFroHistoryCommandExecute);
 
             this.Core = new Core.Core();
@@ -98,6 +107,18 @@ namespace TrustCenterSearch.Presentation
 
         #region TrustCenterSearchManager Interface
 
+        private void AddTrustCenterToFilterCommandExecute(string trustCenterName)
+        {
+            TrustCenterHistoryInactive.Remove(trustCenterName);
+            TrustCenterHistoryActive.Add(trustCenterName);
+        }
+
+        private void RemoveTrustCenterFromFilterCommandExecute(string trustCenterName)
+        {
+            TrustCenterHistoryActive.Remove(trustCenterName);
+            TrustCenterHistoryInactive.Add(trustCenterName);
+        }
+
         private async void AddTrustCenterCommandExecute()
         {
             try
@@ -111,21 +132,21 @@ namespace TrustCenterSearch.Presentation
             }
 
 
-            this.TrustCenterHistory.Add(this._addTrustCenterName);
+            this.TrustCenterHistoryActive.Add(this._addTrustCenterName);
             CertificatesCollectionView.Refresh();
         }
 
         private void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
         {
             this.Core.DeleteTrustCenter(trustCenterToDelete);
-            this.TrustCenterHistory.Remove(TrustCenterHistory.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
+            this.TrustCenterHistoryActive.Remove(TrustCenterHistoryActive.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
             this.CertificatesCollectionView.Refresh();
         }
 
         private void LoadTrustCenterHistory()
         {
             foreach (var trustCenterHistoryName in Core.LoadTrustCenterHistory())
-                TrustCenterHistory.Add(trustCenterHistoryName);
+                TrustCenterHistoryActive.Add(trustCenterHistoryName);
         }
 
         #endregion
