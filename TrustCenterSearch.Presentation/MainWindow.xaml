@@ -7,7 +7,7 @@
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
-        Title="TrustCenterExecuteSearchBarInput" Height="550" Width="1100">
+        Title="Trust Center Search GUI" Height="550" Width="1100">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -47,20 +47,20 @@
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="145" Width="830">
+                        <Border Height="145" Width="830" HorizontalAlignment="Left">
                             <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
                                 <WrapPanel Margin="0,0,0,0">
                                     <StackPanel>
                                         <WrapPanel>
-                                            <Label Content="Subject:" Foreground="Gray" FontSize="16"></Label>
+                                            <Label Width ="100" Content="Subject:" Foreground="Gray" FontSize="16"></Label>
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Subject}" Width="700" Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel>
-                                            <Label Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
+                                            <Label Width ="100" Content="Issuer:" Foreground="Gray" FontSize="16"></Label>
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Issuer}" Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel Margin="0,0,0,0">
-                                            <Label Content="Not After:" Foreground="Gray" FontSize="16" Width="auto"></Label>
+                                            <Label Width ="100" Content="Not After:" Foreground="Gray" FontSize="16"></Label>
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding NotAfter}" Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                             <Label Content="Not Before:" Foreground="Gray" FontSize="16"></Label>
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding NotBefore}" Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
@@ -68,7 +68,7 @@
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding SerialNumber}" Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                         <WrapPanel>
-                                            <Label Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
+                                            <Label Width ="100" Content="Thumbprint:" Foreground="Gray" FontSize="16"></Label>
                                             <TextBox Style="{StaticResource SearchResultTextBox}" Text="{Binding Thumbprint}" Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"></TextBox>
                                         </WrapPanel>
                                     </StackPanel>
@@ -108,7 +108,7 @@
             <!-- AddTrustCenter -->
             <Grid Grid.Column="0" Grid.Row="0">
                 <StackPanel>
-                    <Label Content="Add TrustCenter" FontSize="20" Margin ="10,0,0,0"></Label>
+                    <Label Content="Add Trust Center" FontSize="20" Margin ="10,0,0,0"></Label>
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="Name" Margin ="10,0,0,0"></Label>
                         <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged" Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -139,15 +139,17 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <WrapPanel Margin="10,5,5,5">
-                                        <Button Background ="LightGray" Height="20" Width="20" BorderThickness="0">
-                                            <Image VerticalAlignment ="Center" Source ="/Resources/Images/add.png"></Image>
+                                    <Border Height="32" Margin="4" BorderBrush="DimGray" BorderThickness="0.8" CornerRadius="8" Background="#bfbfbf">
+                                    <WrapPanel Margin="5,5,5,5" Background="Transparent">
+                                            <Button Margin="0,0,5,0"  Height="20" Width="20" BorderThickness="0" Background="#bfbfbf">
+                                            <Image Height="11" Width="11" Source ="/Resources/Images/add.png"></Image>
                                         </Button>
-                                        <Label Width="200" Background="LightGray" Content="{Binding}"></Label>
-                                        <Button  CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="LightGray" Height="20" Width="20" BorderThickness="0">
+                                        <TextBlock VerticalAlignment ="Center" Width="200" Text="{Binding}"></TextBlock>
+                                        <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
                                             <Image VerticalAlignment="Center" Source ="/Resources/Images/binBlack.png"></Image>
                                         </Button>
                                     </WrapPanel>
+                                    </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
