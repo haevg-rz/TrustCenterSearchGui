@@ -115,10 +115,9 @@ namespace TrustCenterSearch.Presentation
             CertificatesCollectionView.Refresh();
         }
 
-        private async void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
+        private void DeleteTrustCenterFroHistoryCommandExecute(string trustCenterToDelete)
         {
-            await this.Core.DeleteTrustCenter(trustCenterToDelete);
-
+            this.Core.DeleteTrustCenter(trustCenterToDelete);
             this.TrustCenterHistory.Remove(TrustCenterHistory.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
             this.CertificatesCollectionView.Refresh();
         }

@@ -52,13 +52,13 @@ namespace TrustCenterSearch.Core
             await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo, this.Certificates);
         }
 
-        public async Task DeleteTrustCenter(string trustCenterName)
+        public void DeleteTrustCenter(string trustCenterName)
         {
             this.ConfigManager.DeleteTrustCenterFromConfig(trustCenterName, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
             this.TrustCenterManager.DeleteTrustCenterFile(trustCenterName);
-            this.Certificates.Clear();
-            await this.ImportAllCertificatesFromTrustCenters();
+            this.TrustCenterManager.DeleteTrustCenterFromTrustCentersList(trustCenterName);
+            this.TrustCenterManager.GetCertificatesFromTrustCenterList(this.Certificates);
         }
 
         public List<string> LoadTrustCenterHistory()

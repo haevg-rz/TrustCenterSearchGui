@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
@@ -46,6 +47,22 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
         }
 
+        internal void DeleteTrustCenterFromTrustCentersList(string trustCenterName)
+        {
+            this.TrustCenters.Remove(TrustCenters.FirstOrDefault(tc => tc.TrustCenterMetaInfo.Name.Equals(trustCenterName)));
+        }
+
         #endregion
+
+        internal List<Certificate> GetCertificatesFromTrustCenterList(List<Certificate> certificates)
+        {
+            certificates.Clear();
+            Parallel.ForEach(TrustCenters, trustCenter =>
+            {
+                certificates.AddRange(trustCenter.Certificates);
+            });
+
+            return certificates;
+        }
     }
 }
