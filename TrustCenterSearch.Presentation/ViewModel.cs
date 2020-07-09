@@ -111,12 +111,14 @@ namespace TrustCenterSearch.Presentation
         {
             TrustCenterHistoryInactive.Remove(trustCenterName);
             TrustCenterHistoryActive.Add(trustCenterName);
+            this.CertificatesCollectionView.Refresh();
         }
 
         private void RemoveTrustCenterFromFilterCommandExecute(string trustCenterName)
         {
             TrustCenterHistoryActive.Remove(trustCenterName);
             TrustCenterHistoryInactive.Add(trustCenterName);
+            this.CertificatesCollectionView.Refresh();
         }
 
         private async void AddTrustCenterCommandExecute()
@@ -153,9 +155,12 @@ namespace TrustCenterSearch.Presentation
 
         private bool Filter(object obj)
         {
-            var entry = obj as Certificate;
-            if (entry == null)
+            if (!(obj is Certificate entry))
                 return false;
+
+            if (!this.TrustCenterHistoryActive.Any(x => x.Equals(entry.TrustCenterName)))
+                return false;
+
             if (string.IsNullOrWhiteSpace(this.SearchBarInput))
                 return true;
 

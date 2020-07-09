@@ -184,7 +184,7 @@
                                                     <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
                                                         <Image Height="10" Width="10" Source ="/Resources/Images/add.png"></Image>
                                                     </Button>
-                                                    <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
+                                                    <TextBlock Width="210" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
                                                     <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
                                                         <Image Source ="/Resources/Images/binBlack.png"></Image>
                                                     </Button>
