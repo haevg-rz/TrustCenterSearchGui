@@ -19,7 +19,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            core.ConfigManager.AddTrustCenterToConfig("test123", "test567", config);
+            core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567"), config);
 
             #endregion
 
@@ -27,7 +27,7 @@ namespace TrustCenterSearchCore.Test
             #region Assert
 
             var result = new Config();
-            result.TrustCenters.Add(new TrustCenter("test123", "test567"));
+            result.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test123", "test567"));
 
             object.Equals(result, config);
 
@@ -67,7 +67,7 @@ namespace TrustCenterSearchCore.Test
             #region Arrange
 
             var config = new Config();
-            config.TrustCenters.Add(new TrustCenter("test", "test"));
+            config.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test", "test"));
 
             var core = new Core();
 
