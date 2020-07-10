@@ -52,17 +52,17 @@ namespace TrustCenterSearch.Core
             await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo, this.Certificates);
         }
 
-        public void DeleteTrustCenter(string trustCenterName)
+        public void DeleteTrustCenter(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            this.ConfigManager.DeleteTrustCenterFromConfig(trustCenterName, this.Config);
+            this.ConfigManager.DeleteTrustCenterFromConfig(trustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
-            this.TrustCenterManager.DeleteTrustCenterFile(trustCenterName);
-            this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, trustCenterName);
+            this.TrustCenterManager.DeleteTrustCenterFile(trustCenterMetaInfo.Name);
+            this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, trustCenterMetaInfo.Name);
         }
 
-        public List<string> LoadTrustCenterHistory()
+        public List<TrustCenterMetaInfo> LoadTrustCenterHistory()
         {
-            return this.Config.TrustCenterMetaInfos.Select(trustCenter => trustCenter.Name).ToList();
+            return this.Config.TrustCenterMetaInfos;
         }
 
         public List<Certificate> GetCertificates()
@@ -76,6 +76,9 @@ namespace TrustCenterSearch.Core
 
         private bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
+            if(newTrustCenterName.Length > 29)
+                throw new ArgumentException("The entered name is too long.");
+
             if (newTrustCenterName == string.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
