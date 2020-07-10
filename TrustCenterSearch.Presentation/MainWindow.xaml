@@ -158,6 +158,9 @@
                                                     <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
                                                         <Image Source ="/Resources/Images/binBlack.png"></Image>
                                                     </Button>
+                                                    <Button Background="Transparent" Height="20" Width="20" BorderThickness="0" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
+                                                        <Image Height="15" Width="15" Source ="/Resources/Images/info.png"></Image>
+                                                    </Button>
                                                 </WrapPanel>
                                             </Border>
                                         </DataTemplate>
@@ -187,6 +190,9 @@
                                                     <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
                                                     <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
                                                         <Image Source ="/Resources/Images/binBlack.png"></Image>
+                                                    </Button>
+                                                    <Button Background="Transparent" Height="20" Width="20" BorderThickness="0" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
+                                                        <Image Height="15" Width="15" Source ="/Resources/Images/info.png"></Image>
                                                     </Button>
                                                 </WrapPanel>
                                             </Border>

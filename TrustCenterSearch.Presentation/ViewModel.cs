@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -75,6 +76,7 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand<string> AddTrustCenterToFilterCommand { get; set; }
         public RelayCommand<string> RemoveTrustCenterFromFilterCommand { get; set; }
         public RelayCommand<string> DeleteTrustCenterFromHistoryCommand { get; set; }
+        public RelayCommand<string> InfoAboutTrustCenterCommand { get; set; }
 
         #endregion
 
@@ -85,6 +87,7 @@ namespace TrustCenterSearch.Presentation
             this.AddTrustCenterToFilterCommand = new RelayCommand<string>(this.AddTrustCenterToFilterCommandExecute);
             this.RemoveTrustCenterFromFilterCommand = new RelayCommand<string>(this.RemoveTrustCenterFromFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<string>(this.DeleteTrustCenterFroHistoryCommandExecute);
+            this.InfoAboutTrustCenterCommand = new RelayCommand<string>(this.InfoAboutTrustCenterCommandExecute);
 
             this.Core = new Core.Core();
         }
@@ -143,6 +146,12 @@ namespace TrustCenterSearch.Presentation
             this.Core.DeleteTrustCenter(trustCenterToDelete);
             this.TrustCenterHistoryActive.Remove(TrustCenterHistoryActive.FirstOrDefault(tch => tch.Equals(trustCenterToDelete)));
             this.CertificatesCollectionView.Refresh();
+        }
+
+        private void InfoAboutTrustCenterCommandExecute(string trustCenetrName)
+        {
+
+            MessageBox.Show("TrustCenter:\n" + trustCenetrName + "\n" + "url.exe", "Information about the TrustCenter", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void LoadTrustCenterHistory()
