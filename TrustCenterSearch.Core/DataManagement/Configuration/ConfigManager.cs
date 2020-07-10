@@ -54,9 +54,9 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
 
         #endregion
 
-        public void DeleteTrustCenterFromConfig(string trustCenterName, Config config)
+        public void DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
         {
-            config.TrustCenterMetaInfos.Remove(config.TrustCenterMetaInfos.FirstOrDefault(tc => tc.Name.Equals(trustCenterName)));
+            config.TrustCenterMetaInfos.RemoveAll(tc => tc.Name.Equals(trustCenterMetaInfo.Name));
         }
     }
 }
