@@ -152,7 +152,7 @@
                                             <Border Padding="2" Height="32" Margin="2" BorderBrush="DimGray" BorderThickness="0.8" CornerRadius="8" Background="DarkGray">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
-                                                        <Image Height="10" Width="10" Source ="/Resources/Images/add.png"></Image>
+                                                        <Image Height="10" Width="10" Source ="/Resources/Images/remove.png"></Image>
                                                     </Button>
                                                     <TextBlock Width="200" VerticalAlignment="Center" Text="{Binding}"></TextBlock>
                                                     <Button CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}" Background ="Transparent" Height="20" Width="20" BorderThickness="0">
