@@ -14,6 +14,12 @@ namespace TrustCenterSearch.Presentation
 {
     public class ViewModel : ViewModelBase
     {
+        public void SidebarCommandExecute()
+        {
+            MessageBox.Show("test");
+            
+        }
+
         #region fields
 
         private string _searchBarInput = string.Empty;
@@ -72,10 +78,12 @@ namespace TrustCenterSearch.Presentation
         #region Commands
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
+        public RelayCommand SidebarCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> AddTrustCenterToFilterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> RemoveTrustCenterFromFilterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> DeleteTrustCenterFromHistoryCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> InfoAboutTrustCenterCommand { get; set; }
+        
 
         #endregion
 
@@ -83,6 +91,7 @@ namespace TrustCenterSearch.Presentation
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
+            this.SidebarCommand = new RelayCommand(this.SidebarCommandExecute);
             this.AddTrustCenterToFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.AddTrustCenterToFilterCommandExecute);
             this.RemoveTrustCenterFromFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.RemoveTrustCenterFromFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterMetaInfo>(this.DeleteTrustCenterFromHistoryCommandExecute);
