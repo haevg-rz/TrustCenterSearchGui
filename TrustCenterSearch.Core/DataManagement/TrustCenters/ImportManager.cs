@@ -11,7 +11,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
     internal class ImportManager
     {
         #region InternalMethods
-
         internal async Task<List<Certificate>> ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             var certificates = new List<Certificate>();
