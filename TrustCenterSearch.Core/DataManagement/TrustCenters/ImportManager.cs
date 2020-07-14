@@ -46,7 +46,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region PrivateMethods
-
         private static async Task<string[]> ReadFile(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;

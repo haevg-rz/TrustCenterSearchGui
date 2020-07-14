@@ -34,13 +34,20 @@ namespace TrustCenterSearch.Core
         #region PublicMethods
         public async Task ImportAllCertificatesFromTrustCenters()
         {
-            var importTasks = new List<Task>();
+            foreach (var trustCenterMetaInfo in Config.TrustCenterMetaInfos)
+            {
+                await this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo, this.Certificates);
+            }
+
+            // investigating system argument exception destination was not long enough, thread safety on certificates.Addrange()
+
+            /*var importTasks = new List<Task>();
             foreach (var trustCenterMetaInfo in Config.TrustCenterMetaInfos)
             {
                 importTasks.Add(this.TrustCenterManager.ImportCertificates(
                     trustCenterMetaInfo, this.Certificates));
             }
-            await Task.WhenAll(importTasks);
+            await Task.WhenAll(importTasks);*/
         }
 
         public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
