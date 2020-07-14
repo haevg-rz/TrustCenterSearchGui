@@ -36,7 +36,7 @@
 
         <WrapPanel Grid.Column="1" Grid.Row="0">
             <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton"/>
-            <TextBox Name="SearchBar" Grid.Column="1" Grid.Row="0" Margin="10" Padding="3" Width="750" Height="auto">
+            <TextBox Name="SearchBar" Grid.Column="1" Grid.Row="0" Margin="10" Padding="3" Width="830" Height="auto">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
@@ -48,7 +48,7 @@
 
 
         <!-- Search results -->
-        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Black" BorderThickness="1">
+        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent" BorderThickness="1">
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -94,7 +94,7 @@
                                             </WrapPanel>
                                             <WrapPanel Width="160" FlowDirection="RightToLeft">
                                                 <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
-                                                       Foreground="LightGray" FontSize="12" />
+                                                       Foreground="#a5c5f0" FontSize="12" />
                                             </WrapPanel>
                                         </WrapPanel>
                                     </StackPanel>
@@ -124,24 +124,31 @@
         <!-- Search results -->
 
         <!-- Menu -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="LightGray" Name="sidebar" Visibility="Collapsed">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="160" />
+                <RowDefinition Height="180" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="400" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Column="0" Grid.RowSpan="3" Background="#2772db"></Grid>
 
             <!-- AddTrustCenter -->
-            <Grid Grid.Column="0" Grid.Row="0">
+            <Grid Grid.Column="1" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="39*" />
                     <ColumnDefinition Width="19*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2">
                     <WrapPanel>
-                        <Label Content="Add Trust Center" FontSize="20" Margin="10,0,0,0" />
-                        <Button Margin="90,0,0,0" Content="X" Click="CollapseSidebar" Width="20" Height="20"
-                                BorderBrush="LightGray" />
+                        <Label Content="Trust Center Search GUI" Foreground="#2772db" FontSize="20" Margin="10,5,0,10" />
+                        <Button Background="Transparent" HorizontalAlignment="Right" Margin="40,-20,5,0" Content="X" Click="CollapseSidebar" Width="20" Height="20"
+                                BorderBrush="Transparent" />
                     </WrapPanel>
 
                     <WrapPanel Margin="5">
@@ -160,12 +167,12 @@
             <!-- AddTrustCenter -->
 
             <!-- TrustCenterHistory -->
-            <Grid Grid.Column="0" Grid.Row="1">
-                <Label Content="Trust Center History" FontSize="20" Margin="10,0,0,0" />
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Label Content="Trust Center" Foreground="#2772db" FontSize="20" Margin="10,0,0,0" />
             </Grid>
 
             <!-- TrustCenter Active Filter -->
-            <Grid Grid.Column="0" Grid.Row="2">
+            <Grid Grid.Column="1" Grid.Row="2">
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid>
@@ -176,7 +183,7 @@
 
                         <!-- TrustCenter Active Filter -->
                         <Grid Grid.Row="0">
-                            <StackPanel Margin="4,4,17,0">
+                            <StackPanel Margin="4,0,17,4">
                                 <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryActive}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -187,7 +194,7 @@
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="DarkGray">
+                                                    CornerRadius="8" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Margin="0,2,8,2" CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
@@ -218,7 +225,7 @@
 
                         <!-- TrustCenter Inactive Filter -->
                         <Grid Grid.Row="1">
-                            <StackPanel Margin="4,4,17,0">
+                            <StackPanel Margin="4,0,17,0">
                                 <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryInactive}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -229,7 +236,7 @@
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="#bfbfbf">
+                                                    CornerRadius="8" Background="White">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
                                                         <Image Height="10" Width="10" Source="/Resources/Images/add.png" />
