@@ -126,7 +126,7 @@
 
         <!-- Menu -->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar"
-              Visibility="Collapsed">
+              Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="180" />
                 <RowDefinition Height="40" />
@@ -197,7 +197,7 @@
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="#d9e9ff">
+                                                    CornerRadius="3" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2" CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
@@ -246,8 +246,8 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
-                                                    Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="#f7f8fa">
+                                                    Margin="4,2,0,2" BorderBrush="LightBlue" BorderThickness="0.8"
+                                                    CornerRadius="3" Background="#f7f8fa"> 
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Style="{DynamicResource AddIconStyle}" Margin="2,4,8,2"
                                                             CommandParameter="{Binding}"

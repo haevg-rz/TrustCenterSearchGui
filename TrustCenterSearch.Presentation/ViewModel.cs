@@ -72,7 +72,6 @@ namespace TrustCenterSearch.Presentation
         #region Commands
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
-        public RelayCommand SidebarCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> AddTrustCenterToFilterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> RemoveTrustCenterFromFilterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> DeleteTrustCenterFromHistoryCommand { get; set; }
