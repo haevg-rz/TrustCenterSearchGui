@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Column="1" Grid.Row="0">
-            <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton"/>
+            <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton" />
             <TextBox Name="SearchBar" Grid.Column="1" Grid.Row="0" Margin="10" Padding="3" Width="830" Height="auto">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
@@ -48,13 +48,15 @@
 
 
         <!-- Search results -->
-        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent" BorderThickness="1">
+        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
+                BorderThickness="1" Width="Auto">
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="145" Width="830" HorizontalAlignment="Left">
-                            <Border Margin="5,5,5,5" BorderBrush="Black" BorderThickness="1" CornerRadius="8,8,8,8">
-                                <WrapPanel Margin="0,0,0,0">
+                        <Border Height="145" Width="Auto" HorizontalAlignment="Left">
+                            <Border Margin="5" BorderBrush="Transparent" BorderThickness="1" CornerRadius="3"
+                                    Background="#f7fdff">
+                                <WrapPanel>
                                     <StackPanel>
                                         <WrapPanel>
                                             <Label Width="100" Content="Subject:" Foreground="Gray" FontSize="16" />
@@ -124,19 +126,20 @@
         <!-- Search results -->
 
         <!-- Menu -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar" Visibility="Collapsed">
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar"
+              Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="180" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="400" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
 
-            <Grid Grid.Column="0" Grid.RowSpan="3" Background="#2772db"></Grid>
+            <Grid Grid.Column="0" Grid.RowSpan="3" Background="#2772db" />
 
             <!-- AddTrustCenter -->
             <Grid Grid.Column="1" Grid.Row="0">
@@ -147,7 +150,8 @@
                 <StackPanel Grid.ColumnSpan="2">
                     <WrapPanel>
                         <Label Content="Trust Center Search GUI" Foreground="#2772db" FontSize="20" Margin="10,5,0,10" />
-                        <Button Background="Transparent" HorizontalAlignment="Right" Margin="40,-20,5,0" Content="X" Click="CollapseSidebar" Width="20" Height="20"
+                        <Button Background="Transparent" HorizontalAlignment="Right" Margin="40,-20,5,0" Content="X"
+                                Click="CollapseSidebar" Width="20" Height="20"
                                 BorderBrush="Transparent" />
                     </WrapPanel>
 
@@ -193,25 +197,35 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
-                                                    Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="#d9e9ff">
+                                                    Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
+                                                    CornerRadius="3" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Margin="0,2,8,2" CommandParameter="{Binding}"
+                                                    <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2"
+                                                            CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
-                                                            Height="20" Width="20" BorderThickness="0"
-                                                            Background="Transparent">
-                                                        <Image Height="10" Width="10"
-                                                               Source="/Resources/Images/remove.png" />
-                                                    </Button>
-                                                    <TextBlock Width="165" VerticalAlignment="Center" Text="{Binding Name}" />
-                                                    <Button Style="{DynamicResource InfoButtonStyle}" BorderThickness="0" Height="16" Width="16"  CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
+                                                            Height="13" Width="13" BorderThickness="0">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/info.png" Stretch="Uniform"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/remove.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Style="{DynamicResource BinImageStyle}" Margin="5,0,0,0"  Height="16" Width="16" BorderThickness="0" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
+                                                    <TextBlock Width="165" VerticalAlignment="Center"
+                                                               Text="{Binding Name}" />
+                                                    <Button Style="{DynamicResource InfoButtonStyle}"
+                                                            BorderThickness="0" Height="16" Width="16"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png" Stretch="Uniform"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
+                                                                        Stretch="Uniform" />
+                                                        </Button.Background>
+                                                    </Button>
+                                                    <Button Style="{DynamicResource BinImageStyle}" Margin="5,0,0,0"
+                                                            Height="16" Width="16" BorderThickness="0"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
                                                 </WrapPanel>
@@ -235,22 +249,35 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
-                                                    Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
-                                                    CornerRadius="8" Background="White">
+                                                    Margin="4,2,0,2" BorderBrush="LightBlue" BorderThickness="0.8"
+                                                    CornerRadius="3" Background="#f7f8fa">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Margin="0,2,8,2" CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}" Height="20" Width="20" BorderThickness="0" Background="Transparent">
-                                                        <Image Height="10" Width="10" Source="/Resources/Images/add.png" />
+                                                    <Button Style="{DynamicResource AddIconStyle}" Margin="2,4,8,2"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}"
+                                                            Height="13" Width="13" BorderThickness="0">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Resources/Images/add.png"
+                                                                        Stretch="Uniform" />
+                                                        </Button.Background>
                                                     </Button>
                                                     <TextBlock Width="165" VerticalAlignment="Center"
                                                                Text="{Binding Name}" />
-                                                    <Button Style="{DynamicResource InfoButtonStyle}" BorderThickness="0" Height="16" Width="16"  CommandParameter="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
+                                                    <Button Style="{DynamicResource InfoButtonStyle}"
+                                                            BorderThickness="0" Height="16" Width="16"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/info.png" Stretch="Uniform"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Style="{DynamicResource BinImageStyle}" Margin="5,0,0,0"  Height="16" Width="16" BorderThickness="0" Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
+                                                    <Button Style="{DynamicResource BinImageStyle}" Margin="5,0,0,0"
+                                                            Height="16" Width="16" BorderThickness="0"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png" Stretch="Uniform"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
                                                 </WrapPanel>

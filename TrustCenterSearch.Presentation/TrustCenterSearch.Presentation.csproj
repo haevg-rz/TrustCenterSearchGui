@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\add.png" />
+    <None Remove="Resources\Images\addMouseOver.png" />
     <None Remove="Resources\Images\binBlack.png" />
     <None Remove="Resources\Images\binRed.png" />
-    <None Remove="Resources\Images\info.png" />
+    <None Remove="Resources\Images\infoIcon.png" />
+    <None Remove="Resources\Images\infoIconMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
+    <None Remove="Resources\Images\removeMouseOver.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,16 +30,25 @@
     <Resource Include="Resources\Images\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\addMouseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\binBlack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\binRed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\info.png">
+    <Resource Include="Resources\Images\infoIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\infoIconMouseOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\removeMouseOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

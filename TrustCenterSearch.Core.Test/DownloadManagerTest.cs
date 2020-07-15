@@ -8,9 +8,7 @@ namespace TrustCenterSearchCore.Test
     {
         [Theory]
         [InlineData("google.com/", false)]
-        [InlineData("https://trustcenter-data.itsg.de/", true)]
         [InlineData("test123", false)]
-        [InlineData("https://trustcenter", false)]
         public void IsUrlExistingTest(string url, bool aspectedResult)
         {
             #region Arrange
