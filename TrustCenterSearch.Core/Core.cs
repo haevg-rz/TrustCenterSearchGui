@@ -30,20 +30,13 @@ namespace TrustCenterSearch.Core
         #region PublicMethods
         public async Task ImportAllCertificatesFromTrustCenters()
         {
-            foreach (var trustCenterMetaInfo in Config.TrustCenterMetaInfos)
-            {
-                await this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo, this.Certificates);
-            }
+            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo)).ToList();
+            await Task.WhenAll(importTasks);
 
-            // investigating system argument exception destination was not long enough, thread safety on certificates.Addrange()
-
-            /*var importTasks = new List<Task>();
-            foreach (var trustCenterMetaInfo in Config.TrustCenterMetaInfos)
+            foreach (var importTask in importTasks)
             {
-                importTasks.Add(this.TrustCenterManager.ImportCertificates(
-                    trustCenterMetaInfo, this.Certificates));
+                Certificates.AddRange(importTask.Result);
             }
-            await Task.WhenAll(importTasks);*/
         }
 
         public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
@@ -55,7 +48,8 @@ namespace TrustCenterSearch.Core
             this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
             await this.TrustCenterManager.DownloadCertificates(newTrustCenterMetaInfo);
-            await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo, this.Certificates);
+            var importedCertificates =  await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo);
+            Certificates.AddRange(importedCertificates);
         }
 
         public void DeleteTrustCenter(TrustCenterMetaInfo trustCenterMetaInfo)
