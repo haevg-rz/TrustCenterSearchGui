@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -21,6 +20,7 @@ namespace TrustCenterSearch.Presentation
         private string _searchBarInput = string.Empty;
         private string _addTrustCenterName = string.Empty;
         private string _addTrustCenterUrl = string.Empty;
+        private bool _userImputIsEnablet = true; 
         private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive = new ObservableCollection<TrustCenterMetaInfo>();
         private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive = new ObservableCollection<TrustCenterMetaInfo>();
         private ICollectionView _certificatesCollectionView;
@@ -28,6 +28,12 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Properties
+
+        public bool UserInputIsEnabled
+        {
+            get => this._userImputIsEnablet;
+            set => base.Set(ref this._userImputIsEnablet, value);
+        }
 
         public Core.Core Core { get; set; }
 
@@ -95,6 +101,8 @@ namespace TrustCenterSearch.Presentation
 
         private async Task Initialize()
         {
+            this.UserInputIsEnabled = false;
+
             await this.Core.ImportAllCertificatesFromTrustCenters();
 
             this.GetTrustCenterHistory();
@@ -102,6 +110,8 @@ namespace TrustCenterSearch.Presentation
             var defaultView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
             defaultView.Filter = this.Filter;
             this.CertificatesCollectionView = defaultView;
+
+            this.UserInputIsEnabled = true;
         }
 
         private async void LoadDataCommandExecute()
@@ -113,6 +123,7 @@ namespace TrustCenterSearch.Presentation
         #region Core accessing methods
         private async void AddTrustCenterCommandExecute()
         {
+            this.UserInputIsEnabled = false;
             try
             {
                 await Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
@@ -120,6 +131,7 @@ namespace TrustCenterSearch.Presentation
             catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.UserInputIsEnabled = true;
                 return;
             }
 
@@ -127,6 +139,7 @@ namespace TrustCenterSearch.Presentation
             this.AddTrustCenterName = string.Empty;
             this.AddTrustCenterUrl = string.Empty;
             CertificatesCollectionView.Refresh();
+            this.UserInputIsEnabled = true;
         }
 
         private void DeleteTrustCenterFromHistoryCommandExecute(TrustCenterMetaInfo trustCenterToDelete)

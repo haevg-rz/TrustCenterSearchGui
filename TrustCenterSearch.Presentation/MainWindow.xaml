@@ -36,7 +36,7 @@
 
         <WrapPanel Grid.Column="1" Grid.Row="0">
             <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton" />
-            <TextBox Name="SearchBar" Grid.Column="1" Grid.Row="0" Margin="10" Padding="3" Width="830" Height="auto">
+            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="830" Height="auto" IsEnabled="{Binding UserInputIsEnabled}">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
@@ -45,7 +45,6 @@
         <!--
             <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
         -->
-
 
         <!-- Search results -->
         <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
@@ -127,7 +126,7 @@
 
         <!-- Menu -->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar"
-              Visibility="Visible">
+              Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="180" />
                 <RowDefinition Height="40" />
@@ -158,14 +157,14 @@
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="Name" Margin="10,0,0,0" />
                         <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged"
-                                 Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}" />
+                                 Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserInputIsEnabled}"/>
                     </WrapPanel>
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="URL" Margin="10,0,0,0" />
                         <TextBox Padding="3" Width="200" Height="auto"
-                                 Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}" />
+                                 Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserInputIsEnabled}"/>
                     </WrapPanel>
-                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButtonCommand}" />
+                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButtonCommand}" IsEnabled="{Binding UserInputIsEnabled}"/>
                 </StackPanel>
             </Grid>
             <!-- AddTrustCenter -->
