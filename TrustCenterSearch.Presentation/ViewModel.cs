@@ -144,12 +144,14 @@ namespace TrustCenterSearch.Presentation
 
         private void DeleteTrustCenterFromHistoryCommandExecute(TrustCenterMetaInfo trustCenterToDelete)
         {
+            this.UserInputIsEnabled = false;
             this.Core.DeleteTrustCenter(trustCenterToDelete);
 
             this.TrustCenterHistoryActive.Remove(trustCenterToDelete);
             this.TrustCenterHistoryInactive.Remove(trustCenterToDelete);
 
             this.CertificatesCollectionView.Refresh();
+            this.UserInputIsEnabled = true;
         }
 
         private void GetTrustCenterHistory()
