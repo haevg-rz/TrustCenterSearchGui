@@ -49,13 +49,14 @@
 
         <!-- Search results -->
         <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
-                BorderThickness="1">
+                BorderThickness="1" Width="Auto">
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="145" Width="830" HorizontalAlignment="Left">
-                            <Border Margin="5,5,5,5" BorderBrush="Transparent" BorderThickness="1" CornerRadius="3" Background="#f7fdff">
-                                <WrapPanel Margin="0,0,0,0">
+                        <Border Height="145" Width="Auto" HorizontalAlignment="Left">
+                            <Border Margin="5" BorderBrush="Transparent" BorderThickness="1" CornerRadius="3"
+                                    Background="#f7fdff">
+                                <WrapPanel>
                                     <StackPanel>
                                         <WrapPanel>
                                             <Label Width="100" Content="Subject:" Foreground="Gray" FontSize="16" />
@@ -199,11 +200,13 @@
                                                     Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
                                                     CornerRadius="3" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2" CommandParameter="{Binding}"
+                                                    <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2"
+                                                            CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
                                                             Height="13" Width="13" BorderThickness="0">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/remove.png" Stretch="Uniform"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/remove.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
                                                     <TextBlock Width="165" VerticalAlignment="Center"
@@ -247,7 +250,7 @@
                                         <DataTemplate>
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="LightBlue" BorderThickness="0.8"
-                                                    CornerRadius="3" Background="#f7f8fa"> 
+                                                    CornerRadius="3" Background="#f7f8fa">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Style="{DynamicResource AddIconStyle}" Margin="2,4,8,2"
                                                             CommandParameter="{Binding}"
