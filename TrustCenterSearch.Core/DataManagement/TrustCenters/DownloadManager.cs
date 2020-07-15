@@ -9,11 +9,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
     public class DownloadManager
     {
-        #region Properties
-
-        private string TrustCenterUrl { get; } = "https://trustcenter-data.itsg.de/";
-
-        #endregion
 
         #region InternalMethods
 
@@ -42,9 +37,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         internal bool IsUrlExisting(string url)
         {
             if (url == string.Empty)
-                return false;
-
-            if (!url.Contains(this.TrustCenterUrl))
                 return false;
 
             try

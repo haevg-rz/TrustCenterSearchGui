@@ -14,19 +14,15 @@ namespace TrustCenterSearch.Core
     public class Core
     {
         #region Properties
-        internal TrustCenterManager TrustCenterManager { get; set; }
-        internal ConfigManager ConfigManager { get; set; }
+        internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
+        internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
-        internal List<Certificate> Certificates { get; set; }
+        internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
         #endregion
 
         #region Constructor
         public Core()
         {
-            Certificates = new List<Certificate>();
-            this.ConfigManager = new ConfigManager();
-            this.TrustCenterManager = new TrustCenterManager();
-
             this.Config = this.ConfigManager.LoadConfig();
         }
         #endregion
