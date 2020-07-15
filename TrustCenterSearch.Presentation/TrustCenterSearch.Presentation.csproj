@@ -10,7 +10,8 @@
     <None Remove="Resources\Images\add.png" />
     <None Remove="Resources\Images\binBlack.png" />
     <None Remove="Resources\Images\binRed.png" />
-    <None Remove="Resources\Images\info.png" />
+    <None Remove="Resources\Images\infoIcon.png" />
+    <None Remove="Resources\Images\infoIconMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
   </ItemGroup>
 
@@ -33,7 +34,10 @@
     <Resource Include="Resources\Images\binRed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Images\info.png">
+    <Resource Include="Resources\Images\infoIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\infoIconMouseOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\remove.png">
