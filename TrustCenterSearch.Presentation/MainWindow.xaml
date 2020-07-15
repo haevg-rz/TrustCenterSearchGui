@@ -199,12 +199,12 @@
                                                     Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
                                                     CornerRadius="8" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Margin="0,2,8,2" CommandParameter="{Binding}"
+                                                    <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2" CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
-                                                            Height="20" Width="20" BorderThickness="0"
-                                                            Background="Transparent">
-                                                        <Image Height="10" Width="10"
-                                                               Source="/Resources/Images/remove.png" />
+                                                            Height="13" Width="13" BorderThickness="0">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="/Resources/Images/remove.png" Stretch="Uniform"></ImageBrush>
+                                                        </Button.Background>
                                                     </Button>
                                                     <TextBlock Width="165" VerticalAlignment="Center"
                                                                Text="{Binding Name}" />
@@ -249,12 +249,13 @@
                                                     Margin="4,2,0,2" BorderBrush="DimGray" BorderThickness="0.8"
                                                     CornerRadius="8" Background="White">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Style="{DynamicResource AddIconStyle}" Margin="0,2,8,2"
+                                                    <Button Style="{DynamicResource AddIconStyle}" Margin="2,4,8,2"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}"
-                                                        Height="20" Width="20" BorderThickness="0">
+                                                            Height="13" Width="13" BorderThickness="0">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/add.png" Stretch="Uniform" />
+                                                            <ImageBrush ImageSource="/Resources/Images/add.png"
+                                                                        Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
                                                     <TextBlock Width="165" VerticalAlignment="Center"
