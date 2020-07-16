@@ -54,7 +54,7 @@
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="145" Margin="10" HorizontalAlignment="Stretch" >
+                        <Border Height="145" Margin="10" HorizontalAlignment="Left" Width="830">
                             <WrapPanel>
                                 <StackPanel>
                                     <WrapPanel>
