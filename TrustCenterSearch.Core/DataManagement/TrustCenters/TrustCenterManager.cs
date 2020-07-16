@@ -28,14 +28,14 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         #region InternalMethods
 
-        internal async Task DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo)
+        internal async Task DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
-        internal async Task<List<Certificate>> ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo)
+        internal async Task<List<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            var importedCertificates = await ImportManager.ImportCertificates(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
+            var importedCertificates = await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
             return importedCertificates;
         }
 

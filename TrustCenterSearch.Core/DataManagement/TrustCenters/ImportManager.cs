@@ -12,11 +12,11 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
     internal class ImportManager
     {
         #region InternalMethods
-        internal async Task<List<Certificate>> ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        internal async Task<List<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             var certificates = new List<Certificate>();
 
-            var certificatesTxt = await ReadFile(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
+            var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
             var cer = from certificateTxt in certificatesTxt
                 select new X509Certificate2(Convert.FromBase64String(certificateTxt));
@@ -47,7 +47,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region PrivateMethods
-        private static async Task<string[]> ReadFile(TrustCenterMetaInfo trustCenter, string dataFolderPath)
+        private static async Task<string[]> ReadFileAsync(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;
             using (var stream = File.Open(dataFolderPath + trustCenter.Name + @".txt", FileMode.Open))

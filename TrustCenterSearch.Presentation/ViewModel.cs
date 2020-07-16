@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
@@ -94,8 +92,8 @@ namespace TrustCenterSearch.Presentation
         #region Constructor
         public ViewModel()
         {
-            this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
-            this.LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
+            this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterAsyncCommandExecute);
+            this.LoadDataCommand = new RelayCommand(this.LoadDataAsyncCommandExecute);
             this.AddTrustCenterToFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.AddTrustCenterToFilterCommandExecute);
             this.RemoveTrustCenterFromFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.RemoveTrustCenterFromFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterMetaInfo>(this.DeleteTrustCenterFromHistoryCommandExecute);
@@ -108,11 +106,11 @@ namespace TrustCenterSearch.Presentation
 
         #region Commandhandling
 
-        private async void LoadDataCommandExecute()
+        private async void LoadDataAsyncCommandExecute()
         {
             this.UserInputIsEnabled = false;
 
-            await this.Core.ImportAllCertificatesFromTrustCenters();
+            await this.Core.ImportAllCertificatesFromTrustCentersAsync();
 
             this.GetTrustCenterHistory();
 
@@ -123,12 +121,12 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private async void AddTrustCenterCommandExecute()
+        private async void AddTrustCenterAsyncCommandExecute()
         {
             this.UserInputIsEnabled = false;
             try
             {
-                await Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
+                await Core.AddTrustCenterAsync(this.AddTrustCenterName, this.AddTrustCenterUrl);
             }
             catch (ArgumentException e)
             {

@@ -28,9 +28,9 @@ namespace TrustCenterSearch.Core
         #endregion
 
         #region PublicMethods
-        public async Task ImportAllCertificatesFromTrustCenters()
+        public async Task ImportAllCertificatesFromTrustCentersAsync()
         {
-            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo)).ToList();
+            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
             await Task.WhenAll(importTasks);
 
             foreach (var importTask in importTasks)
@@ -39,7 +39,7 @@ namespace TrustCenterSearch.Core
             }
         }
 
-        public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
+        public async Task AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
                 return;
@@ -47,8 +47,8 @@ namespace TrustCenterSearch.Core
             var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl);
             this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
-            await this.TrustCenterManager.DownloadCertificates(newTrustCenterMetaInfo);
-            var importedCertificates =  await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo);
+            await this.TrustCenterManager.DownloadCertificatesAsync(newTrustCenterMetaInfo);
+            var importedCertificates =  await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
             Certificates.AddRange(importedCertificates);
         }
 
