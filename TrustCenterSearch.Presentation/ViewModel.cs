@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -207,34 +208,17 @@ namespace TrustCenterSearch.Presentation
             if (string.IsNullOrWhiteSpace(this.SearchBarInput))
                 return true;
 
-            var searchBarInputToLower = SearchBarInput.ToLower();
+            var certificateAttributes = new HashSet<string>
+            {
+                entry.Issuer.ToLower(),
+                entry.Subject.ToLower(),
+                entry.SerialNumber.ToLower(),
+                entry.NotBefore.ToLower(),
+                entry.NotAfter.ToLower(),
+                entry.Thumbprint.ToLower()
+            };
 
-            if (entry.Issuer.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.Subject.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.SerialNumber.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.NotBefore.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.NotAfter.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-            if (entry.Thumbprint.ToLower().Contains(searchBarInputToLower))
-            {
-                return true;
-            }
-
-            return false;
+            return certificateAttributes.Any(atr => atr.Contains(SearchBarInput.ToLower()));
         }
         #endregion
     }
