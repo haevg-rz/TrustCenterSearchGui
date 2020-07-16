@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
+        xmlns:models="clr-namespace:TrustCenterSearch.Core.Models;assembly=TrustCenterSearch.Core"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="Trust Center Search GUI" Height="550" Width="1100">
@@ -193,7 +194,7 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="{x:Type models:TrustCenterMetaInfo}">
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
                                                     CornerRadius="3" Background="#d9e9ff">
@@ -220,6 +221,7 @@
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="5,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
+                                                            CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/binBlack.png"

@@ -17,17 +17,11 @@ namespace TrustCenterSearch.Presentation
 
         #region fields
 
-        private string _searchBarInput = string.Empty;
-        private string _addTrustCenterName = string.Empty;
-        private string _addTrustCenterUrl = string.Empty;
-        private bool _userImputIsEnablet = true; 
-        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive = new ObservableCollection<TrustCenterMetaInfo>();
-        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive = new ObservableCollection<TrustCenterMetaInfo>();
-        private ICollectionView _certificatesCollectionView;
-
         #endregion
 
         #region Properties
+
+        private bool _userImputIsEnablet = true;
 
         public bool UserInputIsEnabled
         {
@@ -37,22 +31,31 @@ namespace TrustCenterSearch.Presentation
 
         public Core.Core Core { get; set; }
 
+        private ICollectionView _certificatesCollectionView;
+
         public ICollectionView CertificatesCollectionView
         {
             get => this._certificatesCollectionView;
             set => base.Set(ref this._certificatesCollectionView, value);
         }
 
+        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive = new ObservableCollection<TrustCenterMetaInfo>();
+
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryActive
         {
             get => this._trustCenterHistoryActive;
             set => base.Set(ref this._trustCenterHistoryActive, value);
         }
+
+        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive = new ObservableCollection<TrustCenterMetaInfo>();
+
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryInactive
         {
             get => this._trustCenterHistoryInactive;
             set => base.Set(ref this._trustCenterHistoryInactive, value);
         }
+
+        private string _searchBarInput = string.Empty;
 
         public string SearchBarInput
         {
@@ -63,11 +66,17 @@ namespace TrustCenterSearch.Presentation
                 this.CertificatesCollectionView.Refresh();
             }
         }
+
+        private string _addTrustCenterName = string.Empty;
+
         public string AddTrustCenterName
         {
             get => this._addTrustCenterName;
             set => base.Set(ref this._addTrustCenterName, value);
         }
+
+        private string _addTrustCenterUrl = string.Empty;
+
         public string AddTrustCenterUrl
         {
             get => this._addTrustCenterUrl;
@@ -187,7 +196,12 @@ namespace TrustCenterSearch.Presentation
             if (!(obj is Certificate entry))
                 return false;
 
-            if (!this.TrustCenterHistoryActive.Any(x => x.Name.Equals(entry.TrustCenterName)))
+            bool IsEnabled(Certificate certificate)
+            {
+                return this.TrustCenterHistoryActive.Any(x => x.Name.Equals(certificate.TrustCenterName));
+            }
+
+            if (!IsEnabled(entry)) 
                 return false;
 
             if (string.IsNullOrWhiteSpace(this.SearchBarInput))

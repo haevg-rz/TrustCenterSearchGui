@@ -9,11 +9,11 @@ namespace TrustCenterSearch.Presentation.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string color;
             var textBox = parameter as TextBox;
             var textBoxText = textBox.Text.ToLower();
             var text = value.ToString().ToLower();
-            if ((textBoxText != String.Empty) && (text.Contains(textBoxText)))
+            string color;
+            if (textBoxText != String.Empty && text.Contains(textBoxText))
             {
                 color = "Red";
             }
