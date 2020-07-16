@@ -21,11 +21,9 @@ namespace TrustCenterSearch.Presentation
         private string _addTrustCenterUrl = string.Empty;
         private bool _userImputIsEnablet = true;
 
-        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive =
-            new ObservableCollection<TrustCenterMetaInfo>();
+        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive = new ObservableCollection<TrustCenterMetaInfo>();
 
-        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive =
-            new ObservableCollection<TrustCenterMetaInfo>();
+        private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive = new ObservableCollection<TrustCenterMetaInfo>();
 
         private ICollectionView _certificatesCollectionView;
 
@@ -35,50 +33,50 @@ namespace TrustCenterSearch.Presentation
 
         public bool UserInputIsEnabled
         {
-            get => _userImputIsEnablet;
-            set => Set(ref _userImputIsEnablet, value);
+            get => this._userImputIsEnablet;
+            set => Set(ref this._userImputIsEnablet, value);
         }
 
         public Core.Core Core { get; set; }
 
         public ICollectionView CertificatesCollectionView
         {
-            get => _certificatesCollectionView;
-            set => Set(ref _certificatesCollectionView, value);
+            get => this._certificatesCollectionView;
+            set => Set(ref this._certificatesCollectionView, value);
         }
 
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryActive
         {
-            get => _trustCenterHistoryActive;
-            set => Set(ref _trustCenterHistoryActive, value);
+            get => this._trustCenterHistoryActive;
+            set => Set(ref this._trustCenterHistoryActive, value);
         }
 
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryInactive
         {
-            get => _trustCenterHistoryInactive;
-            set => Set(ref _trustCenterHistoryInactive, value);
+            get => this._trustCenterHistoryInactive;
+            set => Set(ref this._trustCenterHistoryInactive, value);
         }
 
         public string SearchBarInput
         {
-            get => _searchBarInput;
+            get => this._searchBarInput;
             set
             {
-                Set(ref _searchBarInput, value);
+                Set(ref this._searchBarInput, value);
                 CertificatesCollectionView.Refresh();
             }
         }
 
         public string AddTrustCenterName
         {
-            get => _addTrustCenterName;
-            set => Set(ref _addTrustCenterName, value);
+            get => this._addTrustCenterName;
+            set => Set(ref this._addTrustCenterName, value);
         }
 
         public string AddTrustCenterUrl
         {
-            get => _addTrustCenterUrl;
-            set => Set(ref _addTrustCenterUrl, value);
+            get => this._addTrustCenterUrl;
+            set => Set(ref this._addTrustCenterUrl, value);
         }
 
         #endregion
@@ -99,15 +97,13 @@ namespace TrustCenterSearch.Presentation
 
         public ViewModel()
         {
-            AddTrustCenterButtonCommand = new RelayCommand(AddTrustCenterCommandExecute);
-            LoadDataCommand = new RelayCommand(LoadDataCommandExecute);
-            AddTrustCenterToFilterCommand = new RelayCommand<TrustCenterMetaInfo>(AddTrustCenterToFilterCommandExecute);
-            RemoveTrustCenterFromFilterCommand =
-                new RelayCommand<TrustCenterMetaInfo>(RemoveTrustCenterFromFilterCommandExecute);
-            DeleteTrustCenterFromHistoryCommand =
-                new RelayCommand<TrustCenterMetaInfo>(DeleteTrustCenterFromHistoryCommandExecute);
+            AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
+            LoadDataCommand = new RelayCommand(this.LoadDataCommandExecute);
+            AddTrustCenterToFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.AddTrustCenterToFilterCommandExecute);
+            RemoveTrustCenterFromFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.RemoveTrustCenterFromFilterCommandExecute);
+            DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterMetaInfo>(this.DeleteTrustCenterFromHistoryCommandExecute);
             InfoAboutTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(InfoAboutTrustCenterCommandExecute);
-            RefreshTrustCenterCertificates = new RelayCommand<TrustCenterMetaInfo>(DownloadTrustCenterCertificatesExecute);
+            RefreshTrustCenterCertificates = new RelayCommand<TrustCenterMetaInfo>(this.DownloadTrustCenterCertificatesExecute);
 
             Core = new Core.Core();
         }
@@ -116,41 +112,42 @@ namespace TrustCenterSearch.Presentation
         {
             this.UserInputIsEnabled = false;
 
-            var newTrustCenterMetaInfo = await Core.RefreshTrustCenterCertificates(trustCenterMetaInfo);
+            var newTrustCenterMetaInfo = await this.Core.RefreshTrustCenterCertificates(trustCenterMetaInfo);
             this.RefreshTrustCenterHistoryElement(trustCenterMetaInfo, newTrustCenterMetaInfo);
-            
+
             this.UserInputIsEnabled = true;
         }
 
-        private void RefreshTrustCenterHistoryElement(TrustCenterMetaInfo trustCenterMetaInfoShouldDelete, TrustCenterMetaInfo newTrustCenterMetaInfo)
+        private void RefreshTrustCenterHistoryElement(TrustCenterMetaInfo trustCenterMetaInfoShouldDelete,
+            TrustCenterMetaInfo newTrustCenterMetaInfo)
         {
             if (TrustCenterHistoryActive.Any(tc => tc.Name.Equals(trustCenterMetaInfoShouldDelete.Name)))
             {
                 this.TrustCenterHistoryActive.Remove(trustCenterMetaInfoShouldDelete);
-            this.TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
-                CertificatesCollectionView.Refresh();
+                this.TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
+                this.CertificatesCollectionView.Refresh();
                 return;
             }
 
             this.TrustCenterHistoryInactive.Remove(trustCenterMetaInfoShouldDelete);
             this.TrustCenterHistoryInactive.Add(newTrustCenterMetaInfo);
-            
-            CertificatesCollectionView.Refresh();
+
+            this.CertificatesCollectionView.Refresh();
         }
 
         private async Task Initialize()
         {
-            UserInputIsEnabled = false;
+            this.UserInputIsEnabled = false;
 
             await Core.ImportAllCertificatesFromTrustCenters();
 
-            GetTrustCenterHistory();
+            this.GetTrustCenterHistory();
 
-            var defaultView = CollectionViewSource.GetDefaultView(Core.GetCertificates());
+            var defaultView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
             defaultView.Filter = Filter;
-            CertificatesCollectionView = defaultView;
+            this.CertificatesCollectionView = defaultView;
 
-            UserInputIsEnabled = true;
+            this.UserInputIsEnabled = true;
         }
 
         private async void LoadDataCommandExecute()
@@ -164,42 +161,42 @@ namespace TrustCenterSearch.Presentation
 
         private async void AddTrustCenterCommandExecute()
         {
-            UserInputIsEnabled = false;
+            this.UserInputIsEnabled = false;
             TrustCenterMetaInfo newTrustCenterMetaInfo;
             try
             {
-                newTrustCenterMetaInfo = await Core.AddTrustCenter(AddTrustCenterName, AddTrustCenterUrl);
+                newTrustCenterMetaInfo = await this.Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
             }
             catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-                UserInputIsEnabled = true;
+                this.UserInputIsEnabled = true;
                 return;
             }
 
-            TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
-            AddTrustCenterName = string.Empty;
-            AddTrustCenterUrl = string.Empty;
-            CertificatesCollectionView.Refresh();
-            UserInputIsEnabled = true;
+            this.TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
+            this.AddTrustCenterName = string.Empty;
+            this.AddTrustCenterUrl = string.Empty;
+            this.CertificatesCollectionView.Refresh();
+            this.UserInputIsEnabled = true;
         }
 
         private void DeleteTrustCenterFromHistoryCommandExecute(TrustCenterMetaInfo trustCenterToDelete)
         {
-            UserInputIsEnabled = false;
-            Core.DeleteTrustCenter(trustCenterToDelete);
+            this.UserInputIsEnabled = false;
+            this.Core.DeleteTrustCenter(trustCenterToDelete);
 
-            TrustCenterHistoryActive.Remove(trustCenterToDelete);
-            TrustCenterHistoryInactive.Remove(trustCenterToDelete);
+            this.TrustCenterHistoryActive.Remove(trustCenterToDelete);
+            this.TrustCenterHistoryInactive.Remove(trustCenterToDelete);
 
-            CertificatesCollectionView.Refresh();
-            UserInputIsEnabled = true;
+            this.CertificatesCollectionView.Refresh();
+            this.UserInputIsEnabled = true;
         }
 
         private void GetTrustCenterHistory()
         {
-            foreach (var trustCenterHistoryName in Core.GetTrustCenterHistory())
-                TrustCenterHistoryActive.Add(trustCenterHistoryName);
+            foreach (var trustCenterHistoryName in this.Core.GetTrustCenterHistory())
+                this.TrustCenterHistoryActive.Add(trustCenterHistoryName);
         }
 
         #endregion
@@ -215,16 +212,16 @@ namespace TrustCenterSearch.Presentation
 
         private void AddTrustCenterToFilterCommandExecute(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            TrustCenterHistoryInactive.Remove(trustCenterMetaInfo);
-            TrustCenterHistoryActive.Add(trustCenterMetaInfo);
-            CertificatesCollectionView.Refresh();
+            this.TrustCenterHistoryInactive.Remove(trustCenterMetaInfo);
+            this.TrustCenterHistoryActive.Add(trustCenterMetaInfo);
+            this.CertificatesCollectionView.Refresh();
         }
 
         private void RemoveTrustCenterFromFilterCommandExecute(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            TrustCenterHistoryActive.Remove(trustCenterMetaInfo);
-            TrustCenterHistoryInactive.Add(trustCenterMetaInfo);
-            CertificatesCollectionView.Refresh();
+            this.TrustCenterHistoryActive.Remove(trustCenterMetaInfo);
+            this.TrustCenterHistoryInactive.Add(trustCenterMetaInfo);
+            this.CertificatesCollectionView.Refresh();
         }
 
         private bool Filter(object obj)
@@ -232,7 +229,7 @@ namespace TrustCenterSearch.Presentation
             if (!(obj is Certificate entry))
                 return false;
 
-            if (!TrustCenterHistoryActive.Any(x => x.Name.Equals(entry.TrustCenterName)))
+            if (!this.TrustCenterHistoryActive.Any(x => x.Name.Equals(entry.TrustCenterName)))
                 return false;
 
             if (string.IsNullOrWhiteSpace(SearchBarInput))
