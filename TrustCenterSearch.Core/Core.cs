@@ -65,9 +65,9 @@ namespace TrustCenterSearch.Core
             return this.Config.TrustCenterMetaInfos;
         }
 
-        public IEnumerable<Certificate> GetCertificates()
+        public List<Certificate> GetCertificates()
         {
-            return this.Certificates;
+            return this.Certificates.ToList();
         }
 
         #endregion
