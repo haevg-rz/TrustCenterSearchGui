@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
@@ -25,7 +24,7 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
         internal Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
-                return new Models.Config();
+                return new Config();
 
             var jsonString = File.ReadAllText(ConfigPath);
             var config = JsonConvert.DeserializeObject<Config>(jsonString);
