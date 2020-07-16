@@ -7,7 +7,7 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    public class DownloadManager
+    internal class DownloadManager
     {
 
         #region InternalMethods
