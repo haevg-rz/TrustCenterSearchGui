@@ -55,7 +55,7 @@ namespace TrustCenterSearch.Presentation
             set => base.Set(ref this._trustCenterHistoryInactive, value);
         }
 
-        private string _searchBarInput = string.Empty;
+        private string _searchBarInput = String.Empty;
 
         public string SearchBarInput
         {
@@ -67,7 +67,7 @@ namespace TrustCenterSearch.Presentation
             }
         }
 
-        private string _addTrustCenterName = string.Empty;
+        private string _addTrustCenterName = String.Empty;
 
         public string AddTrustCenterName
         {
@@ -75,7 +75,7 @@ namespace TrustCenterSearch.Presentation
             set => base.Set(ref this._addTrustCenterName, value);
         }
 
-        private string _addTrustCenterUrl = string.Empty;
+        private string _addTrustCenterUrl = String.Empty;
 
         public string AddTrustCenterUrl
         {
@@ -145,8 +145,8 @@ namespace TrustCenterSearch.Presentation
             }
 
             this.TrustCenterHistoryActive.Add(new TrustCenterMetaInfo(this.AddTrustCenterName, this.AddTrustCenterUrl));
-            this.AddTrustCenterName = string.Empty;
-            this.AddTrustCenterUrl = string.Empty;
+            this.AddTrustCenterName = String.Empty;
+            this.AddTrustCenterUrl = String.Empty;
             CertificatesCollectionView.Refresh();
             this.UserInputIsEnabled = true;
         }

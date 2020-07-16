@@ -36,7 +36,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         internal bool IsUrlExisting(string url)
         {
-            if (url == string.Empty)
+            if (url == String.Empty)
                 return false;
 
             try

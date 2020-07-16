@@ -78,7 +78,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName.Length > 29)
                 throw new ArgumentException("The entered name is too long.");
 
-            if (newTrustCenterName == string.Empty)
+            if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
             if (!this.TrustCenterManager.DownloadManager.IsUrlExisting(newTrustCenterUrl))
