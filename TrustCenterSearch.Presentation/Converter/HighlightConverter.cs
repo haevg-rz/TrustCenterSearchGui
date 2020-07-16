@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace TrustCenterSearch.Presentation.Converter
 {
-    class HighlightConverter : IValueConverter
+    internal class HighlightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
