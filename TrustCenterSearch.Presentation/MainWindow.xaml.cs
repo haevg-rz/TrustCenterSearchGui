@@ -12,22 +12,6 @@ namespace TrustCenterSearch.Presentation
         public MainWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void Collapse_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
-
-        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
 
         private void CollapseSidebar(object sender, RoutedEventArgs e)

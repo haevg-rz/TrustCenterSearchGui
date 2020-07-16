@@ -38,7 +38,7 @@
 
         <WrapPanel Grid.Column="1" Grid.Row="0">
             <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton" />
-            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="830" Height="auto" IsEnabled="{Binding UserInputIsEnabled}">
+            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="900" Height="auto" IsEnabled="{Binding UserInputIsEnabled}">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
@@ -54,55 +54,52 @@
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Height="145" Width="830" HorizontalAlignment="Left">
-                            <Border Margin="5" BorderBrush="Transparent" BorderThickness="1" CornerRadius="3"
-                                    Background="#f7fdff">
-                                <WrapPanel>
-                                    <StackPanel>
-                                        <WrapPanel>
-                                            <Label Width="100" Content="Subject:" Foreground="Gray" FontSize="16" />
-                                            <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding Subject}" Width="700"
+                        <Border Height="145" Margin="10" HorizontalAlignment="Stretch" >
+                            <WrapPanel>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Width="auto" Content="Subject:" Foreground="Gray" FontSize="16" />
+                                        <TextBox Style="{StaticResource SearchResultTextBox}"
+                                                     Text="{Binding Subject}" Width="auto"
                                                      Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        </WrapPanel>
-                                        <WrapPanel>
-                                            <Label Width="100" Content="Issuer:" Foreground="Gray" FontSize="16" />
-                                            <TextBox Style="{StaticResource SearchResultTextBox}"
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Width="auto" Content="Issuer:" Foreground="Gray" FontSize="16" />
+                                        <TextBox Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding Issuer}"
                                                      Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        </WrapPanel>
-                                        <WrapPanel Margin="0,0,0,0">
-                                            <Label Width="100" Content="Not After:" Foreground="Gray" FontSize="16" />
-                                            <TextBox Style="{StaticResource SearchResultTextBox}"
+                                    </WrapPanel>
+                                    <WrapPanel Margin="0,0,0,0">
+                                        <Label Width="auto" Content="Not After:" Foreground="Gray" FontSize="16" />
+                                        <TextBox Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding NotAfter}"
                                                      Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                            <Label Content="Not Before:" Foreground="Gray" FontSize="16" />
-                                            <TextBox Style="{StaticResource SearchResultTextBox}"
+                                        <Label Content="Not Before:" Foreground="Gray" FontSize="16" />
+                                        <TextBox Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding NotBefore}"
                                                      Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                            <Label Content="Serialnumber:" Foreground="Gray" FontSize="16"
+                                        <Label Content="Serialnumber:" Foreground="Gray" FontSize="16"
                                                    Margin="20,0,0,0" />
-                                            <TextBox Style="{StaticResource SearchResultTextBox}"
+                                        <TextBox Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding SerialNumber}"
                                                      Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        </WrapPanel>
-                                        <WrapPanel Width="830">
-                                            <WrapPanel Width="645">
-                                                <Label HorizontalAlignment="Left" Width="100" Content="Thumbprint:"
+                                    </WrapPanel>
+                                    <WrapPanel Width="auto">
+                                        <WrapPanel Width="auto">
+                                            <Label HorizontalAlignment="Left" Width="auto" Content="Thumbprint:"
                                                        Foreground="Gray" FontSize="16" />
-                                                <TextBox HorizontalAlignment="Left" Width="545"
+                                            <TextBox HorizontalAlignment="Left" Width="auto"
                                                          Style="{StaticResource SearchResultTextBox}"
                                                          Text="{Binding Thumbprint}"
                                                          Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                            </WrapPanel>
-                                            <WrapPanel Width="160" FlowDirection="RightToLeft">
-                                                <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
-                                                       Foreground="#a5c5f0" FontSize="12" />
-                                            </WrapPanel>
                                         </WrapPanel>
-                                    </StackPanel>
-                                </WrapPanel>
-                            </Border>
+                                        <WrapPanel Width="auto" FlowDirection="RightToLeft">
+                                            <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
+                                                       Foreground="#a5c5f0" FontSize="12" />
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </WrapPanel>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -158,7 +155,7 @@
 
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="Name" Margin="10,0,0,0" />
-                        <TextBox Padding="3" Width="200" Height="auto" TextChanged="TextBox_TextChanged"
+                        <TextBox Padding="3" Width="200" Height="auto"
                                  Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserInputIsEnabled}"/>
                     </WrapPanel>
                     <WrapPanel Margin="5">
