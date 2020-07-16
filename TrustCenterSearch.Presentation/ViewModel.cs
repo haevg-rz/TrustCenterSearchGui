@@ -15,11 +15,6 @@ namespace TrustCenterSearch.Presentation
 {
     public class ViewModel : ViewModelBase
     {
-
-        #region fields
-
-        #endregion
-
         #region Properties
 
         private bool _userImputIsEnablet = true;
@@ -96,7 +91,7 @@ namespace TrustCenterSearch.Presentation
 
         #endregion
 
-        #region Initialization
+        #region Constructor
         public ViewModel()
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterCommandExecute);
@@ -109,7 +104,11 @@ namespace TrustCenterSearch.Presentation
             this.Core = new Core.Core();
         }
 
-        private async Task Initialize()
+        #endregion
+
+        #region Commandhandling
+
+        private async void LoadDataCommandExecute()
         {
             this.UserInputIsEnabled = false;
 
@@ -124,13 +123,6 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private async void LoadDataCommandExecute()
-        {
-            await this.Initialize();
-        }
-        #endregion
-
-        #region Core accessing methods
         private async void AddTrustCenterCommandExecute()
         {
             this.UserInputIsEnabled = false;
@@ -164,15 +156,6 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private void GetTrustCenterHistory()
-        {
-            foreach (var trustCenterHistoryName in Core.GetTrustCenterHistory())
-                TrustCenterHistoryActive.Add(trustCenterHistoryName);
-        }
-
-        #endregion
-
-        #region UI-only methods
         private static void InfoAboutTrustCenterCommandExecute(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             MessageBox.Show(trustCenterMetaInfo.Name + "\n" + trustCenterMetaInfo.TrustCenterUrl, "Information about TrustCenter", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -192,6 +175,16 @@ namespace TrustCenterSearch.Presentation
             this.CertificatesCollectionView.Refresh();
         }
 
+        #endregion
+
+        #region Methods
+
+        private void GetTrustCenterHistory()
+        {
+            foreach (var trustCenterHistoryName in Core.GetTrustCenterHistory())
+                TrustCenterHistoryActive.Add(trustCenterHistoryName);
+        }
+
         private bool Filter(object obj)
         {
             if (!(obj is Certificate entry))
@@ -202,7 +195,7 @@ namespace TrustCenterSearch.Presentation
                 return this.TrustCenterHistoryActive.Any(x => x.Name.Equals(certificate.TrustCenterName));
             }
 
-            if (!IsEnabled(entry)) 
+            if (!IsEnabled(entry))
                 return false;
 
             if (string.IsNullOrWhiteSpace(this.SearchBarInput))
