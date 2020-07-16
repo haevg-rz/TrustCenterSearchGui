@@ -55,7 +55,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 await stream.ReadAsync(result, 0, (int)stream.Length);
             }
 
-            return System.Text.Encoding.ASCII.GetString(result).
+            return System.Text.Encoding.UTF8.GetString(result).
                 Split(new[] { Environment.NewLine + Environment.NewLine },
                     StringSplitOptions.RemoveEmptyEntries);
         }
