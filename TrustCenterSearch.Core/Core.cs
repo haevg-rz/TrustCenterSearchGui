@@ -39,17 +39,19 @@ namespace TrustCenterSearch.Core
             }
         }
 
-        public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
+        public async Task<TrustCenterMetaInfo> AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
-                return;
+                return null;
 
-            var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl);
+            var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl, DateTime.Now);
             this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
             await this.TrustCenterManager.DownloadCertificates(newTrustCenterMetaInfo);
             var importedCertificates =  await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo);
             Certificates.AddRange(importedCertificates);
+
+            return newTrustCenterMetaInfo;
         }
 
         public void DeleteTrustCenter(TrustCenterMetaInfo trustCenterMetaInfo)
@@ -58,6 +60,12 @@ namespace TrustCenterSearch.Core
             this.ConfigManager.SaveConfig(this.Config);
             this.TrustCenterManager.DeleteTrustCenterFile(trustCenterMetaInfo.Name);
             this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, trustCenterMetaInfo.Name);
+        }
+
+        public async Task<TrustCenterMetaInfo> RefreshTrustCenterCertificates(TrustCenterMetaInfo trustCenterMetaInfo)
+        {
+            this.DeleteTrustCenter(trustCenterMetaInfo);
+            return await this.AddTrustCenter(trustCenterMetaInfo.Name, trustCenterMetaInfo.TrustCenterUrl);
         }
 
         public List<TrustCenterMetaInfo> GetTrustCenterHistory()
