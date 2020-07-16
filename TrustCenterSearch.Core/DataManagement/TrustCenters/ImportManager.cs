@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -25,8 +26,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 Subject = c.Subject,
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter,
-                NotBefore = c.NotBefore,
+                NotAfter = c.NotAfter.ToString(CultureInfo.CurrentCulture),
+                NotBefore = c.NotBefore.ToString(CultureInfo.CurrentCulture),
                 Thumbprint = c.Thumbprint,
                 TrustCenterName = trustCenterMetaInfo.Name
             }));

@@ -221,11 +221,11 @@ namespace TrustCenterSearch.Presentation
             {
                 return true;
             }
-            if (entry.NotBefore.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            if (entry.NotBefore.ToLower().Contains(searchBarInputToLower))
             {
                 return true;
             }
-            if (entry.NotAfter.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            if (entry.NotAfter.ToLower().Contains(searchBarInputToLower))
             {
                 return true;
             }
