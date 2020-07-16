@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
@@ -33,7 +34,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
-        internal async Task<List<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             var importedCertificates = await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
             return importedCertificates;
@@ -44,9 +45,9 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
         }
 
-        internal void DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName)
+        internal void DeleteCertificatesOfTrustCenter(IEnumerable<Certificate> certificates, string trustCenterName)
         {
-            certificates.RemoveAll(c => c.TrustCenterName.Equals(trustCenterName));
+            certificates = certificates.Where(c => c.TrustCenterName.Equals(trustCenterName));
         }
 
         #endregion
