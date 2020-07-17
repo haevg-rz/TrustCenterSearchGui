@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.Models;
 
@@ -19,7 +20,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567"), config);
+            core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567", DateTime.Now), config);
 
             #endregion
 
@@ -27,7 +28,7 @@ namespace TrustCenterSearchCore.Test
             #region Assert
 
             var result = new Config();
-            result.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test123", "test567"));
+            result.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test123", "test567", DateTime.Now));
 
             object.Equals(result, config);
 
@@ -67,7 +68,7 @@ namespace TrustCenterSearchCore.Test
             #region Arrange
 
             var config = new Config();
-            config.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test", "test"));
+            config.TrustCenterMetaInfos.Add(new TrustCenterMetaInfo("test", "test", DateTime.Now));
 
             var core = new Core();
 

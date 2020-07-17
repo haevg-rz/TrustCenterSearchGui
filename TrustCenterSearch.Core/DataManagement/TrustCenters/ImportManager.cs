@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -11,22 +12,22 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
     internal class ImportManager
     {
         #region InternalMethods
-        internal async Task<List<Certificate>> ImportCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            var certificates = new List<Certificate>();
+            var certificates = new HashSet<Certificate>();
 
-            var certificatesTxt = await ReadFile(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
+            var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
             var cer = from certificateTxt in certificatesTxt
                 select new X509Certificate2(Convert.FromBase64String(certificateTxt));
 
-            certificates.AddRange(cer.Select(c => new Certificate()
+            certificates.UnionWith(cer.Select(c => new Certificate()
             {
                 Subject = c.Subject,
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter,
-                NotBefore = c.NotBefore,
+                NotAfter = c.NotAfter.ToString(CultureInfo.CurrentCulture),
+                NotBefore = c.NotBefore.ToString(CultureInfo.CurrentCulture),
                 Thumbprint = c.Thumbprint,
                 PublicKeyLength = c.PublicKey.ToString().Length,
                 TrustCenterName = trustCenterMetaInfo.Name
@@ -47,7 +48,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region PrivateMethods
-        private static async Task<string[]> ReadFile(TrustCenterMetaInfo trustCenter, string dataFolderPath)
+        private static async Task<string[]> ReadFileAsync(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;
             using (var stream = File.Open(dataFolderPath + trustCenter.Name + @".txt", FileMode.Open))

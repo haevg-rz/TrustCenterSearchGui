@@ -17,7 +17,7 @@ namespace TrustCenterSearch.Core
         internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
         internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
-        internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
+        internal IEnumerable<Certificate> Certificates { get; set; } = new HashSet<Certificate>();
         #endregion
 
         #region Constructor
@@ -28,28 +28,30 @@ namespace TrustCenterSearch.Core
         #endregion
 
         #region PublicMethods
-        public async Task ImportAllCertificatesFromTrustCenters()
+        public async Task ImportAllCertificatesFromTrustCentersAsync()
         {
-            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo)).ToList();
+            var importTasks = this.Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
             await Task.WhenAll(importTasks);
 
             foreach (var importTask in importTasks)
             {
-                Certificates.AddRange(importTask.Result);
+                this.Certificates = this.Certificates.Union(importTask.Result);
             }
         }
 
-        public async Task AddTrustCenter(string newTrustCenterName, string newTrustCenterUrl)
+        public async Task<TrustCenterMetaInfo> AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
-                return;
+                return null;
 
-            var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl);
+            var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl, DateTime.Now);
             this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
-            await this.TrustCenterManager.DownloadCertificates(newTrustCenterMetaInfo);
-            var importedCertificates =  await this.TrustCenterManager.ImportCertificates(newTrustCenterMetaInfo);
-            Certificates.AddRange(importedCertificates);
+            await this.TrustCenterManager.DownloadCertificatesAsync(newTrustCenterMetaInfo);
+            var importedCertificates =  await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
+            this.Certificates = this.Certificates.Union(importedCertificates);
+
+            return newTrustCenterMetaInfo;
         }
 
         public void DeleteTrustCenter(TrustCenterMetaInfo trustCenterMetaInfo)
@@ -60,6 +62,12 @@ namespace TrustCenterSearch.Core
             this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, trustCenterMetaInfo.Name);
         }
 
+        public async Task<TrustCenterMetaInfo> ReloadCertificatesOfTrustCenter(TrustCenterMetaInfo trustCenterMetaInfo)
+        {
+            this.DeleteTrustCenter(trustCenterMetaInfo);
+            return await this.AddTrustCenterAsync(trustCenterMetaInfo.Name, trustCenterMetaInfo.TrustCenterUrl);
+        }
+
         public List<TrustCenterMetaInfo> GetTrustCenterHistory()
         {
             return this.Config.TrustCenterMetaInfos;
@@ -67,7 +75,7 @@ namespace TrustCenterSearch.Core
 
         public List<Certificate> GetCertificates()
         {
-            return this.Certificates;
+            return this.Certificates.ToList();
         }
 
         #endregion
@@ -78,7 +86,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName.Length > 29)
                 throw new ArgumentException("The entered name is too long.");
 
-            if (newTrustCenterName == string.Empty)
+            if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
             if (!this.TrustCenterManager.DownloadManager.IsUrlExisting(newTrustCenterUrl))

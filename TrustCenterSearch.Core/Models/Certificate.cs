@@ -7,8 +7,8 @@ namespace TrustCenterSearch.Core.Models
         public string Subject { get; set; }
         public string Issuer { get; set; }
         public string SerialNumber { get; set; }
-        public DateTime NotBefore { get; set; }
-        public DateTime NotAfter { get; set; }
+        public string NotBefore { get; set; }
+        public string NotAfter { get; set; }
         public string Thumbprint { get; set; }
         public string TrustCenterName { get; set; }
         public int PublicKeyLength { get; set; }

@@ -2,27 +2,27 @@
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace TrustCenterSearch.Presentation.Converter
 {
-    class HighlightConverter : IValueConverter
+    internal class HighlightConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string color;
-            var textBox = parameter as TextBox;
-            var textBoxText = textBox.Text.ToLower();
-            var text = value.ToString().ToLower();
-            if ((textBoxText != String.Empty) && (text.Contains(textBoxText)))
+            if (!(value is String filterInput))
+                return false;
+            if (!(parameter is TextBox textBox))
+                return false;
+
+            if (textBox.Text != String.Empty && filterInput.ToLower().Contains(textBox.Text.ToLower()))
             {
-                color = "Red";
+                return new SolidColorBrush(Colors.Red);
             }
             else
             {
-                color = "Black";
+                return new SolidColorBrush(Colors.Black);
             }
-
-            return color;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -13,6 +13,8 @@
     <None Remove="Resources\Images\binRed.png" />
     <None Remove="Resources\Images\infoIcon.png" />
     <None Remove="Resources\Images\infoIconMouseOver.png" />
+    <None Remove="Resources\Images\loadIcon.png" />
+    <None Remove="Resources\Images\loadIconWhenMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
     <None Remove="Resources\Images\removeMouseOver.png" />
   </ItemGroup>
@@ -43,6 +45,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\infoIconMouseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\loadIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\loadIconWhenMouseOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\remove.png">
