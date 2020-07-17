@@ -10,21 +10,13 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
     internal class TrustCenterManager
     {
         #region Properties
-        internal ImportManager ImportManager { get; set; }
-        internal DownloadManager DownloadManager { get; set; }
+        internal ImportManager ImportManager { get; set; } = new ImportManager();
+        internal DownloadManager DownloadManager { get; set; } = new DownloadManager();
 
         #endregion
 
         #region Fields
         private readonly string _dataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
-        #endregion
-
-        #region Constructor
-        internal TrustCenterManager()
-        {
-            this.DownloadManager = new DownloadManager();
-            this.ImportManager = new ImportManager();
-        }
         #endregion
 
         #region InternalMethods
