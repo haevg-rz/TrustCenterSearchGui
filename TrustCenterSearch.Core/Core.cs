@@ -17,7 +17,7 @@ namespace TrustCenterSearch.Core
         internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
         internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
-        internal IEnumerable<Certificate> Certificates { get; set; } = new HashSet<Certificate>();
+        internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
         #endregion
 
         #region Constructor
@@ -35,7 +35,7 @@ namespace TrustCenterSearch.Core
 
             foreach (var importTask in importTasks)
             {
-                this.Certificates = this.Certificates.Union(importTask.Result);
+                this.Certificates.AddRange(importTask.Result);
             }
         }
 
@@ -49,7 +49,7 @@ namespace TrustCenterSearch.Core
             this.ConfigManager.SaveConfig(this.Config);
             await this.TrustCenterManager.DownloadCertificatesAsync(newTrustCenterMetaInfo);
             var importedCertificates =  await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
-            this.Certificates = this.Certificates.Union(importedCertificates);
+            this.Certificates.AddRange(importedCertificates);
 
             return newTrustCenterMetaInfo;
         }

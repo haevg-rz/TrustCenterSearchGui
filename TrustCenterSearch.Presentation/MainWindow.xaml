@@ -92,22 +92,22 @@
                                         <WrapPanel Width="645">
                                             <Label HorizontalAlignment="Left" Width="100" Content="Thumbprint:"
                                                    Foreground="Gray" FontSize="16" />
-                                            <TextBox HorizontalAlignment="Left" Width="545"
+                                            <TextBox HorizontalAlignment="Left" Width="400"
                                                      Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding Thumbprint}"
                                                      Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        </WrapPanel>
-                                        <WrapPanel>
-                                            <Label HorizontalAlignment="Left" Width="auto" Content="Public Key length:"
+                                            <Label HorizontalAlignment="Left" Width="Auto" Content="Key length:"
                                                    Foreground="Gray" FontSize="16" />
-                                            <TextBox HorizontalAlignment="Left" Width="545"
+                                            <TextBox HorizontalAlignment="Left" Width="Auto"
                                                      Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding PublicKeyLength}"
                                                      Foreground="{Binding PublicKeyLength, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                        </WrapPanel>
+                                    </WrapPanel>
+                                    <WrapPanel FlowDirection="RightToLeft" Width="Auto">
                                             <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
                                                    Foreground="#a5c5f0" FontSize="12" />
                                         </WrapPanel>
-                                    </WrapPanel>
                                 </StackPanel>
                             </WrapPanel>
                         </Border>
