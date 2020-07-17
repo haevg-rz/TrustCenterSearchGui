@@ -14,22 +14,52 @@
     <!--Base Style-->
 
     <Style TargetType="Label" x:Key="TrustCenterName">
-        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
-        <Setter Property="Foreground" Value="#a5c5f0"></Setter>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Foreground" Value="#a5c5f0"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
 
     <Style TargetType="Label" x:Key="Thumbprint" BasedOn="{StaticResource SearchResultLabels}">
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Width" Value="100"></Setter>
-        <Setter Property="Content" Value="Thumbprint"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Content" Value="Thumbprint"/>
     </Style>
 
     <Style TargetType="Label" x:Key="PublicKeyLength" BasedOn="{StaticResource SearchResultLabels}">
-        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-        <Setter Property="Content" Value="Public Key length:"></Setter> 
-        <Setter Property="Width" Value="Auto"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Content" Value="Public Key length:"/> 
+        <Setter Property="Width" Value="Auto"/>
     </Style>
     <!--Search Results-->
+
+    <!--Add TrustCenter-->
+    <Style TargetType="Label" x:Key="TrustCenterSearchGui">
+        <Setter Property="Content" Value="Trust Center Search GUI"/>
+        <Setter Property="Foreground" Value="#2772db"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="10,5,0,10"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="NameLabel">
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Content" Value="Name"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+
+    <Style TargetType="Label" x:Key="UrlLabel">
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Content" Value="Url"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+    <!--Add TrustCenter-->
+
+    <!-- TrustCenterHistory -->
+    <Style TargetType="Label" x:Key="TrustCenterHistoryLabel">
+        <Setter Property="Content" Value="Trust Center"/>
+        <Setter Property="Foreground" Value="#2772db"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+    <!-- TrustCenterHistory -->
 
 </ResourceDictionary>

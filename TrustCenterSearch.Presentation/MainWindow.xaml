@@ -166,20 +166,20 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.ColumnSpan="2">
                     <WrapPanel>
-                        <Label Content="Trust Center Search GUI" Foreground="#2772db" FontSize="20" Margin="10,5,0,10" />
+                        <Label Style="{StaticResource TrustCenterSearchGui}" />
                         <Button Background="Transparent" HorizontalAlignment="Right" Margin="40,-20,5,0" Content="X"
                                 Click="CollapseSidebar" Width="20" Height="20"
                                 BorderBrush="Transparent" />
                     </WrapPanel>
 
                     <WrapPanel Margin="5">
-                        <Label Width="45" Content="Name" Margin="10,0,0,0" />
+                        <Label Style="{StaticResource NameLabel}" />
                         <TextBox Padding="3" Width="200" Height="auto"
                                  Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{Binding UserInputIsEnabled}" />
                     </WrapPanel>
                     <WrapPanel Margin="5">
-                        <Label Width="45" Content="URL" Margin="10,0,0,0" />
+                        <Label Style="{StaticResource UrlLabel}" />
                         <TextBox Padding="3" Width="200" Height="auto"
                                  Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{Binding UserInputIsEnabled}" />
@@ -192,7 +192,7 @@
 
             <!-- TrustCenterHistory -->
             <Grid Grid.Column="1" Grid.Row="1">
-                <Label Content="Trust Center" Foreground="#2772db" FontSize="20" Margin="10,0,0,0" />
+                <Label Style="{StaticResource TrustCenterHistoryLabel}" />
             </Grid>
 
             <!-- TrustCenter Active Filter -->
