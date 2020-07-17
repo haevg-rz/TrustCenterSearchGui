@@ -236,10 +236,12 @@ namespace TrustCenterSearch.Presentation
             {
                 entry.Issuer.ToLower(),
                 entry.Subject.ToLower(),
-                entry.SerialNumber.ToLower(),
-                entry.NotBefore.ToLower(),
-                entry.NotAfter.ToLower(),
-                entry.Thumbprint.ToLower()
+                entry.SerialNumber,
+                entry.NotBefore,
+                entry.NotAfter,
+                entry.Thumbprint.ToLower(),
+                entry.PublicKeyLength
+                
             };
 
             return certificateAttributes.Any(atr => atr.Contains(this.SearchBarInput.ToLower()));

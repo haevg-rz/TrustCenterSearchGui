@@ -11,5 +11,6 @@ namespace TrustCenterSearch.Core.Models
         public string NotAfter { get; set; }
         public string Thumbprint { get; set; }
         public string TrustCenterName { get; set; }
+        public string PublicKeyLength { get; set; }
     }
 }
