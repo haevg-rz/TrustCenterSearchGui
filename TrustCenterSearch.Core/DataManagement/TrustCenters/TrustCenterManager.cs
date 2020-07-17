@@ -16,14 +16,15 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region Fields
-        private readonly string _dataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
+        private readonly string _dataFolderPath =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\data\";
         #endregion
 
         #region InternalMethods
 
-        internal async Task DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        internal async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
+            return await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
         internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
