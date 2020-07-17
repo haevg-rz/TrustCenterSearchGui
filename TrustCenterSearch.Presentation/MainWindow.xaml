@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="Resources/Styles/IconStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/LoadingAnimationStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/LabelStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
@@ -62,27 +63,27 @@
                             <WrapPanel>
                                 <StackPanel>
                                     <WrapPanel>
-                                        <Label Width="100" Content="Subject:" Foreground="Gray" FontSize="16" />
+                                        <Label Width="100" Content="Subject:" Style="{StaticResource SearchResultLabels}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding Subject}" Width="700"
                                                  Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel>
-                                        <Label Width="100" Content="Issuer:" Foreground="Gray" FontSize="16" />
+                                        <Label Width="100" Content="Issuer:" Style="{StaticResource SearchResultLabels}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding Issuer}"
                                                  Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel Margin="0,0,0,0">
-                                        <Label Width="100" Content="Not After:" Foreground="Gray" FontSize="16" />
+                                        <Label Width="100" Content="Not After:" Style="{StaticResource SearchResultLabels}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding NotAfter}"
                                                  Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        <Label Content="Not Before:" Foreground="Gray" FontSize="16" />
+                                        <Label Content="Not Before:" Style="{StaticResource SearchResultLabels}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding NotBefore}"
                                                  Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                        <Label Content="Serialnumber:" Foreground="Gray" FontSize="16"
+                                        <Label Content="Serialnumber:" Style="{StaticResource SearchResultLabels}"
                                                Margin="20,0,0,0" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding SerialNumber}"
@@ -90,22 +91,19 @@
                                     </WrapPanel>
                                     <WrapPanel Width="830">
                                         <WrapPanel Width="645">
-                                            <Label HorizontalAlignment="Left" Width="100" Content="Thumbprint:"
-                                                   Foreground="Gray" FontSize="16" />
+                                            <Label Style="{StaticResource Thumbprint}" />
                                             <TextBox HorizontalAlignment="Left" Width="545"
                                                      Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding Thumbprint}"
                                                      Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                         </WrapPanel>
                                         <WrapPanel>
-                                            <Label HorizontalAlignment="Left" Width="auto" Content="Public Key length:"
-                                                   Foreground="Gray" FontSize="16" />
+                                            <Label Style="{StaticResource PublicKeyLength}" />
                                             <TextBox HorizontalAlignment="Left" Width="545"
                                                      Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding PublicKeyLength}"
                                                      Foreground="{Binding PublicKeyLength, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                            <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
-                                                   Foreground="#a5c5f0" FontSize="12" />
+                                            <Label Style="{StaticResource TrustCenterName}" Content="{Binding TrustCenterName}"/>
                                         </WrapPanel>
                                     </WrapPanel>
                                 </StackPanel>
