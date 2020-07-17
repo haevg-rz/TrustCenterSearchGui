@@ -87,7 +87,7 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand<TrustCenterMetaInfo> RemoveTrustCenterFromFilterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> DeleteTrustCenterFromHistoryCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> InfoAboutTrustCenterCommand { get; set; }
-        public RelayCommand<TrustCenterMetaInfo> RefreshTrustCenterCertificates { get; set; }
+        public RelayCommand<TrustCenterMetaInfo> ReloadCertificatesOfTrustCenter { get; set; }
 
         #endregion
 
@@ -100,34 +100,36 @@ namespace TrustCenterSearch.Presentation
             this.RemoveTrustCenterFromFilterCommand = new RelayCommand<TrustCenterMetaInfo>(this.RemoveTrustCenterFromFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterMetaInfo>(this.DeleteTrustCenterFromHistoryCommandExecute);
             this.InfoAboutTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(InfoAboutTrustCenterCommandExecute);
+            this.ReloadCertificatesOfTrustCenter = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterExecute);
+
 
             Core = new Core.Core();
         }
 
-        private async void DownloadTrustCenterCertificatesExecute(TrustCenterMetaInfo trustCenterMetaInfo)
+        private async void ReloadCertificatesOfTrustCenterExecute(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             this.UserInputIsEnabled = false;
 
-            var newTrustCenterMetaInfo = await this.Core.RefreshTrustCenterCertificates(trustCenterMetaInfo);
-            this.RefreshTrustCenterHistoryElement(trustCenterMetaInfo, newTrustCenterMetaInfo);
+            var newTrustCenterMetaInfo = await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo);
+            this.ReloadTrustCenterHistoryElement(trustCenterMetaInfo, newTrustCenterMetaInfo);
 
             this.UserInputIsEnabled = true;
         }
 
-        private void RefreshTrustCenterHistoryElement(TrustCenterMetaInfo trustCenterMetaInfoShouldDelete,
+        private void ReloadTrustCenterHistoryElement(TrustCenterMetaInfo trustCenterMetaInfoToDelete,
             TrustCenterMetaInfo newTrustCenterMetaInfo)
         {
-            if (TrustCenterHistoryActive.Any(tc => tc.Name.Equals(trustCenterMetaInfoShouldDelete.Name)))
+            var trustCenterHistory = new List<ObservableCollection<TrustCenterMetaInfo>> 
             {
-                this.TrustCenterHistoryActive.Remove(trustCenterMetaInfoShouldDelete);
-                this.TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
-                this.CertificatesCollectionView.Refresh();
+                this.TrustCenterHistoryInactive,
+                this.TrustCenterHistoryActive
+            }.FirstOrDefault(x => x.Contains(trustCenterMetaInfoToDelete));
+
+            if (trustCenterHistory == null) 
                 return;
-            }
 
-            this.TrustCenterHistoryInactive.Remove(trustCenterMetaInfoShouldDelete);
-            this.TrustCenterHistoryInactive.Add(newTrustCenterMetaInfo);
-
+            trustCenterHistory.Remove(trustCenterMetaInfoToDelete);
+            trustCenterHistory.Add(newTrustCenterMetaInfo);
             this.CertificatesCollectionView.Refresh();
         }
 
@@ -155,7 +157,7 @@ namespace TrustCenterSearch.Presentation
             TrustCenterMetaInfo newTrustCenterMetaInfo;
             try
             {
-                newTrustCenterMetaInfo = await this.Core.AddTrustCenter(this.AddTrustCenterName, this.AddTrustCenterUrl);
+                newTrustCenterMetaInfo = await this.Core.AddTrustCenterAsync(this.AddTrustCenterName, this.AddTrustCenterUrl);
             }
             catch (ArgumentException e)
             {
@@ -164,7 +166,7 @@ namespace TrustCenterSearch.Presentation
                 return;
             }
 
-            this.TrustCenterHistoryActive.Add(new TrustCenterMetaInfo(this.AddTrustCenterName, this.AddTrustCenterUrl));
+            this.TrustCenterHistoryActive.Add(new TrustCenterMetaInfo(this.AddTrustCenterName, this.AddTrustCenterUrl, DateTime.Now));
             this.AddTrustCenterName = String.Empty;
             this.AddTrustCenterUrl = String.Empty;
             this.CertificatesCollectionView.Refresh();
@@ -213,12 +215,6 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Methods
-
-        private void GetTrustCenterHistory()
-        {
-            foreach (var trustCenterHistoryName in Core.GetTrustCenterHistory())
-                this.TrustCenterHistoryActive.Add(trustCenterHistoryName);
-        }
 
         private bool Filter(object obj)
         {
