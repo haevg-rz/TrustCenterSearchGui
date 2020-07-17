@@ -31,7 +31,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         internal string GetFilePath(string name, string dataFolderPath)
         {
-            return dataFolderPath + name + @".txt";
+            return $@"{dataFolderPath}{name}.txt";
         }
 
         internal bool IsUrlExisting(string url)

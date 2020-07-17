@@ -16,7 +16,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region Fields
-        private readonly string _dataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\data\";
+        private readonly string _dataFolderPath =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\data\";
         #endregion
 
         #region InternalMethods

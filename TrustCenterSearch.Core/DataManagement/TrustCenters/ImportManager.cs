@@ -35,16 +35,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             return certificates;
         }
-
-        internal void SetTimeStamp(string filePath)
-        {
-            if (!Directory.Exists(filePath))
-                Directory.CreateDirectory(filePath);
-
-            var timeStamp = DateTime.Now;
-            File.WriteAllText(filePath + "TimeStamp.json", Convert.ToString(timeStamp));
-        }
-
         #endregion
 
         #region PrivateMethods
