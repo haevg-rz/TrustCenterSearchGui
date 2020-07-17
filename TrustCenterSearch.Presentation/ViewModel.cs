@@ -219,6 +219,10 @@ namespace TrustCenterSearch.Presentation
             {
                 return true;
             }
+            if (entry.PublicKeyLength.ToString(CultureInfo.InvariantCulture).ToLower().Contains(searchBarInputToLower))
+            {
+                return true;
+            }
 
             return false;
         }

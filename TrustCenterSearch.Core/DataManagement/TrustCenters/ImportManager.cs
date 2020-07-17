@@ -28,6 +28,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 NotAfter = c.NotAfter,
                 NotBefore = c.NotBefore,
                 Thumbprint = c.Thumbprint,
+                PublicKeyLength = c.PublicKey.ToString().Length,
                 TrustCenterName = trustCenterMetaInfo.Name
             }));
 
