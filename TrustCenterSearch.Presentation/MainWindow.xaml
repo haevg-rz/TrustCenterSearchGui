@@ -105,7 +105,6 @@
                                                      Foreground="{Binding PublicKeyLength, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                             <Label Style="{StaticResource TrustCenterName}" Content="{Binding TrustCenterName}"/>
                                         </WrapPanel>
-                                    </WrapPanel>
                                 </StackPanel>
                             </WrapPanel>
                         </Border>
