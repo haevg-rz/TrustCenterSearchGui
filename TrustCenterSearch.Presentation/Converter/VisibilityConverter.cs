@@ -9,14 +9,7 @@ namespace TrustCenterSearch.Presentation.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((String)value == "visible")
-            {
-                return Visibility.Visible;
-            }
-            else
-            {
-                return Visibility.Collapsed;
-            }
+            return (bool) value == true ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

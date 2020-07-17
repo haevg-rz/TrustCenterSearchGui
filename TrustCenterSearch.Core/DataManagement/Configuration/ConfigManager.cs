@@ -5,7 +5,7 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.Configuration
 {
-    public class ConfigManager
+    internal class ConfigManager
     {
         #region Properties
 
@@ -36,14 +36,18 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
             config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
         }
 
-        internal Models.Config SaveConfig(Config config)
+        internal void SaveConfig(Config config)
         {
             if (!Directory.Exists(_trustCenterSearchGuiPath))
                 Directory.CreateDirectory(_trustCenterSearchGuiPath);
 
             var jsonString = JsonConvert.SerializeObject(config);
             File.WriteAllText(ConfigPath, jsonString);
-            return config;
+        }
+
+        internal void DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
+        {
+            config.TrustCenterMetaInfos.RemoveAll(tc => tc.Name.Equals(trustCenterMetaInfo.Name));
         }
 
         internal bool IsConfigEmpty(Config config)
@@ -52,10 +56,5 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
         }
 
         #endregion
-
-        public void DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
-        {
-            config.TrustCenterMetaInfos.RemoveAll(tc => tc.Name.Equals(trustCenterMetaInfo.Name));
-        }
     }
 }

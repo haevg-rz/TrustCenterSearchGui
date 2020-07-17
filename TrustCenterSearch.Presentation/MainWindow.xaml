@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
+        xmlns:models="clr-namespace:TrustCenterSearch.Core.Models;assembly=TrustCenterSearch.Core"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="Trust Center Search GUI" Height="550" Width="1100">
@@ -21,8 +22,10 @@
                 <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/IconStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBlockStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/LoadingAnimationStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -38,7 +41,8 @@
 
         <WrapPanel Grid.Column="1" Grid.Row="0">
             <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton" />
-            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="900" Height="auto" IsEnabled="{Binding UserInputIsEnabled}">
+            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="900" Height="auto"
+                     IsEnabled="{Binding UserInputIsEnabled}">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
@@ -60,42 +64,42 @@
                                     <WrapPanel>
                                         <Label Width="100" Content="Subject:" Foreground="Gray" FontSize="16" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding Subject}" Width="700"
-                                                     Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                 Text="{Binding Subject}" Width="700"
+                                                 Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel>
                                         <Label Width="100" Content="Issuer:" Foreground="Gray" FontSize="16" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding Issuer}"
-                                                     Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                 Text="{Binding Issuer}"
+                                                 Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel Margin="0,0,0,0">
                                         <Label Width="100" Content="Not After:" Foreground="Gray" FontSize="16" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding NotAfter}"
-                                                     Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                 Text="{Binding NotAfter}"
+                                                 Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                         <Label Content="Not Before:" Foreground="Gray" FontSize="16" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding NotBefore}"
-                                                     Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                 Text="{Binding NotBefore}"
+                                                 Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                         <Label Content="Serialnumber:" Foreground="Gray" FontSize="16"
-                                                   Margin="20,0,0,0" />
+                                               Margin="20,0,0,0" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
-                                                     Text="{Binding SerialNumber}"
-                                                     Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                 Text="{Binding SerialNumber}"
+                                                 Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel Width="830">
                                         <WrapPanel Width="645">
                                             <Label HorizontalAlignment="Left" Width="100" Content="Thumbprint:"
-                                                       Foreground="Gray" FontSize="16" />
+                                                   Foreground="Gray" FontSize="16" />
                                             <TextBox HorizontalAlignment="Left" Width="545"
-                                                         Style="{StaticResource SearchResultTextBox}"
-                                                         Text="{Binding Thumbprint}"
-                                                         Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                                     Style="{StaticResource SearchResultTextBox}"
+                                                     Text="{Binding Thumbprint}"
+                                                     Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                         </WrapPanel>
                                         <WrapPanel Width="160" FlowDirection="RightToLeft">
                                             <Label HorizontalAlignment="Right" Content="{Binding TrustCenterName}"
-                                                       Foreground="#a5c5f0" FontSize="12" />
+                                                   Foreground="#a5c5f0" FontSize="12" />
                                         </WrapPanel>
                                     </WrapPanel>
                                 </StackPanel>
@@ -122,6 +126,17 @@
             </ItemsControl>
         </Border>
         <!-- Search results -->
+
+        <!-- LoadingAnimation -->
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Control Margin="0,0,40,20" Background="Transparent" Width="50" Height="50" HorizontalAlignment="Right"
+                     VerticalAlignment="Bottom" Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
+                     Style="{StaticResource BusyAnimationStyle}" />
+        </Grid>
+
+
+        <!-- LoadingAnimation -->
 
         <!-- Menu -->
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar"
@@ -156,14 +171,17 @@
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="Name" Margin="10,0,0,0" />
                         <TextBox Padding="3" Width="200" Height="auto"
-                                 Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserInputIsEnabled}"/>
+                                 Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{Binding UserInputIsEnabled}" />
                     </WrapPanel>
                     <WrapPanel Margin="5">
                         <Label Width="45" Content="URL" Margin="10,0,0,0" />
                         <TextBox Padding="3" Width="200" Height="auto"
-                                 Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding UserInputIsEnabled}"/>
+                                 Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{Binding UserInputIsEnabled}" />
                     </WrapPanel>
-                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButtonCommand}" IsEnabled="{Binding UserInputIsEnabled}"/>
+                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButtonCommand}"
+                            IsEnabled="{Binding UserInputIsEnabled}" />
                 </StackPanel>
             </Grid>
             <!-- AddTrustCenter -->
@@ -193,7 +211,7 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="{x:Type models:TrustCenterMetaInfo}">
                                             <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
                                                     Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
                                                     CornerRadius="3" Background="#d9e9ff">
@@ -226,6 +244,7 @@
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
+                                                            CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/binBlack.png"

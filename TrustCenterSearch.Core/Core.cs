@@ -17,7 +17,7 @@ namespace TrustCenterSearch.Core
         internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
         internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
-        internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
+        internal IEnumerable<Certificate> Certificates { get; set; } = new HashSet<Certificate>();
         #endregion
 
         #region Constructor
@@ -28,14 +28,14 @@ namespace TrustCenterSearch.Core
         #endregion
 
         #region PublicMethods
-        public async Task ImportAllCertificatesFromTrustCenters()
+        public async Task ImportAllCertificatesFromTrustCentersAsync()
         {
-            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificates(trustCenterMetaInfo)).ToList();
+            var importTasks = Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
             await Task.WhenAll(importTasks);
 
             foreach (var importTask in importTasks)
             {
-                Certificates.AddRange(importTask.Result);
+                Certificates = Certificates.Union(importTask.Result);
             }
         }
 
@@ -75,7 +75,7 @@ namespace TrustCenterSearch.Core
 
         public List<Certificate> GetCertificates()
         {
-            return this.Certificates;
+            return this.Certificates.ToList();
         }
 
         #endregion
@@ -86,7 +86,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName.Length > 29)
                 throw new ArgumentException("The entered name is too long.");
 
-            if (newTrustCenterName == string.Empty)
+            if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
             if (!this.TrustCenterManager.DownloadManager.IsUrlExisting(newTrustCenterUrl))
