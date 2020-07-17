@@ -22,9 +22,9 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         #region InternalMethods
 
-        internal async Task DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        internal async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
+            return await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
         internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)

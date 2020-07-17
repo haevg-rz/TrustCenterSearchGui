@@ -28,7 +28,7 @@ namespace TrustCenterSearch.Core
         #endregion
 
         #region PublicMethods
-        public async Task ImportAllCertificatesFromTrustCentersAsync()
+        public async Task<List<Certificate>> ImportAllCertificatesFromTrustCentersAsync()
         {
             var importTasks = this.Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
             await Task.WhenAll(importTasks);
@@ -37,6 +37,8 @@ namespace TrustCenterSearch.Core
             {
                 this.Certificates.AddRange(importTask.Result);
             }
+
+            return this.Certificates;
         }
 
         public async Task<TrustCenterMetaInfo> AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)

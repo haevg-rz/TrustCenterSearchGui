@@ -12,7 +12,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         #region InternalMethods
 
-        internal async Task DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        internal async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             if (!Directory.Exists(dataFolderPath))
                 Directory.CreateDirectory(dataFolderPath);
@@ -27,6 +27,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             {
                 await stream.WriteAsync(content.Result, 0, content.Result.Length - 1);
             }
+
+            return content.Result;
         }
 
         internal string GetFilePath(string name, string dataFolderPath)
