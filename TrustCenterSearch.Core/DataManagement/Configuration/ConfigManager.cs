@@ -10,13 +10,14 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
         #region Properties
 
         private static string ConfigPath { get; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch\Config.JSON";
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\Config.JSON";
 
         #endregion
 
         #region Fields
 
-        private readonly string _trustCenterSearchGuiPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TrustCenterSearch";
+        private readonly string _trustCenterSearchGuiPath =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch";
 
         #endregion
 
