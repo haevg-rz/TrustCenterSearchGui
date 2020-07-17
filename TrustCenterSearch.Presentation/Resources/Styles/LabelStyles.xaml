@@ -33,20 +33,20 @@
     <!--Search Results-->
 
     <!--Add TrustCenter-->
-    <Style TargetType="Label" x:Key="TrustCenterSearchGui">
+    <Style TargetType="Label" x:Key="TrustCenterSearchGuiTitleStyle">
         <Setter Property="Content" Value="Trust Center Search GUI"/>
         <Setter Property="Foreground" Value="#2772db"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="10,5,0,10"/>
     </Style>
 
-    <Style TargetType="Label" x:Key="NameLabel">
+    <Style TargetType="Label" x:Key="TitleNameStyle">
         <Setter Property="Width" Value="45"/>
         <Setter Property="Content" Value="Name"/>
         <Setter Property="Margin" Value="10,0,0,0"/>
     </Style>
 
-    <Style TargetType="Label" x:Key="UrlLabel">
+    <Style TargetType="Label" x:Key="TitleUrlStyle">
         <Setter Property="Width" Value="45"/>
         <Setter Property="Content" Value="Url"/>
         <Setter Property="Margin" Value="10,0,0,0"/>
