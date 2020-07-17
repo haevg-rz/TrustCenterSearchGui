@@ -154,6 +154,7 @@ namespace TrustCenterSearch.Presentation
         private async void AddTrustCenterAsyncCommandExecute()
         {
             this.UserInputIsEnabled = false;
+
             TrustCenterMetaInfo newTrustCenterMetaInfo;
             try
             {
@@ -161,15 +162,18 @@ namespace TrustCenterSearch.Presentation
             }
             catch (ArgumentException e)
             {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.UserInputIsEnabled = true;
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            this.TrustCenterHistoryActive.Add(new TrustCenterMetaInfo(this.AddTrustCenterName, this.AddTrustCenterUrl, DateTime.Now));
+            this.TrustCenterHistoryActive.Add(newTrustCenterMetaInfo);
+            this.CertificatesCollectionView.Refresh();
+
             this.AddTrustCenterName = String.Empty;
             this.AddTrustCenterUrl = String.Empty;
-            this.CertificatesCollectionView.Refresh();
+
+            
             this.UserInputIsEnabled = true;
         }
 
