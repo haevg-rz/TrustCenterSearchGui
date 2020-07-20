@@ -1,5 +1,4 @@
 ﻿using TrustCenterSearch.Core;
-using TrustCenterSearch.Core.Models;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
