@@ -162,10 +162,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" RowSpan="4" Background="#2772db" />
-
-            <Grid Grid.Row="3" Grid.Column="1">
-                <Button Command="{Binding CollapseSideBarCommand}"  Width="20" Height="20" HorizontalAlignment="Left" Content="zu" Background="LightBlue" BorderBrush="Transparent"/>
+            <Grid Grid.Column="0" RowSpan="4" >
+                <Button Background="#2772db" Command="{Binding CollapseSideBarCommand}"></Button>
             </Grid>
 
             <!-- AddTrustCenter -->
