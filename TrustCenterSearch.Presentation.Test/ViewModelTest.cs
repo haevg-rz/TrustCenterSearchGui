@@ -7,6 +7,7 @@ namespace TrustCenterSearchPresentation.Test
         [Fact(DisplayName = "ViewModelTest")]
         public void Test1()
         {
+
         }
     }
 }
