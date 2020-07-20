@@ -40,7 +40,6 @@ namespace TrustCenterSearch.Core
 
             return this.Certificates;
         }
-
         public async Task<TrustCenterMetaInfo> AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
