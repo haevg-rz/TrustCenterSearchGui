@@ -1,38 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@TobiasMeissner2000 
-haevg-rz
-/
-Planungsboard
-1
-1
-1
-Code
-Issues
-16
-Pull requests
-1
-Actions
-Projects
-1
-Wiki
-Security
-Insights
-Planungsboard/.github/workflows/publish.yml
-@dhcgn
-dhcgn Upload zip
-…
-Latest commit 155c283 on 22 Mar
- History
- 1 contributor
-39 lines (35 sloc)  1.37 KB
-  
 name: .NET Core Publish Release
 
 on:
@@ -70,15 +35,3 @@ jobs:
         files: Desktop/TrustCenterSearchGui.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-© 2020 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
