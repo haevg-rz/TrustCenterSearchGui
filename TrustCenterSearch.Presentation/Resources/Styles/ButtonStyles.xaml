@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TrustCenterSearch.Presentation.Resources.Styles">
 
+
     <Style TargetType="Button" x:Key="AddButtonStyle">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="#2772db"/>
@@ -11,6 +12,12 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Content" Value="Download"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <Style TargetType="Button" x:Key="CollapseSideBarButtonStyleTrigger">
+        <Style.Triggers>
+           
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

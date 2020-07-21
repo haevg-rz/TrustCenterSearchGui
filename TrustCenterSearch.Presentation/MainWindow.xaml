@@ -163,7 +163,16 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" RowSpan="4" >
-                <Button Background="#2772db" Command="{Binding CollapseSideBarCommand}"></Button>
+                <Button Command="{Binding CollapseSideBarCommand}">
+                    <!-- 2772db -->
+                    <Style TargetType="Button">
+                     <Style.Triggers>
+                            <Trigger Property="IsMouseOver"  Value="true">
+                                <Setter Property="Height" Value="50"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button>
             </Grid>
 
             <!-- AddTrustCenter -->
