@@ -17,7 +17,7 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Publish with dotnet
-      run: dotnet publish -c Release
+      run: dotnet publish -r win-x64 -c Release --self-contained true /p:useapphost=true
     - name: Compress
       run: Compress-Archive TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\win-x64\publish\TrustCenterSearch.Presentation.exe -DestinationPath TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\win-x64\publish\TrustCenterSearch.Presentation.exe.zip
     - name: GH Release
