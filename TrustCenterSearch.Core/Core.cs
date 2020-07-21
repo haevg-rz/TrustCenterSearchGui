@@ -13,7 +13,7 @@ namespace TrustCenterSearch.Core
 {
     public class Core
     {
-        //writesomechanges
+        //writesomechanges more
         #region Properties
         internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
         internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
