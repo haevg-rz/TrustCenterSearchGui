@@ -23,13 +23,28 @@
                 <ResourceDictionary Source="Resources/Styles/IconStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/LoadingAnimationStyle.xaml" />
-                <ResourceDictionary Source="Resources/Styles/LabelStyles.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/BorderStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/LabelStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/BorderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            
+            <Style x:Key="CollapseSideBarButtonStyleTrigger" TargetType="Button">
+                <Setter Property="Width" Value="10" />
+                <Setter Property="Background" Value="#2772db" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding MenuWidth}" Value="0">
+                        <Setter Property="Background" Value="#d9e9ff" />
+                        <Setter Property="Width" Value="15" />
+                        <Setter Property="Height" Value="140" />
+                        <Setter Property="Content" Value=">" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            
         </ResourceDictionary>
     </Window.Resources>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -38,24 +53,23 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="{Binding MenuWidth, UpdateSourceTrigger=PropertyChanged}" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Column="1" Grid.Row="0">
-            <Button Width="Auto" Height="20" Content=" ||| " Click="ShowSidebar" Name="ShowSidebarButton" />
-            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="900" Height="auto"
-                     IsEnabled="{Binding UserInputIsEnabled}">
-                <TextBox.Text>
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="10,0,0,10">
+            <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Margin="10">
+            <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
             </TextBox>
-        </WrapPanel>
-        <!--
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
-        -->
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
+        
 
         <!-- Search results -->
-        <Border Grid.Column="1" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
+        <Border Grid.Column="2" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
                 BorderThickness="1" Width="Auto">
             <ItemsControl ItemsSource="{Binding Path=CertificatesCollectionView}">
                 <ItemsControl.ItemTemplate>
@@ -64,19 +78,22 @@
                             <WrapPanel>
                                 <StackPanel>
                                     <WrapPanel>
-                                        <Label Width="100" Content="Subject:" Style="{StaticResource SearchResultLabelStyle}" />
+                                        <Label Width="100" Content="Subject:"
+                                               Style="{StaticResource SearchResultLabelStyle}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding Subject}" Width="700"
                                                  Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel>
-                                        <Label Width="100" Content="Issuer:" Style="{StaticResource SearchResultLabelStyle}" />
+                                        <Label Width="100" Content="Issuer:"
+                                               Style="{StaticResource SearchResultLabelStyle}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding Issuer}"
                                                  Foreground="{Binding Issuer, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                     </WrapPanel>
                                     <WrapPanel Margin="0,0,0,0">
-                                        <Label Width="100" Content="Not After:" Style="{StaticResource SearchResultLabelStyle}" />
+                                        <Label Width="100" Content="Not After:"
+                                               Style="{StaticResource SearchResultLabelStyle}" />
                                         <TextBox Style="{StaticResource SearchResultTextBox}"
                                                  Text="{Binding NotAfter}"
                                                  Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
@@ -104,7 +121,8 @@
                                                      Style="{StaticResource SearchResultTextBox}"
                                                      Text="{Binding PublicKeyLength}"
                                                      Foreground="{Binding PublicKeyLength, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                                            <Label Style="{StaticResource SearchResultTrustCenterNameLabelStyle}" Content="{Binding TrustCenterName}"/>
+                                            <Label Style="{StaticResource SearchResultTrustCenterNameLabelStyle}"
+                                                   Content="{Binding TrustCenterName}" />
                                         </WrapPanel>
                                     </WrapPanel>
                                 </StackPanel>
@@ -132,32 +150,43 @@
         </Border>
         <!-- Search results -->
 
+
         <!-- LoadingAnimation -->
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="2" Grid.Row="1">
             <Control Margin="0,0,40,20" Background="Transparent" Width="50" Height="50" HorizontalAlignment="Right"
-                     VerticalAlignment="Bottom" Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
+                     VerticalAlignment="Bottom"
+                     Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
                      Style="{StaticResource BusyAnimationStyle}" />
         </Grid>
 
-
         <!-- LoadingAnimation -->
 
+
+        <!-- CollapseButton -->
+
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
+            <Button Command="{Binding CollapseSideBarCommand}"
+                    Style="{StaticResource CollapseSideBarButtonStyleTrigger}" />
+        </Grid>
+
+        <!-- CollapseButton -->
+
+
         <!-- Menu -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="sidebar"
-              Visibility="Collapsed">
+
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="Sidebar"
+              Visibility="Visible" Width="{Binding MenuWidth, UpdateSourceTrigger=PropertyChanged}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="180" />
                 <RowDefinition Height="40" />
-                <RowDefinition Height="400" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-
-            <Grid Grid.Column="0" Grid.RowSpan="3" Background="#2772db" />
 
             <!-- AddTrustCenter -->
             <Grid Grid.Column="1" Grid.Row="0">
@@ -168,11 +197,10 @@
                 <StackPanel Grid.ColumnSpan="2">
                     <WrapPanel>
                         <Label Style="{StaticResource MenuTitleLabelStyle}" />
-                        <Button Background="Transparent" HorizontalAlignment="Right" Margin="40,-20,5,0" Content="X"
-                                Click="CollapseSidebar" Width="20" Height="20"
-                                BorderBrush="Transparent" />
+                        <Button Width="30" Height="20" Content="X" Background="Transparent" Margin="30,0,0,30"
+                                BorderBrush="Transparent"
+                                Command="{Binding CollapseSideBarCommand}" />
                     </WrapPanel>
-
                     <WrapPanel Margin="5">
                         <Label Style="{StaticResource MenuAddTrustCenterNameLabelStyle}" />
                         <TextBox Padding="3" Width="200" Height="auto"
@@ -241,10 +269,12 @@
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Style="{DynamicResource LoadButtonStyle}" BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
-                                                            CommandParameter ="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
+                                                    <Button Style="{DynamicResource LoadButtonStyle}"
+                                                            BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
@@ -298,10 +328,12 @@
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
                                                     </Button>
-                                                    <Button Style="{DynamicResource LoadButtonStyle}" BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
-                                                            CommandParameter ="{Binding}" Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
+                                                    <Button Style="{DynamicResource LoadButtonStyle}"
+                                                            BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
+                                                            CommandParameter="{Binding}"
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
                                                         <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png"></ImageBrush>
+                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"

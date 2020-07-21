@@ -11,17 +11,5 @@ namespace TrustCenterSearch.Presentation
         {
             InitializeComponent();
         }
-
-        private void CollapseSidebar(object sender, RoutedEventArgs e)
-        {
-            sidebar.Visibility = System.Windows.Visibility.Collapsed;
-            ShowSidebarButton.Visibility = Visibility.Visible;
-        }
-
-        private void ShowSidebar(object sender, RoutedEventArgs e)
-        {
-            sidebar.Visibility = System.Windows.Visibility.Visible;
-            ShowSidebarButton.Visibility = Visibility.Collapsed;
-        }
     }
 }

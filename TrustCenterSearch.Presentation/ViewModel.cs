@@ -88,6 +88,14 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand<TrustCenterMetaInfo> DeleteTrustCenterFromHistoryCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> InfoAboutTrustCenterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> ReloadCertificatesOfTrustCenter { get; set; }
+        public RelayCommand CollapseSideBarCommand { get; set; }
+
+        private string _menuWidth = "Auto";
+        public string MenuWidth
+        {
+            get => this._menuWidth;
+            set => base.Set(ref this._menuWidth, value);
+        }
 
         #endregion
 
@@ -101,9 +109,21 @@ namespace TrustCenterSearch.Presentation
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterMetaInfo>(this.DeleteTrustCenterFromHistoryCommandExecute);
             this.InfoAboutTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(InfoAboutTrustCenterCommandExecute);
             this.ReloadCertificatesOfTrustCenter = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterExecute);
+            this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
 
 
             Core = new Core.Core();
+        }
+
+        private void CollapseSidebarCommandExecute()
+        {
+            if (this.MenuWidth == "Auto")
+            {
+                this.MenuWidth = "0";
+                return;
+            }
+
+            this.MenuWidth = "Auto";
         }
 
         private async void ReloadCertificatesOfTrustCenterExecute(TrustCenterMetaInfo trustCenterMetaInfo)
