@@ -19,7 +19,7 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish -c Release
     - name: Compress
-      run: Compress-Archive TrustCenterSearch\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1.Presentation.exe -DestinationPath TrustCenterSearch\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\TrustCenterSearch.Presentation.exe.zip
+      run: Compress-Archive TrustCenterSearchGui\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1.Presentation.exe -DestinationPath TrustCenterSearchGui\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\TrustCenterSearch.Presentation.exe.zip
     - name: GH Release
       uses: softprops/action-gh-release@v0.1.5
       with:
@@ -34,6 +34,6 @@ jobs:
         # Identify the release as a prerelease. Defaults to false
         prerelease: true
         # Newline-delimited list of path globs for asset files to upload
-        files: TrustCenterSearch\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\TrustCenterSearch.Presentation.exe.zip
+        files: TrustCenterSearchGui\TrustCenterSearch.Presentation\bin\Release\netcoreapp3.1\TrustCenterSearch.Presentation.exe.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
