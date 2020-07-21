@@ -119,7 +119,7 @@ namespace TrustCenterSearch.Presentation
         {
             if (this.MenuWidth == "Auto")
             {
-                this.MenuWidth = "20";
+                this.MenuWidth = "0";
                 return;
             }
 

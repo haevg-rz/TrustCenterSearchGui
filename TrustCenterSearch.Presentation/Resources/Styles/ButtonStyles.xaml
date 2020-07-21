@@ -15,10 +15,12 @@
     </Style>
 
     <Style x:Key = "CollapseSideBarButtonStyleTrigger" TargetType = "Button">
-        <Setter Property = "Height" Value = "400" />
+        <Setter Property = "Width" Value = "10" />
         <Style.Triggers>
             <Trigger Property = "IsMouseOver" Value = "True">
-                <Setter Property = "Height" Value = "200" />
+                <Setter Property = "Width" Value = "15" />
+                <Setter Property="Height" Value="140"/>
+                <Setter Property="Content" Value=">"/>
             </Trigger>
         </Style.Triggers>
     </Style>
