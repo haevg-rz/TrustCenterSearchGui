@@ -17,7 +17,7 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Publish with dotnet
-      run: dotnet publish -r win-x64 -c Release --self-contained true /p:useapphost=true /p:PublishSingleFile=True
+      run: dotnet publish TrustCenterSearch.Presentation\TrustCenterSearch.Presentation.csproj -r win-x64 -c Release --self-contained true /p:useapphost=true /p:PublishSingleFile=True
     - name: GH Release
       uses: softprops/action-gh-release@v0.1.5
       with:
