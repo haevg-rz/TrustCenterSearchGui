@@ -29,6 +29,7 @@
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            
             <Style x:Key="CollapseSideBarButtonStyleTrigger" TargetType="Button">
                 <Setter Property="Width" Value="10" />
                 <Setter Property="Background" Value="#2772db"></Setter>
@@ -41,6 +42,7 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            
         </ResourceDictionary>
     </Window.Resources>
 
@@ -56,17 +58,16 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Column="2" Grid.Row="0">
-            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="900" Height="auto"
-                     IsEnabled="{Binding UserInputIsEnabled}">
-                <TextBox.Text>
+        <StackPanel Grid.Column="2" Grid.Row="0" Margin="10,0,0,10">
+            <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Margin="10">
+            <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                 </TextBox.Text>
             </TextBox>
-        </WrapPanel>
-        <!--
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
-        -->
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="15,10,10,10" Padding="3" FontStyle="Italic" Foreground="Gray" Text="" IsHitTestVisible="False" />
+        
 
         <!-- Search results -->
         <Border Grid.Column="2" Grid.Row="1" Margin="10" Background="White" BorderBrush="Transparent"
