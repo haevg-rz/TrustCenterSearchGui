@@ -9,7 +9,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
     internal class DownloadManager
     {
-
         #region InternalMethods
 
         internal async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
@@ -56,6 +55,5 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         }
 
         #endregion
-
     }
 }
