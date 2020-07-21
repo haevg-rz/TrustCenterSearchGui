@@ -31,10 +31,10 @@
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
             <Style x:Key="CollapseSideBarButtonStyleTrigger" TargetType="Button">
                 <Setter Property="Width" Value="10" />
-                <Setter Property="Background" Value="#2772db"></Setter>
+                <Setter Property="Background" Value="#2772db" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding MenuWidth}" Value="0">
-                        <Setter Property="Background" Value="#d9e9ff"/>
+                        <Setter Property="Background" Value="#d9e9ff" />
                         <Setter Property="Width" Value="15" />
                         <Setter Property="Height" Value="140" />
                         <Setter Property="Content" Value=">" />
@@ -57,7 +57,7 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Column="2" Grid.Row="0">
-            <TextBox Name="SearchBar" Margin="10" Padding="3"  Width="750" Height="auto"
+            <TextBox Name="SearchBar" Margin="10" Padding="3" Width="750" Height="auto"
                      IsEnabled="{Binding UserInputIsEnabled}">
                 <TextBox.Text>
                     <Binding Path="SearchBarInput" Delay="500" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
@@ -166,7 +166,7 @@
 
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
             <Button Command="{Binding CollapseSideBarCommand}"
-                    Style="{StaticResource CollapseSideBarButtonStyleTrigger}"/>
+                    Style="{StaticResource CollapseSideBarButtonStyleTrigger}" />
         </Grid>
 
         <!-- CollapseButton -->
