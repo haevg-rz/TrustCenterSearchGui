@@ -14,9 +14,12 @@
         <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
 
-    <Style TargetType="Button" x:Key="CollapseSideBarButtonStyleTrigger">
+    <Style x:Key = "CollapseSideBarButtonStyleTrigger" TargetType = "Button">
+        <Setter Property = "Height" Value = "400" />
         <Style.Triggers>
-           
+            <Trigger Property = "IsMouseOver" Value = "True">
+                <Setter Property = "Height" Value = "200" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 

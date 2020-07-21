@@ -162,17 +162,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" RowSpan="4" >
-                <Button Command="{Binding CollapseSideBarCommand}">
+            <Grid Grid.Column="0" RowSpan="4">
+                <Button Command="{Binding CollapseSideBarCommand}" Style="{StaticResource CollapseSideBarButtonStyleTrigger}"/>
                     <!-- 2772db -->
-                    <Style TargetType="Button">
-                     <Style.Triggers>
-                            <Trigger Property="IsMouseOver"  Value="true">
-                                <Setter Property="Height" Value="50"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button>
             </Grid>
 
             <!-- AddTrustCenter -->
