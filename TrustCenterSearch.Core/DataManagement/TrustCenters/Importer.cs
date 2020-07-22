@@ -27,8 +27,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 Subject = c.Subject,
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter.ToString(CultureInfo.CurrentCulture),
-                NotBefore = c.NotBefore.ToString(CultureInfo.CurrentCulture),
+                NotAfter = c.NotAfter.Date.ToShortDateString(),
+                NotBefore = c.NotBefore.Date.ToShortDateString(),
                 Thumbprint = c.Thumbprint,
                 PublicKeyLength = c.PublicKey.ToString().Length.ToString(),
                 TrustCenterName = trustCenterMetaInfo.Name
