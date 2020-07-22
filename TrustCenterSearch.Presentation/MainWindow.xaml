@@ -199,13 +199,16 @@
                         <Label Style="{StaticResource MenuTitleLabelStyle}" />
                         <Button Width="30" Height="20" Content="X" Background="Transparent" Margin="30,0,0,30"
                                 BorderBrush="Transparent"
-                                Command="{Binding CollapseSideBarCommand}" />
+                                Command="{Binding CollapseSideBarCommand}">
+                            <Button.ToolTip>Close</Button.ToolTip>
+                        </Button>
                     </WrapPanel>
                     <WrapPanel Margin="5">
                         <Label Style="{StaticResource MenuAddTrustCenterNameLabelStyle}" />
                         <TextBox Padding="3" Width="200" Height="auto"
                                  Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
-                                 IsEnabled="{Binding UserInputIsEnabled}" />
+                                 IsEnabled="{Binding UserInputIsEnabled}">
+                        </TextBox>
                     </WrapPanel>
                     <WrapPanel Margin="5">
                         <Label Style="{StaticResource MenuAddTrustCenterUrlLabelStyle}" />
@@ -257,6 +260,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/remove.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button.ToolTip>Remove from Search</Button.ToolTip>
                                                     </Button>
                                                     <TextBlock Width="150" VerticalAlignment="Center"
                                                                Text="{Binding Name}" />
@@ -268,6 +272,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button>Info</Button>
                                                     </Button>
                                                     <Button Style="{DynamicResource LoadButtonStyle}"
                                                             BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
@@ -276,6 +281,7 @@
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
+                                                        <Button>Refresh Trust Center</Button>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
@@ -285,6 +291,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/binBlack.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button.ToolTip>Delete Trust Center</Button.ToolTip>
                                                     </Button>
                                                 </WrapPanel>
                                             </Border>
@@ -316,6 +323,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/add.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button.ToolTip>Add to Search</Button.ToolTip>
                                                     </Button>
                                                     <TextBlock Width="150" VerticalAlignment="Center"
                                                                Text="{Binding Name}" />
@@ -327,6 +335,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button.ToolTip>Info</Button.ToolTip>
                                                     </Button>
                                                     <Button Style="{DynamicResource LoadButtonStyle}"
                                                             BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
@@ -335,6 +344,7 @@
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
+                                                        <Button,ToolTip="Refresh Trus tCenter"></Button>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
@@ -343,6 +353,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/binBlack.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
+                                                        <Button.ToolTip>Delete Trust Center</Button.ToolTip>
                                                     </Button>
                                                 </WrapPanel>
                                             </Border>
