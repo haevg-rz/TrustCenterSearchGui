@@ -255,7 +255,7 @@
                                                     <Button Style="{DynamicResource removeIconStyle}" Margin="2,4,8,2"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}"
-                                                            Height="13" Width="13" BorderThickness="0">
+                                                            Height="10" Width="10" BorderThickness="0">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/remove.png"
                                                                         Stretch="Uniform" />
@@ -272,7 +272,7 @@
                                                             <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
                                                                         Stretch="Uniform" />
                                                         </Button.Background>
-                                                        <Button>Info</Button>
+                                                        <Button.ToolTip>Info</Button.ToolTip>
                                                     </Button>
                                                     <Button Style="{DynamicResource LoadButtonStyle}"
                                                             BorderThickness="0" Height="16" Width="16" Margin="2,0,0,0"
@@ -281,7 +281,7 @@
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
-                                                        <Button>Refresh Trust Center</Button>
+                                                        <Button.ToolTip>Refresh Trust Center</Button.ToolTip>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
@@ -318,7 +318,7 @@
                                                     <Button Style="{DynamicResource AddIconStyle}" Margin="2,4,8,2"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}"
-                                                            Height="13" Width="13" BorderThickness="0">
+                                                            Height="10" Width="10" BorderThickness="0">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/add.png"
                                                                         Stretch="Uniform" />
@@ -344,7 +344,7 @@
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
-                                                        <Button,ToolTip="Refresh Trus tCenter"></Button>
+                                                        <Button.ToolTip>Refresh Trust Center</Button.ToolTip>
                                                     </Button>
                                                     <Button Style="{DynamicResource BinImageStyle}" Margin="2,0,0,0"
                                                             Height="16" Width="16" BorderThickness="0"
