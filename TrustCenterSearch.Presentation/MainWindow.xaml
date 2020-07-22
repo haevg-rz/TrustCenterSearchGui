@@ -247,7 +247,7 @@
                                                     Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
                                                     CornerRadius="3" Background="#d9e9ff">
                                                 <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Style="{DynamicResource removeIconStyle}"
+                                                    <Button Style="{DynamicResource RemoveIconStyle}"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}">
                                                         <Button.Background>
