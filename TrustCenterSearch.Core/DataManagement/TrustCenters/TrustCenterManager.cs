@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using TrustCenterSearch.Core.Interfaces;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
@@ -12,7 +12,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
     {
         #region Properties
         internal ITrustCenterImporter ImportManager { get; set; } = new Importer();
-        internal ITrustCenterDownloader DownloadManager { get; set; } = new DownloadManager();
+        internal ITrustCenterDownloader DownloadManager { get; set; } = new Downloader();
 
         #endregion
 

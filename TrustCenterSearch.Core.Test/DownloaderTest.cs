@@ -1,9 +1,10 @@
 ﻿using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
 {
-    public class DownloadManagerTest
+    public class DownloaderTest
     {
         [Theory]
         [InlineData("google.com/", false)]
@@ -19,7 +20,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            var result = core.TrustCenterManager.DownloadManager.IsUrlExisting(url);
+            var result = Downloader.IsUrlExisting(url);
 
             #endregion
 

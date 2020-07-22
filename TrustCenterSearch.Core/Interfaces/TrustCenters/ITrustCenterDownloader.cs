@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core.Interfaces
+namespace TrustCenterSearch.Core.Interfaces.TrustCenters
 {
     internal interface ITrustCenterDownloader
     {

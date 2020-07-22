@@ -7,6 +7,7 @@ using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using TrustCenterSearch.Core.Interfaces;
 using TrustCenterSearch.Core.Interfaces.Configuration;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 [assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
@@ -92,7 +93,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
-            if (DownloadManager.IsUrlExisting(newTrustCenterUrl))
+            if (Downloader.IsUrlExisting(newTrustCenterUrl))
                 throw new ArgumentException("The entered Url is not valid.");
 
             if (this.Config.TrustCenterMetaInfos.Any(tc => tc.Name.Equals(newTrustCenterName)))

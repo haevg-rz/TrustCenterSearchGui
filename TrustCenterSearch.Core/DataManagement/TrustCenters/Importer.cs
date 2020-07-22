@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using TrustCenterSearch.Core.Interfaces;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters

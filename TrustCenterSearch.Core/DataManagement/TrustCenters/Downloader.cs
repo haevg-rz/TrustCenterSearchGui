@@ -2,13 +2,16 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using TrustCenterSearch.Core.Interfaces;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
+
+[assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    internal class DownloadManager:ITrustCenterDownloader
+    public class Downloader:ITrustCenterDownloader
     {
         #region ITrustCenterDownloaderMethods
 
@@ -36,7 +39,10 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             return $@"{dataFolderPath}{name}.txt";
         }
 
-        public static bool IsUrlExisting(string url)
+        #endregion
+
+        #region InternalStaticMethods
+        internal static bool IsUrlExisting(string url)
         {
             if (url == String.Empty)
                 return false;
@@ -54,7 +60,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             return true;
         }
-
         #endregion
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearch.Core.Interfaces
+namespace TrustCenterSearch.Core.Interfaces.TrustCenters
 {
     internal interface ITrustCenterManager
     {
