@@ -93,7 +93,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
-            if (Downloader.IsUrlExisting(newTrustCenterUrl))
+            if (!Downloader.IsUrlExisting(newTrustCenterUrl))
                 throw new ArgumentException("The entered Url is not valid.");
 
             if (this.Config.TrustCenterMetaInfos.Any(tc => tc.Name.Equals(newTrustCenterName)))
