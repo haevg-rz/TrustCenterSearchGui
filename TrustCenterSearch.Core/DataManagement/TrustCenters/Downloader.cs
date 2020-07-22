@@ -21,14 +21,14 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             var response = await client.GetAsync(trustCenterMetaInfo.TrustCenterUrl);
 
-            var content = response.Content.ReadAsByteArrayAsync();
+            var content = await response.Content.ReadAsByteArrayAsync();
 
             using (var stream = File.OpenWrite(GetFilePath(trustCenterMetaInfo.Name, dataFolderPath)))
             {
-                await stream.WriteAsync(content.Result, 0, content.Result.Length - 1);
+                await stream.WriteAsync(content, 0, content.Length - 1);
             }
 
-            return content.Result;
+            return content;
         }
 
         public string GetFilePath(string name, string dataFolderPath)

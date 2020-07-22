@@ -22,7 +22,7 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
 
         #endregion
 
-        #region InternalMethods
+        #region ICongigManagerMethods
         public Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
