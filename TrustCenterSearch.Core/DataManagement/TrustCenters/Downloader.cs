@@ -3,15 +3,16 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TrustCenterSearch.Core.Interfaces;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    internal class DownloadManager
+    internal class DownloadManager:ITrustCenterDownloader
     {
-        #region InternalMethods
+        #region ITrustCenterDownloaderMethods
 
-        internal async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        public async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             if (!Directory.Exists(dataFolderPath))
                 Directory.CreateDirectory(dataFolderPath);
@@ -30,12 +31,12 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             return content.Result;
         }
 
-        internal string GetFilePath(string name, string dataFolderPath)
+        public string GetFilePath(string name, string dataFolderPath)
         {
             return $@"{dataFolderPath}{name}.txt";
         }
 
-        internal bool IsUrlExisting(string url)
+        public static bool IsUrlExisting(string url)
         {
             if (url == String.Empty)
                 return false;
