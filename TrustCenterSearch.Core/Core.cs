@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.DataManagement.TrustCenters;
+using TrustCenterSearch.Core.Interfaces;
+using TrustCenterSearch.Core.Interfaces.Configuration;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 [assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
@@ -14,8 +17,8 @@ namespace TrustCenterSearch.Core
     public class Core
     {
         #region Properties
-        internal TrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
-        internal ConfigManager ConfigManager { get; set; } = new ConfigManager();
+        internal ITrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
+        internal IConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
         internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
         #endregion
@@ -90,7 +93,7 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName == String.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
-            if (!this.TrustCenterManager.DownloadManager.IsUrlExisting(newTrustCenterUrl))
+            if (Downloader.IsUrlExisting(newTrustCenterUrl))
                 throw new ArgumentException("The entered Url is not valid.");
 
             if (this.Config.TrustCenterMetaInfos.Any(tc => tc.Name.Equals(newTrustCenterName)))

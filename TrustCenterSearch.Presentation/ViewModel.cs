@@ -111,7 +111,6 @@ namespace TrustCenterSearch.Presentation
             this.ReloadCertificatesOfTrustCenter = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterExecute);
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
 
-
             Core = new Core.Core();
         }
 

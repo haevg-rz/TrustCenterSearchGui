@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    internal class TrustCenterManager
+    internal class TrustCenterManager:ITrustCenterManager
     {
         #region Properties
-        internal ImportManager ImportManager { get; set; } = new ImportManager();
-        internal DownloadManager DownloadManager { get; set; } = new DownloadManager();
+        internal ITrustCenterImporter ImportManager { get; set; } = new Importer();
+        internal ITrustCenterDownloader DownloadManager { get; set; } = new Downloader();
 
         #endregion
 
@@ -20,29 +21,28 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\data\";
         #endregion
 
-        #region InternalMethods
+        #region ITrustCenterManagerMethods
 
-        internal async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        public async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             return await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
-        internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             var importedCertificates = await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
             return importedCertificates;
         }
 
-        internal void DeleteTrustCenterFile(string trustCenterName)
+        public void DeleteTrustCenterFile(string trustCenterName)
         {
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
         }
 
-        internal void DeleteCertificatesOfTrustCenter(IEnumerable<Certificate> certificates, string trustCenterName)
+        public void DeleteCertificatesOfTrustCenter(IEnumerable<Certificate> certificates, string trustCenterName)
         {
             certificates = certificates.Where(c => c.TrustCenterName.Equals(trustCenterName));
         }
-
         #endregion
     }
 }
