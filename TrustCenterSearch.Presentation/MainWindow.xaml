@@ -81,7 +81,7 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0" BorderBrush="Transparent" Grid.Column="0" BorderThickness="0"
+                        <TextBox Grid.Row="0" Grid.Column="0" BorderThickness="0"
                                  Text="{Binding Subject}"
                                  Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
                                  FontSize="16" Margin="0,0,10,0" />
@@ -96,7 +96,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="Validtity:" Foreground="Gray" BorderBrush="Transparent"
+                            <TextBox Grid.Column="0" Text="Validtity:" Foreground="Gray"
                                      BorderThickness="0" />
                             <TextBox Grid.Column="1" BorderBrush="Transparent" Margin="0,0,10,0" BorderThickness="0">
                                 <TextBox.Text>
@@ -106,7 +106,7 @@
                                     </MultiBinding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Grid.Column="2" Text="Keylength:" Foreground="Gray" BorderBrush="Transparent"
+                            <TextBox Grid.Column="2" Text="Keylength:" Foreground="Gray"
                                      BorderThickness="0" />
                             <TextBox Grid.Column="3" BorderBrush="Transparent" Margin="0,0,10,0" Padding="0"
                                      BorderThickness="0">
@@ -116,17 +116,23 @@
                                     </MultiBinding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Grid.Column="4" Text="SN:" ToolTip="SerialNumber" Foreground="Gray"
+                            <TextBox Grid.Column="4" Text="Thumbprint:" Foreground="Gray"
+                                     BorderThickness="0" />
+                            <TextBox Grid.Column="5" Text="{Binding Thumbprint}"
+                                     Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
+                                     Margin="0,0,10,0" BorderThickness="0" MinWidth="280"/>
+
+
+
+
+                            <TextBox Grid.Column="6" Text="SN:" ToolTip="SerialNumber" Foreground="Gray"
                                      BorderBrush="Transparent" BorderThickness="0" />
-                            <TextBox Grid.Column="5" MinWidth="45" Text="{Binding SerialNumber}"
+                            <TextBox Grid.Column="7" Text="{Binding SerialNumber}"
                                      BorderBrush="Transparent"
                                      Margin="0,0,10,0" BorderThickness="0"
+
                                      Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                            <TextBox Grid.Column="6" Text="Thumbprint:" BorderBrush="Transparent" Foreground="Gray"
-                                     BorderThickness="0" />
-                            <TextBox Grid.Column="7" Text="{Binding Thumbprint}" BorderBrush="Transparent"
-                                     Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
-                                     Margin="0,0,10,0" BorderThickness="0" />
+                            
                         </Grid>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
