@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.DataManagement.TrustCenters;
-using TrustCenterSearch.Core.Interfaces;
 using TrustCenterSearch.Core.Interfaces.Configuration;
 using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
