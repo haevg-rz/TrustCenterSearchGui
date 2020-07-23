@@ -15,18 +15,16 @@ namespace TrustCenterSearch.Presentation
     {
         #region Properties
 
-        private bool _userInputIsEnabled = true;
+        public Core.Core Core { get; set; } = new Core.Core();
 
+        private bool _userInputIsEnabled = true;
         public bool UserInputIsEnabled
         {
             get => this._userInputIsEnabled;
             set => base.Set(ref this._userInputIsEnabled, value);
         }
 
-        public Core.Core Core { get; set; } = new Core.Core();
-
         private ICollectionView _certificatesCollectionView;
-
         public ICollectionView CertificatesCollectionView
         {
             get => this._certificatesCollectionView;
@@ -34,7 +32,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryActive = new ObservableCollection<TrustCenterMetaInfo>();
-
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryActive
         {
             get => this._trustCenterHistoryActive;
@@ -42,7 +39,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         private ObservableCollection<TrustCenterMetaInfo> _trustCenterHistoryInactive = new ObservableCollection<TrustCenterMetaInfo>();
-
         public ObservableCollection<TrustCenterMetaInfo> TrustCenterHistoryInactive
         {
             get => this._trustCenterHistoryInactive;
@@ -50,7 +46,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         private string _searchBarInput = String.Empty;
-
         public string SearchBarInput
         {
             get => this._searchBarInput;
@@ -62,7 +57,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         private string _addTrustCenterName = String.Empty;
-
         public string AddTrustCenterName
         {
             get => this._addTrustCenterName;
@@ -70,7 +64,6 @@ namespace TrustCenterSearch.Presentation
         }
 
         private string _addTrustCenterUrl = String.Empty;
-
         public string AddTrustCenterUrl
         {
             get => this._addTrustCenterUrl;
