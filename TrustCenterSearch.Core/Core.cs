@@ -87,7 +87,7 @@ namespace TrustCenterSearch.Core
         #region PrivateMethods
         private bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
-            if (newTrustCenterName.Length > 29)
+            if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");
 
             if (newTrustCenterName == String.Empty)
