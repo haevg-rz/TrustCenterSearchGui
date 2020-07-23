@@ -2,16 +2,20 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
+
+[assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    internal class DownloadManager
+    public class Downloader:ITrustCenterDownloader
     {
-        #region InternalMethods
+        #region ITrustCenterDownloaderMethods
 
-        internal async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        public async Task<byte[]> DownloadCertificates(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             if (!Directory.Exists(dataFolderPath))
                 Directory.CreateDirectory(dataFolderPath);
@@ -20,22 +24,25 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             var response = await client.GetAsync(trustCenterMetaInfo.TrustCenterUrl);
 
-            var content = response.Content.ReadAsByteArrayAsync();
+            var content = await response.Content.ReadAsByteArrayAsync();
 
             using (var stream = File.OpenWrite(GetFilePath(trustCenterMetaInfo.Name, dataFolderPath)))
             {
-                await stream.WriteAsync(content.Result, 0, content.Result.Length - 1);
+                await stream.WriteAsync(content, 0, content.Length - 1);
             }
 
-            return content.Result;
+            return content;
         }
 
-        internal string GetFilePath(string name, string dataFolderPath)
+        public string GetFilePath(string name, string dataFolderPath)
         {
             return $@"{dataFolderPath}{name}.txt";
         }
 
-        internal bool IsUrlExisting(string url)
+        #endregion
+
+        #region InternalStaticMethods
+        internal static bool IsUrlExisting(string url)
         {
             if (url == String.Empty)
                 return false;
@@ -53,7 +60,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             return true;
         }
-
         #endregion
     }
 }

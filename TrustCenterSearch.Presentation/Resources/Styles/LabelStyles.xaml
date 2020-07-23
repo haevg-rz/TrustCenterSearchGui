@@ -34,7 +34,7 @@
 
     <!--Add TrustCenter-->
     <Style TargetType="Label" x:Key="MenuTitleLabelStyle">
-        <Setter Property="Content" Value="TrustCenter Search GUI"/>
+        <Setter Property="Content" Value="Trust Center Search GUI"/>
         <Setter Property="Foreground" Value="#2772db"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="10,5,0,10"/>

@@ -5,14 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 {
-    internal class ImportManager
+    internal class Importer:ITrustCenterImporter
     {
-        #region InternalMethods
-        internal async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
+        #region ITrustCenterImporterMethods
+        public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
             var certificates = new HashSet<Certificate>();
 
@@ -26,8 +27,8 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 Subject = c.Subject,
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter.ToString(CultureInfo.CurrentCulture),
-                NotBefore = c.NotBefore.ToString(CultureInfo.CurrentCulture),
+                NotAfter = c.NotAfter.Date.ToShortDateString(),
+                NotBefore = c.NotBefore.Date.ToShortDateString(),
                 Thumbprint = c.Thumbprint,
                 PublicKeyLength = c.PublicKey.ToString().Length.ToString(),
                 TrustCenterName = trustCenterMetaInfo.Name
@@ -37,7 +38,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         }
         #endregion
 
-        #region PrivateMethods
+        #region PrivateStaticMethods
         private static async Task<string[]> ReadFileAsync(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;
