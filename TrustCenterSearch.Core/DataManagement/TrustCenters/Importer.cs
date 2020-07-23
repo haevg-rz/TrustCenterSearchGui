@@ -30,7 +30,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 NotAfter = c.NotAfter.Date.ToShortDateString(),
                 NotBefore = c.NotBefore.Date.ToShortDateString(),
                 Thumbprint = c.Thumbprint,
-                PublicKeyLength = c.PublicKey.ToString().Length.ToString(),
+                PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
                 TrustCenterName = trustCenterMetaInfo.Name
             }));
 
