@@ -132,13 +132,7 @@ namespace TrustCenterSearch.Presentation
 
         private void CollapseSidebarCommandExecute()
         {
-            if (this.MenuWidth == "Auto")
-            {
-                this.MenuWidth = "0";
-                return;
-            }
-
-            this.MenuWidth = "Auto";
+            this.MenuWidth = this.MenuWidth.Equals("Auto") ? "0" : this.MenuWidth = "Auto";
         }
 
         private async void ReloadCertificatesOfTrustCenterCommandExecute(TrustCenterMetaInfo trustCenterMetaInfo)
