@@ -14,12 +14,14 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #region ITrustCenterImporterMethods
         public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            var certificates = new HashSet<Certificate>();
+            try
+            {
+                var certificates = new HashSet<Certificate>();
 
-            var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
+                var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
-            var cer = from certificateTxt in certificatesTxt
-                select new X509Certificate2(Convert.FromBase64String(certificateTxt));
+                var cer = from certificateTxt in certificatesTxt
+                    select new X509Certificate2(Convert.FromBase64String(certificateTxt));
 
             certificates.UnionWith(cer.Select(c => new Certificate()
             {
@@ -33,9 +35,13 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 TrustCenterName = trustCenterMetaInfo.Name
             }));
 
-            return certificates;
+                return certificates;
+            }
+            catch (Exception e)
+            {
+                return new HashSet<Certificate>();
+            }
         }
-
         #endregion
 
         #region PrivateStaticMethods
