@@ -107,6 +107,7 @@ namespace TrustCenterSearch.Presentation
             this.InfoAboutTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(InfoAboutTrustCenterCommandExecute);
             this.ReloadCertificatesOfTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterCommandExecute);
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
+            this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
         }
 
         #endregion
