@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -82,8 +83,11 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand<TrustCenterMetaInfo> InfoAboutTrustCenterCommand { get; set; }
         public RelayCommand<TrustCenterMetaInfo> ReloadCertificatesOfTrustCenterCommand { get; set; }
         public RelayCommand CollapseSideBarCommand { get; set; }
+        public RelayCommand OpenWikiWebpageCommand { get; set; }
 
         private string _menuWidth = "Auto";
+        private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki";
+
         public string MenuWidth
         {
             get => this._menuWidth;
@@ -205,6 +209,18 @@ namespace TrustCenterSearch.Presentation
             this.TrustCenterHistoryActive.Remove(trustCenterMetaInfo);
             this.TrustCenterHistoryInactive.Add(trustCenterMetaInfo);
             this.CertificatesCollectionView.Refresh();
+        }
+        private void OpenWikiWebpageCommandExecute()
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Arguments = $"/c start {this._gitHubWikiUrl}"
+            };
+            Process.Start(psi);
         }
 
         #endregion
