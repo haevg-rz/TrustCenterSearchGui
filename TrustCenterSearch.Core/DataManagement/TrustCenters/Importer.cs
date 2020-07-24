@@ -15,26 +15,33 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #region ITrustCenterImporterMethods
         public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            var certificates = new HashSet<Certificate>();
-
-            var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
-
-            var cer = from certificateTxt in certificatesTxt
-                select new X509Certificate2(Convert.FromBase64String(certificateTxt));
-
-            certificates.UnionWith(cer.Select(c => new Certificate()
+            try
             {
-                Subject = c.Subject,
-                Issuer = c.Issuer,
-                SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter.Date.ToShortDateString(),
-                NotBefore = c.NotBefore.Date.ToShortDateString(),
-                Thumbprint = c.Thumbprint,
-                PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
-                TrustCenterName = trustCenterMetaInfo.Name
-            }));
+                var certificates = new HashSet<Certificate>();
 
-            return certificates;
+                var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
+
+                var cer = from certificateTxt in certificatesTxt
+                    select new X509Certificate2(Convert.FromBase64String(certificateTxt));
+
+                certificates.UnionWith(cer.Select(c => new Certificate()
+                {
+                    Subject = c.Subject,
+                    Issuer = c.Issuer,
+                    SerialNumber = c.SerialNumber,
+                    NotAfter = c.NotAfter.Date.ToShortDateString(),
+                    NotBefore = c.NotBefore.Date.ToShortDateString(),
+                    Thumbprint = c.Thumbprint,
+                    PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
+                    TrustCenterName = trustCenterMetaInfo.Name
+                }));
+
+                return certificates;
+            }
+            catch (Exception e)
+            {
+                return new HashSet<Certificate>();
+            }
         }
         #endregion
 
