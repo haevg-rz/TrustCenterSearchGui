@@ -19,6 +19,7 @@
     <None Remove="Resources\Images\loadIconWhenMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
     <None Remove="Resources\Images\removeMouseOver.png" />
+    <None Remove="text_lock.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +63,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\removeMouseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="text_lock.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
