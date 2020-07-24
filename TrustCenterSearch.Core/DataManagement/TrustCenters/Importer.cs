@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -24,7 +23,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             certificates.UnionWith(cer.Select(c => new Certificate()
             {
-                Subject = c.Subject,
+                Subject = GetSubjectElementsToDisplay(c.Subject),
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
                 NotAfter = c.NotAfter.Date.ToShortDateString(),
@@ -36,6 +35,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             return certificates;
         }
+
         #endregion
 
         #region PrivateStaticMethods
@@ -52,7 +52,17 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 Split(new[] { Environment.NewLine + Environment.NewLine },
                     StringSplitOptions.RemoveEmptyEntries);
         }
+        
+        private static string GetSubjectElementsToDisplay(string argSubject)
+        {
+            var subjectElements = argSubject.Split(',');
 
+            var subjectElementsToDisplay = subjectElements.Where(x => x.Contains("CN=") || x.Contains("OU="));
+
+            var newSubject = subjectElementsToDisplay.Aggregate(String.Empty, (current, element) => current + element);
+
+            return newSubject.Equals(String.Empty) ? "No Subjectinfo available" : newSubject;
+        }
         #endregion
     }
 }
