@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Presentation
@@ -84,6 +86,7 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand<TrustCenterMetaInfo> ReloadCertificatesOfTrustCenterCommand { get; set; }
         public RelayCommand CollapseSideBarCommand { get; set; }
         public RelayCommand OpenWikiWebpageCommand { get; set; }
+        public RelayCommand<Certificate> CopyToClipboardCommand { get; set; }
 
         private string _menuWidth = "Auto";
         private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki";
@@ -108,12 +111,17 @@ namespace TrustCenterSearch.Presentation
             this.ReloadCertificatesOfTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterCommandExecute);
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
             this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
+            this.CopyToClipboardCommand = new RelayCommand<Certificate>(this.CopySearchResultToClipboardCommandExecute);
         }
 
         #endregion
 
         #region Commandhandling
-
+        private void CopySearchResultToClipboardCommandExecute(Certificate certificate)
+        {
+            var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
+            Clipboard.SetText(jsonString);
+        }
         private async void LoadDataAsyncCommandExecute()
         {
             this.UserInputIsEnabled = false;
