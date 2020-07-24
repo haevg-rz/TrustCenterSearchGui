@@ -21,7 +21,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/IconStyles.xaml" />
-                <ResourceDictionary Source="Resources/Styles/TextBlockStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/LoadingAnimationStyle.xaml" />
                 <ResourceDictionary Source="Resources/Styles/LabelStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/BorderStyle.xaml" />
@@ -268,9 +268,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="{x:Type models:TrustCenterMetaInfo}">
-                                            <Border HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
-                                                    Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8"
-                                                    CornerRadius="3" Background="#d9e9ff">
+                                            <Border Style="{StaticResource AktiveFilterBorder}">
                                                 <WrapPanel Margin="2" Background="Transparent">
                                                     <Button Style="{DynamicResource RemoveIconStyle}"
                                                             CommandParameter="{Binding}"
