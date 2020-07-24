@@ -79,7 +79,7 @@ namespace TrustCenterSearch.Core
 
         public List<Certificate> GetCertificates()
         {
-            return this.Certificates.ToList();
+            return this.Certificates;
         }
 
         #endregion

@@ -12,6 +12,6 @@ namespace TrustCenterSearch.Core.Interfaces.TrustCenters
 
         void DeleteTrustCenterFile(string trustCenterName);
 
-        void DeleteCertificatesOfTrustCenter(IEnumerable<Certificate> certificates, string trustCenterName);
+        void DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName);
     }
 }

@@ -292,7 +292,7 @@
                                                     </Button>
                                                     <Button Style="{DynamicResource LoadButtonStyle}"
                                                             CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
@@ -347,7 +347,7 @@
                                                     </Button>
                                                     <Button Style="{DynamicResource LoadButtonStyle}"
                                                             CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenter}">
+                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
                                                         <Button.Background>
                                                             <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                         </Button.Background>
