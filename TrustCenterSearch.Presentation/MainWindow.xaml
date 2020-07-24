@@ -394,7 +394,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10,0,0,0"></TextBlock>
                 <TextBlock Grid.Column="1" Width="Auto" Margin="0,0,10,0" HorizontalAlignment="Right">
-                    <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Click for Wiki</Hyperlink>
+                    <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
                 </TextBlock>
             </Grid>
         </Grid>

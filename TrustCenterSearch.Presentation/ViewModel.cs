@@ -241,7 +241,15 @@ namespace TrustCenterSearch.Presentation
         }
         private void OpenWikiWebpageCommandExecute()
         {
-            Process.Start("cmd", "/C start" + " " + this._gitHubWikiUrl);
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Arguments = $"/c start {this._gitHubWikiUrl}"
+            };
+            Process.Start(psi);
         }
 
         #endregion
