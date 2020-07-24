@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -15,16 +14,18 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #region ITrustCenterImporterMethods
         public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo, string dataFolderPath)
         {
-            var certificates = new HashSet<Certificate>();
+            try
+            {
+                var certificates = new HashSet<Certificate>();
 
-            var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
+                var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
-            var cer = from certificateTxt in certificatesTxt
-                select new X509Certificate2(Convert.FromBase64String(certificateTxt));
+                var cer = from certificateTxt in certificatesTxt
+                    select new X509Certificate2(Convert.FromBase64String(certificateTxt));
 
             certificates.UnionWith(cer.Select(c => new Certificate()
             {
-                Subject = c.Subject,
+                Subject = GetSubjectElementsToDisplay(c.Subject),
                 Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
                 NotAfter = c.NotAfter.Date.ToShortDateString(),
@@ -34,7 +35,12 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 TrustCenterName = trustCenterMetaInfo.Name
             }));
 
-            return certificates;
+                return certificates;
+            }
+            catch (Exception e)
+            {
+                return new HashSet<Certificate>();
+            }
         }
         #endregion
 
@@ -52,7 +58,17 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 Split(new[] { Environment.NewLine + Environment.NewLine },
                     StringSplitOptions.RemoveEmptyEntries);
         }
+        
+        private static string GetSubjectElementsToDisplay(string argSubject)
+        {
+            var subjectElements = argSubject.Split(',');
 
+            var subjectElementsToDisplay = subjectElements.Where(x => x.Contains("CN=") || x.Contains("OU="));
+
+            var newSubject = subjectElementsToDisplay.Aggregate(String.Empty, (current, element) => current + element);
+
+            return newSubject.Equals(String.Empty) ? "No Subjectinfo available" : newSubject;
+        }
         #endregion
     }
 }
