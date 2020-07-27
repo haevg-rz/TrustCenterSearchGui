@@ -198,19 +198,18 @@ namespace TrustCenterSearch.Presentation
         {
             var deleteConfirmation = MessageBox.Show("Are you sure you want to delete this Trust Center?", "Delete Confirmation", MessageBoxButton.OKCancel,MessageBoxImage.Question);
 
-            this.UserInputIsEnabled = false;
-
             if (deleteConfirmation == MessageBoxResult.OK)
             {
+                this.UserInputIsEnabled = false;
+
                 this.Core.DeleteTrustCenter(trustCenterToDelete);
 
                 this.TrustCenterHistoryActive.Remove(trustCenterToDelete);
                 this.TrustCenterHistoryInactive.Remove(trustCenterToDelete);
 
                 this.CertificatesCollectionView.Refresh();
+                this.UserInputIsEnabled = true;
             }
-
-            this.UserInputIsEnabled = true;
         }
 
         private void AddTrustCenterToFilterCommandExecute(TrustCenterMetaInfo trustCenterMetaInfo)
