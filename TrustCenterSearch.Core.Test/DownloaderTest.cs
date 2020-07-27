@@ -32,5 +32,43 @@ namespace TrustCenterSearchCore.Test
             #endregion
 
         }
+
+        [Fact(DisplayName = "DownloadCertificatesTest")]
+        public void DownloadCertificatesTest()
+        {
+            #region Arrange
+
+            #endregion
+
+
+            #region Act
+
+            #endregion
+
+
+            #region Assert
+
+            #endregion
+
+        }
+
+        [Fact(DisplayName = "GetFilePathTest")]
+        public void GetFilePathTest()
+        {
+            #region Arrange
+
+            #endregion
+
+
+            #region Act
+
+            #endregion
+
+
+            #region Assert
+
+            #endregion
+
+        }
     }
 }
