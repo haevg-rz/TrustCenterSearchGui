@@ -79,10 +79,10 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0" Grid.Column="0" BorderThickness="0"
+                        <TextBox Grid.Row="0" Grid.Column="0"
                                  Text="{Binding Subject}"
                                  Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
-                                 FontSize="16" Margin="0,0,10,0" />
+                                 Style="{StaticResource SearchResultSubjectTextBoxStyle}"/>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -94,9 +94,8 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="Validtity:" Foreground="Gray"
-                                     BorderThickness="0" />
-                            <TextBox Grid.Column="1" BorderBrush="Transparent" Margin="0,0,10,0" BorderThickness="0">
+                            <TextBox Grid.Column="0" Style="{StaticResource SearchResultValidityCaptionTextBoxStyle}"/>
+                            <TextBox Grid.Column="1" Style="{StaticResource SearchResultValidityResultTextBoxStyle}">
                                 <TextBox.Text>
                                     <MultiBinding StringFormat="{}{0} - {1}">
                                         <Binding Path="NotBefore" />
@@ -104,8 +103,7 @@
                                     </MultiBinding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox Grid.Column="2" Text="Keylength:" Foreground="Gray"
-                                     BorderThickness="0" />
+                            <TextBox Grid.Column="2" Style="{StaticResource SearchResultKeylengthCaptionTextBoxStyle}"/>
                             <TextBox Grid.Column="3" BorderBrush="Transparent" Margin="0,0,10,0" Padding="0"
                                      BorderThickness="0">
                                 <TextBox.Text>
@@ -204,6 +202,7 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="35" />
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -370,10 +369,19 @@
             <!-- TrustCenter Inactive Filter -->
 
             <!-- TrustCenterHistory -->
+
             <Grid Grid.Row="4" Column="0" ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Content="Config" HorizontalAlignment="Right" Command="{Binding OpenConfigCommand}" Margin="0,0,10,10" Background="#2772db" Foreground="White"></Button>
+            </Grid>
+
+            <Grid Grid.Row="5" Column="0" ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10,0,0,0"></TextBlock>
                 <TextBlock Grid.Column="1" Width="Auto" Margin="0,0,10,0" HorizontalAlignment="Right">

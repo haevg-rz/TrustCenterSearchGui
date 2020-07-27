@@ -2,14 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TrustCenterSearch.Presentation.Resources.Styles">
 
-    <!--<Style TargetType="TextBox" x:Key="SearchResultTextBox">
+    <!--search Results-->
+
+    <Style TargetType="TextBox" x:Key="SearchResultTextBoxBaseStyle">
         <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="BorderThickness" Value ="0"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Width" Value="auto"/>
-    </Style>-->
+    </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultSubjectTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultValidityCaptionTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Text" Value="Validity" />
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="SearchResultValidityResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultKeylengthCaptionTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Text" Value="Keylength"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="SearchResultKeylengthResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
 
 </ResourceDictionary>
