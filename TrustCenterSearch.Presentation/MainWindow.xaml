@@ -204,6 +204,7 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="35" />
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -370,10 +371,19 @@
             <!-- TrustCenter Inactive Filter -->
 
             <!-- TrustCenterHistory -->
+
             <Grid Grid.Row="4" Column="0" ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Content="Config" HorizontalAlignment="Right" Command="{Binding OpenConfigCommand}" Margin="0,0,10,10" Background="#2772db" Foreground="White"></Button>
+            </Grid>
+
+            <Grid Grid.Row="5" Column="0" ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10,0,0,0"></TextBlock>
                 <TextBlock Grid.Column="1" Width="Auto" Margin="0,0,10,0" HorizontalAlignment="Right">
