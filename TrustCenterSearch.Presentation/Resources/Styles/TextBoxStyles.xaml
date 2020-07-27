@@ -35,5 +35,4 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
 
-
 </ResourceDictionary>
