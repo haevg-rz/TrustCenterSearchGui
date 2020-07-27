@@ -87,9 +87,12 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand CollapseSideBarCommand { get; set; }
         public RelayCommand OpenWikiWebpageCommand { get; set; }
         public RelayCommand<Certificate> CopyToClipboardCommand { get; set; }
+        public RelayCommand OpenConfigCommand { get; set; }
 
         private string _menuWidth = "Auto";
         private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki";
+        private readonly string _configFolderPath =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\Config.JSON";
 
         public string MenuWidth
         {
@@ -112,6 +115,7 @@ namespace TrustCenterSearch.Presentation
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
             this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
             this.CopyToClipboardCommand = new RelayCommand<Certificate>(this.CopySearchResultToClipboardCommandExecute);
+            this.OpenConfigCommand = new RelayCommand(this.OpenConfigCommandExecute);
         }
 
         #endregion
@@ -234,6 +238,17 @@ namespace TrustCenterSearch.Presentation
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 Arguments = $"/c start {this._gitHubWikiUrl}"
+            };
+            Process.Start(psi);
+        }
+
+        private void OpenConfigCommandExecute()
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = this._configFolderPath,
+                UseShellExecute = true,
+                Verb = "open"
             };
             Process.Start(psi);
         }
