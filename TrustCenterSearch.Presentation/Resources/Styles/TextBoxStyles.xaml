@@ -33,7 +33,6 @@
 
     <Style TargetType="TextBox" x:Key="SearchResultKeylengthResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property=""></Setter>
     </Style>
 
 
