@@ -33,6 +33,43 @@
 
     <Style TargetType="TextBox" x:Key="SearchResultKeylengthResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
         <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultThumbprintCaptionTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Text" Value="Thumbprint"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="SearchResultThumbprintResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="MinWidth" Value="280"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+    </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultSerialNumberCaptionTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Text" Value="SN"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="ToolTip" Value="SerialNumber"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="SearchResultSerialNumberResultTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+
+    <Style TargetType="TextBox" x:Key="SearchResultTrustCenterNameTextBoxStyle" BasedOn="{StaticResource SearchResultTextBoxBaseStyle}">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Margin" Value="0,0,5,0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <!--search Results-->
 
 </ResourceDictionary>
