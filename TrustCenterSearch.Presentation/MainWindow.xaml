@@ -246,25 +246,10 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:TrustCenterHistoryElement}">
-                                    <Button HorizontalAlignment="Left" Padding="2" Width="245" Height="32"
-                                            Margin="4,2,0,2" BorderBrush="Transparent" BorderThickness="0.8">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="CommandParameter" Value="{Binding}"></Setter>
-                                                <Setter Property="Command" Value="{Binding Source={StaticResource ViewModel}, Path=ApplyTrustCenterHistoryFilterCommand}"></Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Active}" Value="true">
-                                                        <Setter Property="Background" Value="#d9e9ff"></Setter>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Active}" Value="false">
-                                                        <Setter Property="Background" Value="#f7f8fa"></Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
+                                    <Button Style="{DynamicResource AddOrRemoveTrustCenterHistoryElementStyle}" >
                                         <Button.Content>
                                             <WrapPanel Margin="2" Background="Transparent">
-                                                <Button Style="{DynamicResource AddOrRemoveFilterIconStyle}"></Button>
+                                                <Image Style="{DynamicResource AddOrRemoveFilterIconStyle}"></Image>
                                                 <TextBlock Width="150" VerticalAlignment="Center"
                                                                Text="{Binding TrustCenterMetaInfo.Name}" />
                                                 <Button Style="{DynamicResource InfoButtonStyle}"
