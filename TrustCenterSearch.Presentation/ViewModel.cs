@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Data;
@@ -11,6 +12,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
+
+[assembly: InternalsVisibleTo("TrustCenterSearchPresentation.Test")]
 
 namespace TrustCenterSearch.Presentation
 {
@@ -114,14 +117,14 @@ namespace TrustCenterSearch.Presentation
             this.ReloadCertificatesOfTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterCommandExecute);
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
             this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
-            this.CopyToClipboardCommand = new RelayCommand<Certificate>(this.CopySearchResultToClipboardCommandExecute);
+            this.CopyToClipboardCommand = new RelayCommand<Certificate>(CopySearchResultToClipboardCommandExecute);
             this.OpenConfigCommand = new RelayCommand(this.OpenConfigCommandExecute);
         }
 
         #endregion
 
         #region Commandhandling
-        private void CopySearchResultToClipboardCommandExecute(Certificate certificate)
+        internal static void CopySearchResultToClipboardCommandExecute(Certificate certificate)
         {
             var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
             Clipboard.SetText(jsonString);

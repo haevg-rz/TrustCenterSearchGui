@@ -1,4 +1,10 @@
+using System;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
+using Newtonsoft.Json;
 using Xunit;
+using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchPresentation.Test
 {
@@ -9,15 +15,24 @@ namespace TrustCenterSearchPresentation.Test
         {
             #region Arrange
 
-            #endregion
+            var cer = new Certificate()
+            {
+                Subject = "Test"
+            };
 
+            var jsonString = JsonConvert.SerializeObject(cer, Formatting.Indented);
+            var test = Convert.ToString(jsonString);
+            #endregion
 
             #region Act
 
+            TrustCenterSearch.Presentation.ViewModel.CopySearchResultToClipboardCommandExecute(cer);
+
             #endregion
 
-
             #region Assert
+            
+            Assert.Equal(test,Clipboard.GetText());
 
             #endregion
 
