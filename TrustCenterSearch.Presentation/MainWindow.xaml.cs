@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.Windows;
-using System.Windows.Navigation;
+using System.Windows.Input;
 
 namespace TrustCenterSearch.Presentation
 {
@@ -12,6 +12,17 @@ namespace TrustCenterSearch.Presentation
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void watermarkVisibilityConverter(object sender, KeyEventArgs e)
+        {
+            if (this.SearchBar.Text.Equals(String.Empty))
+            {
+                this.SearchWatermark.Visibility = Visibility.Visible;
+                return;
+            }
+
+            this.SearchWatermark.Visibility = Visibility.Collapsed;
         }
     }
 }
