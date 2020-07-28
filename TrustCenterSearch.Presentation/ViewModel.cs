@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
@@ -117,17 +117,24 @@ namespace TrustCenterSearch.Presentation
             this.ReloadCertificatesOfTrustCenterCommand = new RelayCommand<TrustCenterMetaInfo>(this.ReloadCertificatesOfTrustCenterCommandExecute);
             this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
             this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
-            this.CopyToClipboardCommand = new RelayCommand<Certificate>(CopySearchResultToClipboardCommandExecute);
+            this.CopyToClipboardCommand = new RelayCommand<Certificate>(this.CopySearchResultToClipboardCommandExecute);
             this.OpenConfigCommand = new RelayCommand(this.OpenConfigCommandExecute);
         }
 
         #endregion
 
         #region Commandhandling
-        internal static void CopySearchResultToClipboardCommandExecute(Certificate certificate)
+        internal void CopySearchResultToClipboardCommandExecute(Certificate certificate)
         {
             var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
-            Clipboard.SetText(jsonString);
+
+            var t = new Thread((ThreadStart)(() =>
+            {
+                Clipboard.SetText(jsonString);
+            }));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
         }
         private async void LoadDataAsyncCommandExecute()
         {
