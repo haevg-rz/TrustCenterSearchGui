@@ -112,7 +112,6 @@
 
     <Style x:Key="AddOrRemoveFilterIconStyle" TargetType="{x:Type Image}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="Margin" Value="2,4,8,2"/>
         <Setter Property="Height" Value="10"/>
         <Setter Property="Width" Value="10"/>
 
