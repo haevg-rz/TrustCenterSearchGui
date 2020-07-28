@@ -3,32 +3,32 @@
                     xmlns:local="clr-namespace:TrustCenterSearch.Presentation.Resources.Styles">
 
     <!--Add TrustCenter-->
-    <Style TargetType="Label" x:Key="MenuTitleLabelStyle">
-        <Setter Property="Content" Value="Trust Center Search GUI"/>
+    <Style TargetType="TextBlock" x:Key="MenuTitleTextBlockStyle">
+        <Setter Property="Text" Value="Trust Center Search GUI"/>
         <Setter Property="Foreground" Value="#2772db"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Margin" Value="10,5,0,10"/>
+        <Setter Property="Margin" Value="10"/>
     </Style>
 
-    <Style TargetType="Label" x:Key="MenuAddTrustCenterNameLabelStyle">
+    <Style TargetType="TextBlock" x:Key="MenuAddTrustCenterNameTextBlockStyle">
         <Setter Property="Width" Value="45"/>
-        <Setter Property="Content" Value="Name"/>
-        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Text" Value="Name"/>
+        <Setter Property="Margin" Value="10,10,0,10"/>
     </Style>
 
-    <Style TargetType="Label" x:Key="MenuAddTrustCenterUrlLabelStyle">
+    <Style TargetType="TextBlock" x:Key="MenuAddTrustCenterUrlTextBlockStyle">
         <Setter Property="Width" Value="45"/>
-        <Setter Property="Content" Value="Url"/>
-        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Text" Value="Url"/>
+        <Setter Property="Margin" Value="10,10,0,10"/>
     </Style>
     <!--Add TrustCenter-->
 
     <!-- TrustCenterHistory -->
-    <Style TargetType="Label" x:Key="TrustCenterHistoryTitleLabelStyle">
-        <Setter Property="Content" Value="Trust Center"/>
+    <Style TargetType="TextBlock" x:Key="TrustCenterHistoryTitleTextBlockStyle">
+        <Setter Property="Text" Value="Trust Center"/>
         <Setter Property="Foreground" Value="#2772db"/>
         <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Margin" Value="10"/>
     </Style>
     <!-- TrustCenterHistory -->
 
