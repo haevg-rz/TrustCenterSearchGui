@@ -105,13 +105,16 @@
                             </TextBox>
 
                             <TextBox Grid.Column="2" Style="{StaticResource SearchResultKeylengthCaptionTextBoxStyle}"/>
-                            <TextBox Grid.Column="3" Style="{StaticResource SearchResultKeylengthResultTextBoxStyle}">
-                                <TextBox.Text>
-                                    <MultiBinding StringFormat="{}{0} Bit">
-                                        <Binding Path="PublicKeyLength" />
-                                    </MultiBinding>
-                                </TextBox.Text>
+                            <TextBox Text="{Binding PublicKeyLength}" Grid.Column="3" Style="{StaticResource SearchResultKeylengthResultTextBoxStyle}"
+                                     Foreground="{Binding PublicKeyLength, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}">
+                                 <!-- <TextBox.Text>  -->
+                                 <!--     <MultiBinding StringFormat="{}{0} Bit">  -->
+                                 <!--         <Binding Path="PublicKeyLength" />  -->
+                                 <!--     </MultiBinding>  -->
+                                 <!-- </TextBox.Text>  -->
                             </TextBox>
+                       
+                            
 
                             <TextBox Grid.Column="4" Style="{StaticResource SearchResultThumbprintCaptionTextBoxStyle}"/>
                             <TextBox Grid.Column="5" Text="{Binding Thumbprint}"

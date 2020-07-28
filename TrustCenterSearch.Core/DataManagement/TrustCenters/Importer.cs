@@ -26,7 +26,6 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             certificates.UnionWith(cer.Select(c => new Certificate()
             {
                 Subject = GetSubjectElementsToDisplay(c.Subject),
-                Issuer = c.Issuer,
                 SerialNumber = c.SerialNumber,
                 NotAfter = c.NotAfter.Date.ToShortDateString(),
                 NotBefore = c.NotBefore.Date.ToShortDateString(),

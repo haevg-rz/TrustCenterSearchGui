@@ -5,7 +5,6 @@ namespace TrustCenterSearch.Core.Models
     public class Certificate
     {
         public string Subject { get; set; }
-        public string Issuer { get; set; }
         public string SerialNumber { get; set; }
         public string NotBefore { get; set; }
         public string NotAfter { get; set; }
