@@ -58,7 +58,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                     StringSplitOptions.RemoveEmptyEntries);
         }
         
-        private static string GetSubjectElementsToDisplay(string argSubject)
+        internal static string GetSubjectElementsToDisplay(string argSubject)
         {
             var subjectElements = argSubject.Split(',');
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
@@ -10,6 +12,8 @@ using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation.Models;
+
+[assembly: InternalsVisibleTo("TrustCenterSearchPresentation.Test")]
 
 namespace TrustCenterSearch.Presentation
 {
@@ -112,7 +116,7 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Commandhandling
-        private void CopySearchResultToClipboardCommandExecute(Certificate certificate)
+        internal void CopySearchResultToClipboardCommandExecute(Certificate certificate)
         {
             var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
             Clipboard.SetText(jsonString);
