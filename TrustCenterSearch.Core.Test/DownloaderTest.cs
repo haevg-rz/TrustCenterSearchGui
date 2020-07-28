@@ -1,5 +1,4 @@
-﻿using TrustCenterSearch.Core;
-using TrustCenterSearch.Core.DataManagement.TrustCenters;
+﻿using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -12,8 +11,6 @@ namespace TrustCenterSearchCore.Test
         public void IsUrlExistingTest(string url, bool aspectedResult)
         {
             #region Arrange
-
-            var core = new Core();
 
             #endregion
 
@@ -52,20 +49,27 @@ namespace TrustCenterSearchCore.Test
 
         }
 
-        [Fact(DisplayName = "GetFilePathTest")]
-        public void GetFilePathTest()
+        [Theory]
+        [InlineData("test123", "test", "testtest123.txt")]
+        [InlineData("123", "", "123.txt")]
+        [InlineData("", "test", "test.txt")]
+        public void GetFilePathTest(string name, string dataFolderPath, string aspected)
         {
             #region Arrange
 
-            #endregion
+            var downloader = new Downloader();
 
+            #endregion
 
             #region Act
 
+            var result = downloader.GetFilePath(name, dataFolderPath);
+
             #endregion
 
-
             #region Assert
+
+            Assert.Equal(result, aspected);
 
             #endregion
 
