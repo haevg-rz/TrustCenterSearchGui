@@ -12,7 +12,7 @@
         <Setter Property="Margin" Value="4,2,0,2"></Setter>
         <Setter Property="BorderBrush" Value="Transparent"></Setter>
         <Setter Property="CommandParameter" Value="{Binding}"></Setter>
-        <Setter Property="Command" Value="{Binding Source={StaticResource ViewModel}, Path=ApplyTrustCenterHistoryFilterCommand}"></Setter>
+        <Setter Property="Command" Value="{Binding Source={StaticResource ViewModel}, Path=ToggleTrustCenterHistoryFilterCommand}"></Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
                 <Setter Property="Background" Value="#d9e9ff"></Setter>

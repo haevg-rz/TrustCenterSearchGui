@@ -74,7 +74,7 @@ namespace TrustCenterSearch.Presentation
 
         public RelayCommand AddTrustCenterButtonCommand { get; set; }
         public RelayCommand LoadDataCommand { get; set; }
-        public RelayCommand<TrustCenterHistoryElement> ApplyTrustCenterHistoryFilterCommand { get; set; }
+        public RelayCommand<TrustCenterHistoryElement> ToggleTrustCenterHistoryFilterCommand { get; set; }
         public RelayCommand<TrustCenterHistoryElement> DeleteTrustCenterFromHistoryCommand { get; set; }
         public RelayCommand<TrustCenterHistoryElement> InfoAboutTrustCenterCommand { get; set; }
         public RelayCommand<TrustCenterHistoryElement> ReloadCertificatesOfTrustCenterCommand { get; set; }
@@ -101,12 +101,12 @@ namespace TrustCenterSearch.Presentation
         {
             this.AddTrustCenterButtonCommand = new RelayCommand(this.AddTrustCenterAsyncCommandExecute);
             this.LoadDataCommand = new RelayCommand(this.LoadDataAsyncCommandExecute);
-            this.ApplyTrustCenterHistoryFilterCommand = new RelayCommand<TrustCenterHistoryElement>(this.ApplyTrustCenterHistoryFilterCommandExecute);
+            this.ToggleTrustCenterHistoryFilterCommand = new RelayCommand<TrustCenterHistoryElement>(this.ToggleTrustCenterHistoryFilterCommandExecute);
             this.DeleteTrustCenterFromHistoryCommand = new RelayCommand<TrustCenterHistoryElement>(this.DeleteTrustCenterFromHistoryCommandExecute);
             this.InfoAboutTrustCenterCommand = new RelayCommand<TrustCenterHistoryElement>(InfoAboutTrustCenterCommandExecute);
             this.ReloadCertificatesOfTrustCenterCommand = new RelayCommand<TrustCenterHistoryElement>(this.ReloadCertificatesOfTrustCenterCommandExecute);
-            this.CollapseSideBarCommand = new RelayCommand(CollapseSidebarCommandExecute);
-            this.OpenWikiWebpageCommand = new RelayCommand(OpenWikiWebpageCommandExecute);
+            this.CollapseSideBarCommand = new RelayCommand(this.CollapseSidebarCommandExecute);
+            this.OpenWikiWebpageCommand = new RelayCommand(this.OpenWikiWebpageCommandExecute);
             this.CopyToClipboardCommand = new RelayCommand<Certificate>(this.CopySearchResultToClipboardCommandExecute);
             this.OpenConfigCommand = new RelayCommand(this.OpenConfigCommandExecute);
         }
@@ -177,8 +177,6 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-
-
         private void DeleteTrustCenterFromHistoryCommandExecute(TrustCenterHistoryElement trustCenterToDelete)
         {
             var deleteConfirmation = MessageBox.Show("Are you sure you want to delete this Trust Center?", "Delete Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
@@ -195,7 +193,7 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private void ApplyTrustCenterHistoryFilterCommandExecute(TrustCenterHistoryElement trustCenterHistoryElement)
+        private void ToggleTrustCenterHistoryFilterCommandExecute(TrustCenterHistoryElement trustCenterHistoryElement)
         {
             trustCenterHistoryElement.Active = !trustCenterHistoryElement.Active;
             this.TrustCenterHistoryCollectionView.Refresh();
