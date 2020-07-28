@@ -263,14 +263,13 @@ namespace TrustCenterSearch.Presentation
 
             var certificateAttributes = new HashSet<string>
             {
-                entry.Issuer.ToLower(),
                 entry.Subject.ToLower(),
                 entry.SerialNumber,
                 entry.NotBefore,
                 entry.NotAfter,
                 entry.Thumbprint.ToLower(),
-                entry.PublicKeyLength
-                
+                entry.PublicKeyLength,
+                entry.TrustCenterName.ToLower()
             };
 
             return certificateAttributes.Any(atr => atr.Contains(this.SearchBarInput.ToLower()));
