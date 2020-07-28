@@ -127,14 +127,7 @@ namespace TrustCenterSearch.Presentation
         internal void CopySearchResultToClipboardCommandExecute(Certificate certificate)
         {
             var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
-
-            var t = new Thread((ThreadStart)(() =>
-            {
-                Clipboard.SetText(jsonString);
-            }));
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
+            Clipboard.SetText(jsonString);
         }
         private async void LoadDataAsyncCommandExecute()
         {
