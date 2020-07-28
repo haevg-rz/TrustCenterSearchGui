@@ -27,9 +27,7 @@ namespace TrustCenterSearch.Presentation
         }
 
         public List<TrustCenterHistoryElement> TrustCenterHistory { get; set; } = new List<TrustCenterHistoryElement>();
-
         private ICollectionView _trustCenterHistoryCollectionView;
-
         public ICollectionView TrustCenterHistoryCollectionView
         {
             get => this._trustCenterHistoryCollectionView;
@@ -196,8 +194,7 @@ namespace TrustCenterSearch.Presentation
         private void ToggleTrustCenterHistoryFilterCommandExecute(TrustCenterHistoryElement trustCenterHistoryElement)
         {
             trustCenterHistoryElement.Active = !trustCenterHistoryElement.Active;
-            this.TrustCenterHistoryCollectionView.Refresh();
-            this.CertificatesCollectionView.Refresh();
+            this.RefreshCollectionViews();
         }
 
         private void OpenWikiWebpageCommandExecute()
