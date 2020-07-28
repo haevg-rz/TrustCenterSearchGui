@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
-        xmlns:models="clr-namespace:TrustCenterSearch.Core.Models;assembly=TrustCenterSearch.Core"
+        xmlns:models="clr-namespace:TrustCenterSearch.Presentation.Models"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="Trust Center Search GUI" Height="550" Width="1100">
@@ -234,130 +234,59 @@
                 <Label Style="{StaticResource TrustCenterHistoryTitleLabelStyle}" />
             </Grid>
 
-            <!-- TrustCenter Active Filter -->
+            <!-- TrustCenter Filter -->
             <Grid Grid.Column="1" Grid.Row="2">
-
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <!-- TrustCenter Active Filter -->
-                        <Grid Grid.Row="0">
-                            <StackPanel Margin="4,0,17,4">
-                                <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryActive}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type models:TrustCenterMetaInfo}">
-                                            <Border Style="{StaticResource AktiveFilterBorder}">
-                                                <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Style="{DynamicResource RemoveIconStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=RemoveTrustCenterFromFilterCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/remove.png"
-                                                                        Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <TextBlock Width="150" VerticalAlignment="Center"
-                                                               Text="{Binding Name}" />
-                                                    <Button Style="{DynamicResource InfoButtonStyle}"
+                    <StackPanel Margin="5">
+                        <ItemsControl ItemsSource="{Binding TrustCenterHistoryCollectionView}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:TrustCenterHistoryElement}">
+                                    <Button Style="{DynamicResource AddOrRemoveTrustCenterHistoryElementStyle}" >
+                                        <Button.Content>
+                                            <WrapPanel Margin="2" Background="Transparent">
+                                                <Image Style="{DynamicResource AddOrRemoveFilterIconStyle}"></Image>
+                                                <TextBlock Width="150" VerticalAlignment="Center"
+                                                               Text="{Binding TrustCenterMetaInfo.Name}" />
+                                                <Button Style="{DynamicResource InfoButtonStyle}"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
                                                                         Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <Button Style="{DynamicResource LoadButtonStyle}"
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Style="{DynamicResource LoadButtonStyle}"
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <Button Style="{DynamicResource BinImageStyle}" 
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Style="{DynamicResource BinImageStyle}" 
                                                             CommandParameter="{Binding}"
                                                             Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png"
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/binBlack.png"
                                                                         Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                </WrapPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Grid>
-                        <!-- TrustCenter Active Filter -->
-
-                        <!-- TrustCenter Inactive Filter -->
-                        <Grid Grid.Row="1">
-                            <StackPanel Margin="4,0,17,0">
-                                <ItemsControl ItemsSource="{Binding Path=TrustCenterHistoryInactive}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Style="{StaticResource InactiveFilterBorder}">
-                                                <WrapPanel Margin="2" Background="Transparent">
-                                                    <Button Style="{DynamicResource AddIconStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=AddTrustCenterToFilterCommand}">
-                                                        <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Images/add.png"
-                                                                        Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <TextBlock Width="150" VerticalAlignment="Center"
-                                                               Text="{Binding Name}" />
-                                                    <Button Style="{DynamicResource InfoButtonStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
-                                                                        Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <Button Style="{DynamicResource LoadButtonStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                    <Button Style="{DynamicResource BinImageStyle}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
-                                                        <Button.Background>
-                                                            <ImageBrush ImageSource="/Resources/Images/binBlack.png"
-                                                                        Stretch="Uniform" />
-                                                        </Button.Background>
-                                                    </Button>
-                                                </WrapPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
+                                                    </Button.Background>
+                                                </Button>
+                                            </WrapPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
             <!-- TrustCenter Inactive Filter -->
-
             <!-- TrustCenterHistory -->
-
+            
             <Grid Grid.Row="4" Column="0" ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

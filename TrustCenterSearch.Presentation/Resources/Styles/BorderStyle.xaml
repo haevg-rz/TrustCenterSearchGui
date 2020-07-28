@@ -24,7 +24,13 @@
     <!--TrustCenter Inactive Filter-->
 
     <!--TrustCenter Inactive Filter-->
-    <Style TargetType="Border" x:Key="InactiveFilterBorder" BasedOn="{StaticResource BaseBorderStyle}">
+    <Style TargetType="Button" x:Key="InactiveFilterBorder">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Width" Value="245"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Margin" Value="4,2,0,2"/>
+        <Setter Property="BorderThickness" Value="0.8"/>
         <Setter Property="BorderBrush" Value="LightBlue"/>
         <Setter Property="Background" Value="#f7f8fa"></Setter>
     </Style>
