@@ -49,11 +49,11 @@ namespace TrustCenterSearch.Core
                 return null;
 
             var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl, DateTime.Now);
-            this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
-            this.ConfigManager.SaveConfig(this.Config);
             await this.TrustCenterManager.DownloadCertificatesAsync(newTrustCenterMetaInfo);
             var importedCertificates =  await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
             this.Certificates.AddRange(importedCertificates);
+            this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
+            this.ConfigManager.SaveConfig(this.Config);
 
             return newTrustCenterMetaInfo;
         }
