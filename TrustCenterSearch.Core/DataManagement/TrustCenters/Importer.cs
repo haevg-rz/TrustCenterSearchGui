@@ -16,23 +16,9 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         {
             try
             {
-                var certificates = new HashSet<Certificate>();
+                var fileContent = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
 
-                var certificatesTxt = await ReadFileAsync(trustCenterMetaInfo, dataFolderPath).ConfigureAwait(false);
-
-                var cer = from certificateTxt in certificatesTxt
-                    select new X509Certificate2(Convert.FromBase64String(certificateTxt));
-
-            certificates.UnionWith(cer.Select(c => new Certificate()
-            {
-                Subject = GetSubjectElementsToDisplay(c.Subject),
-                SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter.Date.ToShortDateString(),
-                NotBefore = c.NotBefore.Date.ToShortDateString(),
-                Thumbprint = c.Thumbprint,
-                PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
-                TrustCenterName = trustCenterMetaInfo.Name
-            }));
+                var certificates = GetCertificatesFromByteArray(trustCenterMetaInfo, fileContent);
 
                 return certificates;
             }
@@ -44,7 +30,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         #endregion
 
         #region PrivateStaticMethods
-        private static async Task<string[]> ReadFileAsync(TrustCenterMetaInfo trustCenter, string dataFolderPath)
+        private static async Task<byte[]> ReadFileAsync(TrustCenterMetaInfo trustCenter, string dataFolderPath)
         {
             byte[] result;
             using (var stream = File.Open(dataFolderPath + trustCenter.Name + @".txt", FileMode.Open))
@@ -53,11 +39,33 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 await stream.ReadAsync(result, 0, (int)stream.Length);
             }
 
-            return System.Text.Encoding.UTF8.GetString(result).
-                Split(new[] { Environment.NewLine + Environment.NewLine },
-                    StringSplitOptions.RemoveEmptyEntries);
+            return result;
         }
-        
+
+        private static HashSet<Certificate> GetCertificatesFromByteArray(TrustCenterMetaInfo trustCenterMetaInfo, byte[] fileContent)
+        {
+            var certificatesTxt = System.Text.Encoding.UTF8.GetString(fileContent).Split(
+                new[] { Environment.NewLine + Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            var cer = from certificateTxt in certificatesTxt
+                select new X509Certificate2(Convert.FromBase64String(certificateTxt));
+
+            var certificates = new HashSet<Certificate>();
+
+            certificates.UnionWith(cer.Select(c => new Certificate()
+            {
+                Subject = GetSubjectElementsToDisplay(c.Subject),
+                SerialNumber = c.SerialNumber,
+                NotAfter = c.NotAfter.Date.ToShortDateString(),
+                NotBefore = c.NotBefore.Date.ToShortDateString(),
+                Thumbprint = c.Thumbprint,
+                PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
+                TrustCenterName = trustCenterMetaInfo.Name
+            }));
+            return certificates;
+        }
+
         internal static string GetSubjectElementsToDisplay(string argSubject)
         {
             var subjectElements = argSubject.Split(',');
