@@ -1,4 +1,12 @@
+using System;
+using System.Runtime.ConstrainedExecution;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
+using Newtonsoft.Json;
 using Xunit;
+using TrustCenterSearch.Core.Models;
+using TrustCenterSearch.Presentation;
+using System.Threading;
 
 namespace TrustCenterSearchPresentation.Test
 {
@@ -9,15 +17,42 @@ namespace TrustCenterSearchPresentation.Test
         {
             #region Arrange
 
-            #endregion
+            //var cer = new Certificate()
+            //{
+            //    SerialNumber = "TestNummer",
+            //    Issuer = "TestIssuer",
+            //    NotAfter = "TestStartDate",
+            //    NotBefore = "TestEndDate",
+            //    PublicKeyLength = "TestLength",
+            //    Thumbprint = "TestThumbprint",
+            //    TrustCenterName = "TestName",
+            //    Subject = "Test"
+            //};
 
+            //string jsonstring = JsonConvert.SerializeObject(cer, Formatting.Indented);
+            //var test = "null";
+
+            #endregion
 
             #region Act
 
+            //var viewModel = new ViewModel();
+            //viewModel.CopySearchResultToClipboardCommandExecute(cer);
+
             #endregion
 
-
             #region Assert
+
+            //Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
+            //var t = new Thread((ThreadStart)(() =>
+            //{
+            //    test = Clipboard.GetText();
+            //}));
+            //t.SetApartmentState(ApartmentState.STA);
+            //t.Start();
+            //t.Join();
+            
+            //Assert.Equal(test, jsonstring);
 
             #endregion
 
