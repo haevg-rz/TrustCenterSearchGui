@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+using TrustCenterSearch.Core;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -62,8 +64,11 @@ namespace TrustCenterSearchCore.Test
 
         }
 
-        [Fact(DisplayName = "IsTrustCenterInputValidTest")]
-        public void IsTrustCenterInputValidTest()
+        [Theory]
+        [InlineData("TooLongTrustCenterNameForTesting","TestURL", "One or more errors occurred. (The entered name is too long.)")]
+        [InlineData("","TestURL", "One or more errors occurred. (The entered name must not be empty.)")]
+        [InlineData("TestName","TestURL", "One or more errors occurred. (The entered Url is not valid.)")]
+        public void IsTrustCenterInputValidTest(string newTrustCenterNameTest,string newTrustCenterUrlTest,string errorMessage)
         {
             #region Arrange
 
@@ -72,10 +77,15 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
+            var core = new Core();
+            var exceptionResult = core.AddTrustCenterAsync(newTrustCenterNameTest, newTrustCenterUrlTest);
+
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(errorMessage,exceptionResult.Exception.Message);
 
             #endregion
 
