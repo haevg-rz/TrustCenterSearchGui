@@ -145,10 +145,17 @@ namespace TrustCenterSearch.Presentation
         {
             this.UserInputIsEnabled = false;
 
-            await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo.TrustCenterMetaInfo);
-            this.GetTrustCenterHistory();
-
-            RefreshCollectionViews();
+            try
+            {
+                await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo.TrustCenterMetaInfo);
+                this.GetTrustCenterHistory();
+                RefreshCollectionViews();
+            }
+            catch (ArgumentException)
+            {
+                this.UserInputIsEnabled = true;
+                MessageBox.Show("There is not a internet connection", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
             this.UserInputIsEnabled = true;
         }
