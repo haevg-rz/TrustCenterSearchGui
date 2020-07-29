@@ -39,6 +39,7 @@
         <Setter Property="FontSize" Value="13" />
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
