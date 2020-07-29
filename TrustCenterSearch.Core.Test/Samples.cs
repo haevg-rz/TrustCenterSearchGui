@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TrustCenterSearch.Core.Models;
 
@@ -38,6 +39,35 @@ namespace TrustCenterSearchCore.Test
                     PublicKeyLength = "2048",
                     Subject = "CN=Sample3CN OU=Sample3OU1 OU=Sample3OU2",
                     Thumbprint = "Sample3Thumbprint"
+                }
+            };
+            return sample;
+        }
+
+        public static Config ProvideSampleConfig()
+        {
+            var sample = new Config()
+            {
+                TrustCenterMetaInfos = Samples.ProvideSampleMetaInfos()
+            };
+            return sample;
+        }
+
+        public static List<TrustCenterMetaInfo> ProvideSampleMetaInfos()
+        {
+            var sample = new List<TrustCenterMetaInfo>()
+            {
+                {
+                    new TrustCenterMetaInfo("Sample1", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1))
+                },
+                {
+                    new TrustCenterMetaInfo("Sample2", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1))
+                },
+                {
+                    new TrustCenterMetaInfo("Sample3", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1))
                 }
             };
             return sample;
