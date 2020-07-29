@@ -17,54 +17,55 @@
     </Style>
 
     <Style TargetType="Button" x:Key="AddOrRemoveTrustCenterHistoryElementStyle">
-        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-        <Setter Property="Height" Value="30"></Setter>
-        <Setter Property="Margin" Value="0,2,0,2"></Setter>
-        <Setter Property="BorderBrush" Value="Transparent"></Setter>
-        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
-        <Setter Property="Command" Value="{Binding Source={StaticResource ViewModel}, Path=ToggleTrustCenterHistoryFilterCommand}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="0,2,0,2" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="CommandParameter" Value="{Binding}" />
+        <Setter Property="Command"
+                Value="{Binding Source={StaticResource ViewModel}, Path=ToggleTrustCenterHistoryFilterCommand}" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
-                <Setter Property="Background" Value="#d9e9ff"></Setter>
-                <Setter Property="ToolTip" Value="remove Trust Center from filter"></Setter>
+                <Setter Property="Background" Value="#d9e9ff" />
+                <Setter Property="ToolTip" Value="remove Trust Center from filter" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Active}" Value="false">
-                <Setter Property="Background" Value="#f7f8fa"></Setter>
-                <Setter Property="ToolTip" Value="add Trust Center to filter"></Setter>
+                <Setter Property="Background" Value="#f7f8fa" />
+                <Setter Property="ToolTip" Value="add Trust Center to filter" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
     <Style TargetType="Button" x:Key="AddButtonStyle">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#2772db"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="150"/>
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Content" Value="Download"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Margin" Value="10"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#2772db" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Content" Value="Download" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
     <Style TargetType="Button" x:Key="CloseMenuButtonStyle">
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="Content" Value="X"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Content" Value="X" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
     <Style TargetType="Button" x:Key="CopyToClipboardButtonStyle">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="0,0,10,0"/>
-        <Setter Property="Width" Value="17"/>
-        <Setter Property="Height" Value="17"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="ToolTip" Value="Copy to Clipboard"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,10,0" />
+        <Setter Property="Width" Value="17" />
+        <Setter Property="Height" Value="17" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="ToolTip" Value="Copy to Clipboard" />
+        <Setter Property="BorderThickness" Value="0" />
     </Style>
 
 </ResourceDictionary>
