@@ -145,9 +145,18 @@ namespace TrustCenterSearch.Presentation
         {
             this.UserInputIsEnabled = false;
 
-            await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo.TrustCenterMetaInfo);
+            try
+            {
+                await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo.TrustCenterMetaInfo);
+            }
+            catch (ArgumentException e)
+            {
+                this.UserInputIsEnabled = true;
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            
             this.GetTrustCenterHistory();
-
             RefreshCollectionViews();
 
             this.UserInputIsEnabled = true;
