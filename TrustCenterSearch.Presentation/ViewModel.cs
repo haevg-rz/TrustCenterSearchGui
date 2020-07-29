@@ -148,14 +148,16 @@ namespace TrustCenterSearch.Presentation
             try
             {
                 await this.Core.ReloadCertificatesOfTrustCenter(trustCenterMetaInfo.TrustCenterMetaInfo);
-                this.GetTrustCenterHistory();
-                RefreshCollectionViews();
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
                 this.UserInputIsEnabled = true;
-                MessageBox.Show("There is not a internet connection", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
+            
+            this.GetTrustCenterHistory();
+            RefreshCollectionViews();
 
             this.UserInputIsEnabled = true;
         }

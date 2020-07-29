@@ -94,7 +94,7 @@ namespace TrustCenterSearch.Core
                 throw new ArgumentException("The entered name must not be empty.");
 
             if (!Downloader.IsUrlExisting(newTrustCenterUrl))
-                throw new ArgumentException("The entered Url is not valid.");
+                throw new ArgumentException("Can not access Url.");
 
             if (this.Config.TrustCenterMetaInfos.Any(tc => tc.Name.Equals(newTrustCenterName)))
                 throw new ArgumentException("The entered name is already added.");
