@@ -43,7 +43,7 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
             if (!Directory.Exists(_trustCenterSearchGuiPath))
                 Directory.CreateDirectory(_trustCenterSearchGuiPath);
 
-            var jsonString = JsonConvert.SerializeObject(config);
+            var jsonString = JsonConvert.SerializeObject(config,Formatting.Indented);
             File.WriteAllText(ConfigPath, jsonString);
         }
 
