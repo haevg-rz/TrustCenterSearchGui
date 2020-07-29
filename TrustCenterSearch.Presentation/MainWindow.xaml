@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:TrustCenterSearch.Presentation.Converter"
         xmlns:models="clr-namespace:TrustCenterSearch.Presentation.Models"
+        xmlns:coreModels="clr-namespace:TrustCenterSearch.Core.Models;assembly=TrustCenterSearch.Core"
         mc:Ignorable="d"
         DataContext="{StaticResource ViewModel}"
         Title="Trust Center Search GUI" Height="550" Width="1100">
@@ -23,28 +24,15 @@
                 <ResourceDictionary Source="Resources/Styles/IconStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/LoadingAnimationStyle.xaml" />
-                <ResourceDictionary Source="Resources/Styles/LabelStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/BorderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converter:HighlightConverter x:Key="HighlightConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
-
-            <Style x:Key="CollapseSideBarButtonStyleTrigger" TargetType="Button">
-                <Setter Property="Width" Value="10" />
-                <Setter Property="Background" Value="#2772db" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding MenuWidth}" Value="0">
-                        <Setter Property="Background" Value="#d9e9ff" />
-                        <Setter Property="Width" Value="15" />
-                        <Setter Property="Height" Value="140" />
-                        <Setter Property="Content" Value=">" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
         </ResourceDictionary>
     </Window.Resources>
 
+    <!-- Main Window -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -56,6 +44,153 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- Collapse Button -->
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,0,10">
+            <Button Command="{Binding CollapseSideBarCommand}"
+                    Style="{DynamicResource CollapseSideBarButtonStyleTrigger}" />
+        </Grid>
+        <!-- Collapse Button -->
+
+        <!-- Menu -->
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="Sidebar"
+              Visibility="Visible" Width="{Binding MenuWidth, UpdateSourceTrigger=PropertyChanged}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Menu Caption -->
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Style="{StaticResource MenuTitleTextBlockStyle}" />
+                <Button Grid.Column="1" Style="{StaticResource CloseMenuButtonStyle}"
+                        Command="{Binding CollapseSideBarCommand}" />
+            </Grid>
+            <!-- Menu Caption -->
+
+            <!-- Add Trust Center -->
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MenuAddTrustCenterNameTextBlockStyle}" />
+                <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource MenuAddTrustCenterUrlTextBlockStyle}" />
+
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" BorderBrush="Transparent"
+                         Padding="3"
+                         Height="auto"
+                         Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding UserInputIsEnabled}" />
+
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="0,5,10,5" BorderBrush="Transparent"
+                         Padding="3"
+                         Height="auto"
+                         Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding UserInputIsEnabled}" />
+
+                <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource AddButtonStyle}"
+                        Command="{Binding AddTrustCenterButtonCommand}"
+                        IsEnabled="{Binding UserInputIsEnabled}" />
+            </Grid>
+            <!-- Add Trust Center -->
+
+            <!-- TrustCenter History Caption -->
+            <Grid Grid.Column="1" Grid.Row="2">
+                <TextBlock Style="{StaticResource TrustCenterHistoryTitleTextBlockStyle}" />
+            </Grid>
+            <!-- TrustCenter History Caption -->
+
+            <!-- TrustCenter History -->
+            <Grid Grid.Column="1" Grid.Row="3">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,10,10">
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding TrustCenterHistoryCollectionView}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:TrustCenterHistoryElement}">
+                                    <Button Style="{DynamicResource AddOrRemoveTrustCenterHistoryElementStyle}">
+                                        <Button.Content>
+                                            <WrapPanel Background="Transparent">
+                                                <TextBlock Style="{DynamicResource TrustCenterHistoryElementAddTextBlockStyle}"></TextBlock>
+                                                <TextBlock Width="150" VerticalAlignment="Center"
+                                                           Text="{Binding TrustCenterMetaInfo.Name}" />
+                                                <Button Style="{DynamicResource InfoButtonStyle}"
+                                                        CommandParameter="{Binding}"
+                                                        Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
+                                                                    Stretch="Uniform" />
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Style="{DynamicResource LoadButtonStyle}"
+                                                        CommandParameter="{Binding}"
+                                                        Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Style="{DynamicResource BinImageStyle}"
+                                                        CommandParameter="{Binding}"
+                                                        Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
+                                                    <Button.Background>
+                                                        <ImageBrush ImageSource="/Resources/Images/binBlack.png"
+                                                                    Stretch="Uniform" />
+                                                    </Button.Background>
+                                                </Button>
+                                            </WrapPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <!-- TrustCenter History -->
+
+            <!-- Links and Version -->
+            <Grid Grid.Row="4" Column="0" ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10" />
+                <TextBlock Grid.Column="1" Width="Auto" Margin="10" HorizontalAlignment="Center">
+                    <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
+                </TextBlock>
+                <Button Grid.Column="2" Padding="3" Content="Config" HorizontalAlignment="Right"
+                        Command="{Binding OpenConfigCommand}" Margin="10,5,10,10" Background="#2772db"
+                        Foreground="White" BorderBrush="Transparent" />
+            </Grid>
+            <!-- Links and Version -->
+
+        </Grid>
+        <!-- Menu -->
+
+        <!-- Search Bar -->
         <StackPanel Grid.Column="2" Grid.Row="0" Margin="10,10,27,0">
             <Grid>
                 <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Height="30" FontSize="15"
@@ -68,11 +203,12 @@
                     Text="Search" HorizontalAlignment="Left" Visibility="Visible" IsHitTestVisible="False"/>
             </Grid>
         </StackPanel>
+        <!-- Search Bar -->
 
         <!-- Search results -->
         <ItemsControl Grid.Column="2" Grid.Row="1" Margin="10" ItemsSource="{Binding Path=CertificatesCollectionView}">
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="{x:Type coreModels:Certificate}">
                     <Grid Margin="0,10,0,10">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -82,7 +218,7 @@
                         <TextBox Grid.Row="0" Grid.Column="0"
                                  Text="{Binding Subject}"
                                  Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
-                                 Style="{StaticResource SearchResultSubjectTextBoxStyle}"/>
+                                 Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -114,12 +250,13 @@
                                   </TextBox.Text>  
                             </TextBox>
 
-                            <TextBox Grid.Column="4" Style="{StaticResource SearchResultThumbprintCaptionTextBoxStyle}"/>
+                            <TextBox Grid.Column="4" Style="{StaticResource SearchResultThumbprintCaptionTextBoxStyle}" />
                             <TextBox Grid.Column="5" Text="{Binding Thumbprint}"
                                      Foreground="{Binding Thumbprint, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
-                                     Style="{StaticResource SearchResultThumbprintResultTextBoxStyle}"/>
+                                     Style="{StaticResource SearchResultThumbprintResultTextBoxStyle}" />
 
-                            <TextBox Grid.Column="6" Style="{StaticResource SearchResultSerialNumberCaptionTextBoxStyle}" />
+                            <TextBox Grid.Column="6"
+                                     Style="{StaticResource SearchResultSerialNumberCaptionTextBoxStyle}" />
                             <TextBox Grid.Column="7" Text="{Binding SerialNumber}"
                                      Style="{StaticResource SearchResultSerialNumberResultTextBoxStyle}"
                                      Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
@@ -130,9 +267,11 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="1" Text="{Binding TrustCenterName}" Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}"/>
+                            <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
+                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}" />
                             <Button Grid.Column="2" Style="{StaticResource CopyToClipboardButtonStyle}"
-                                    Command="{Binding Source={StaticResource ViewModel}, Path=CopyToClipboardCommand}" CommandParameter="{Binding}">
+                                    Command="{Binding Source={StaticResource ViewModel}, Path=CopyToClipboardCommand}"
+                                    CommandParameter="{Binding}">
                                 <Button.Background>
                                     <ImageBrush ImageSource="/Resources/Images/copy.png" />
                                 </Button.Background>
@@ -160,154 +299,15 @@
         </ItemsControl>
         <!-- Search results -->
 
-
         <!-- LoadingAnimation -->
-
         <Grid Grid.Column="2" Grid.Row="1">
             <Control Margin="0,0,40,20" Background="Transparent" Width="50" Height="50" HorizontalAlignment="Right"
                      VerticalAlignment="Bottom"
                      Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
                      Style="{StaticResource BusyAnimationStyle}" />
         </Grid>
-
         <!-- LoadingAnimation -->
 
-
-        <!-- CollapseButton -->
-
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="0,10,0,10">
-            <Button Command="{Binding CollapseSideBarCommand}"
-                    Style="{StaticResource CollapseSideBarButtonStyleTrigger}" />
-        </Grid>
-
-        <!-- CollapseButton -->
-
-
-        <!-- Menu -->
-        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,10,10" Background="#f7f8fa" Name="Sidebar"
-              Visibility="Visible" Width="{Binding MenuWidth, UpdateSourceTrigger=PropertyChanged}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="180" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="25" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <!-- AddTrustCenter -->
-            <Grid Grid.Column="1" Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="39*" />
-                    <ColumnDefinition Width="19*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.ColumnSpan="2">
-                    <WrapPanel>
-                        <Label Style="{StaticResource MenuTitleLabelStyle}" />
-                        <Button Style="{StaticResource CloseMenuButtonStyle}"
-                                Command="{Binding CollapseSideBarCommand}" />
-                    </WrapPanel>
-                    <WrapPanel Margin="5">
-                        <Label Style="{StaticResource MenuAddTrustCenterNameLabelStyle}" />
-                        <TextBox Padding="3" Width="200" Height="auto"
-                                 Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
-                                 IsEnabled="{Binding UserInputIsEnabled}">
-                        </TextBox>
-                    </WrapPanel>
-                    <WrapPanel Margin="5">
-                        <Label Style="{StaticResource MenuAddTrustCenterUrlLabelStyle}" />
-                        <TextBox Padding="3" Width="200" Height="auto"
-                                 Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
-                                 IsEnabled="{Binding UserInputIsEnabled}" />
-                    </WrapPanel>
-                    <Button Style="{StaticResource AddButtonStyle}" Command="{Binding AddTrustCenterButtonCommand}"
-                            IsEnabled="{Binding UserInputIsEnabled}" />
-                </StackPanel>
-            </Grid>
-            <!-- AddTrustCenter -->
-
-            <!-- TrustCenterHistory -->
-            <Grid Grid.Column="1" Grid.Row="1">
-                <Label Style="{StaticResource TrustCenterHistoryTitleLabelStyle}" />
-            </Grid>
-
-            <!-- TrustCenter Filter -->
-            <Grid Grid.Column="1" Grid.Row="2">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="5">
-                        <ItemsControl ItemsSource="{Binding TrustCenterHistoryCollectionView}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type models:TrustCenterHistoryElement}">
-                                    <Button Style="{DynamicResource AddOrRemoveTrustCenterHistoryElementStyle}" >
-                                        <Button.Content>
-                                            <WrapPanel Margin="2" Background="Transparent">
-                                                <Image Style="{DynamicResource AddOrRemoveFilterIconStyle}"></Image>
-                                                <TextBlock Width="150" VerticalAlignment="Center"
-                                                               Text="{Binding TrustCenterMetaInfo.Name}" />
-                                                <Button Style="{DynamicResource InfoButtonStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Images/infoIcon.png"
-                                                                        Stretch="Uniform" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Style="{DynamicResource LoadButtonStyle}"
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=ReloadCertificatesOfTrustCenterCommand}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Style="{DynamicResource BinImageStyle}" 
-                                                            CommandParameter="{Binding}"
-                                                            Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Images/binBlack.png"
-                                                                        Stretch="Uniform" />
-                                                    </Button.Background>
-                                                </Button>
-                                            </WrapPanel>
-                                        </Button.Content>
-                                    </Button>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
-            <!-- TrustCenter Inactive Filter -->
-            <!-- TrustCenterHistory -->
-            
-            <Grid Grid.Row="4" Column="0" ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Content="Config" HorizontalAlignment="Right" Command="{Binding OpenConfigCommand}" Margin="0,0,10,10" Background="#2772db" Foreground="White"></Button>
-            </Grid>
-
-            <Grid Grid.Row="5" Column="0" ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10,0,0,0"></TextBlock>
-                <TextBlock Grid.Column="1" Width="Auto" Margin="0,0,10,0" HorizontalAlignment="Right">
-                    <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
-                </TextBlock>
-            </Grid>
-        </Grid>
-        <!-- Menu -->
-
     </Grid>
+    <!-- Main Window -->
 </Window>

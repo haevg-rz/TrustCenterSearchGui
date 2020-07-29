@@ -19,7 +19,6 @@
     <None Remove="Resources\Images\loadIconWhenMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
     <None Remove="Resources\Images\removeMouseOver.png" />
-    <None Remove="text_lock.ico" />
   </ItemGroup>
 
   <ItemGroup>
