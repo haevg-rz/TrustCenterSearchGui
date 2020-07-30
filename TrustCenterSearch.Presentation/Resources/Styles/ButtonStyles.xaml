@@ -6,13 +6,19 @@
         <Setter Property="Width" Value="10" />
         <Setter Property="Background" Value="#2772db" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ToolTip" Value="Hide menu" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding MenuWidth}" Value="0">
+                <Setter Property="ToolTip" Value="Show menu" />
                 <Setter Property="Background" Value="#d9e9ff" />
                 <Setter Property="Width" Value="15" />
                 <Setter Property="Height" Value="140" />
                 <Setter Property="Content" Value=">" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding MenuWidth}" Value="auto">
+                <Setter Property="ToolTip" Value="Hide menu" />
+            </DataTrigger>
+
         </Style.Triggers>
     </Style>
 
@@ -27,11 +33,11 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
                 <Setter Property="Background" Value="#d9e9ff" />
-                <Setter Property="ToolTip" Value="remove Trust Center from filter" />
+                <Setter Property="ToolTip" Value="Remove Trust Center from filter" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Active}" Value="false">
                 <Setter Property="Background" Value="#f7f8fa" />
-                <Setter Property="ToolTip" Value="add Trust Center to filter" />
+                <Setter Property="ToolTip" Value="Add Trust Center to filter" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -46,6 +52,8 @@
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Margin" Value="10" />
         <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="ToolTip"
+                Value="Download and import the certificates from the given url. This process may take several minutes." />
     </Style>
 
     <!--Links and Version-->
@@ -71,6 +79,7 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="ToolTip" Value="Hide menu" />
     </Style>
 
     <Style TargetType="Button" x:Key="CopyToClipboardButtonStyle">
