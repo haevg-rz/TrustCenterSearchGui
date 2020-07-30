@@ -42,7 +42,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             return result;
         }
 
-        private static HashSet<Certificate> GetCertificatesFromByteArray(TrustCenterMetaInfo trustCenterMetaInfo, byte[] fileContent)
+        internal static HashSet<Certificate> GetCertificatesFromByteArray(TrustCenterMetaInfo trustCenterMetaInfo, byte[] fileContent)
         {
             var certificatesTxt = System.Text.Encoding.UTF8.GetString(fileContent).Split(
                 new[] { Environment.NewLine + Environment.NewLine },

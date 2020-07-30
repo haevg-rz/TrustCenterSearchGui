@@ -54,4 +54,20 @@
     </Style>
     <!-- TrustCenterHistory -->
 
+    <!--Links and Version-->
+
+    <Style TargetType="TextBlock" x:Key="ShowProgrammVersionTextBlockStyle">
+        <Setter Property="Text" Value="v0.0.1"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="HyperLinkForWikiTextBlockStyle">
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!--Links and Version-->
+
 </ResourceDictionary>

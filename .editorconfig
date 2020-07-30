@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0027: Ausdruckskörper für Accessoren verwenden
+csharp_style_expression_bodied_accessors = true:silent

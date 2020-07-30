@@ -1,5 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TrustCenterSearch.Core.DataManagement.TrustCenters;
+using TrustCenterSearch.Core.Models;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -7,14 +11,20 @@ namespace TrustCenterSearchCore.Test
     public class ImporterTest
     {
         [Fact(DisplayName = "ReadFileAsyncTest")]
-        public void ReadFileAsyncTest()
+        public void GetCertificatesFromByteArrayTest()
         {
             #region Arrange
+
+            //byte[] byteArray = Samples.ProvidSampleByteArrays();
+            //var cer = Samples.ProvideSampleCertificates().Last();
+            //var tcInfo = Samples.ProvideSampleMetaInfos().First();
 
             #endregion
 
 
             #region Act
+
+            //var result = Importer.GetCertificatesFromByteArray(tcInfo,byteArray);
 
             #endregion
 

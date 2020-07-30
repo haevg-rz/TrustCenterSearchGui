@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchCore.Test
 {
     public static class Samples
     {
+        public static object Subject { get; private set; }
+
         public static List<Certificate> ProvideSampleCertificates()
         {
             var sample = new List<Certificate>()
@@ -72,5 +77,16 @@ namespace TrustCenterSearchCore.Test
             };
             return sample;
         }
+
+        //public static byte[] ProvidSampleByteArrays()
+        //{
+        //    //var enc = new System.Text.ASCIIEncoding();
+
+        //    //var cer = ProvideSampleCertificates().Last();
+        //    //var certifgicate = new X509Certificate();
+        //    //var strings1 = Convert.ToString(cer);
+        //    //return enc.GetBytes(strings);
+
+        //}
     }
 }

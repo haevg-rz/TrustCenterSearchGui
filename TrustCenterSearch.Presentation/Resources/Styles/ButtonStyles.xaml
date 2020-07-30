@@ -48,6 +48,21 @@
         <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
+    <!--Links and Version-->
+
+    <Style TargetType="Button" x:Key="OpenConfigButtonStyle">
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Content" Value="Config"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="10,5,10,10"/>
+        <Setter Property="Background" Value="#2772db"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <!--Links and Version-->
+
+
     <Style TargetType="Button" x:Key="CloseMenuButtonStyle">
         <Setter Property="Width" Value="30" />
         <Setter Property="Height" Value="25" />
@@ -67,5 +82,5 @@
         <Setter Property="ToolTip" Value="Copy to Clipboard" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-
+    
 </ResourceDictionary>
