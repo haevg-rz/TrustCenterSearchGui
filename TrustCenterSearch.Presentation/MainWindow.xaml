@@ -99,18 +99,18 @@
                          Height="auto"
                          Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding UserInputIsEnabled}"
-                         Width="200" 
+                         Width="200"
                          HorizontalAlignment="Right"
-                         ToolTip="Enter a name that describes the collection of certificates you want to import"/>
+                         ToolTip="Enter a name that describes the collection of certificates you want to import" />
 
                 <TextBox Grid.Column="1" Grid.Row="1" Margin="0,5,10,5" BorderBrush="Transparent"
                          Padding="3"
                          Height="auto"
                          Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding UserInputIsEnabled}"
-                         Width="200" 
+                         Width="200"
                          HorizontalAlignment="Right"
-                         ToolTip="Enter a url that leads to a file containing hashed x509 certificates"/>
+                         ToolTip="Enter a url that leads to a file containing hashed x509 certificates" />
 
                 <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource AddButtonStyle}"
                         Command="{Binding AddTrustCenterButtonCommand}"
@@ -159,7 +159,7 @@
                                                         <ImageBrush ImageSource="/Resources/Images/loadIcon.png" />
                                                     </Button.Background>
                                                 </Button>
-                                                <Button Style="{DynamicResource BinImageStyle}"
+                                                <Button Style="{DynamicResource DeleteTrustCenterImageStyle}"
                                                         CommandParameter="{Binding}"
                                                         Command="{Binding Source={StaticResource ViewModel}, Path=DeleteTrustCenterFromHistoryCommand}">
                                                     <Button.Background>
@@ -202,12 +202,13 @@
         <StackPanel Grid.Column="2" Grid.Row="0" Margin="10,10,27,0">
             <Grid>
                 <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Height="30" FontSize="15"
-                         Padding="0,4,0,0" KeyUp="WatermarkVisibilityConverter">
+                         Padding="4" TextChanged="SearchBar_OnTextChanged" KeyUp="WatermarkVisibilityConverter">
                     <TextBox.Text>
                         <Binding Path="SearchBarInput" Delay="300" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                     </TextBox.Text>
                 </TextBox>
-                <TextBlock Grid.Row="0" FontSize="15" FontWeight="Light" Padding="4" FontStyle="Oblique" Foreground="Gray"
+                <TextBlock Grid.Row="0" FontSize="15" FontWeight="Light" Padding="8,4,4,4" FontStyle="Italic"
+                           Foreground="Gray"
                            Name="SearchWatermark"
                            Text="Search" HorizontalAlignment="Left" Visibility="Visible" IsHitTestVisible="False" />
             </Grid>
@@ -219,16 +220,38 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type coreModels:Certificate}">
                     <Grid Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox Grid.Row="0" Grid.Column="0"
-                                 Text="{Binding Subject}"
-                                 Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
-                                 Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
-                        <Grid Grid.Row="1">
+                        <Button Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                IsEnabled="{Binding Source={StaticResource ViewModel}, Path=UserInputIsEnabled}"
+                                Style="{DynamicResource CopyToClipboardButtonStyle}"
+                                Command="{Binding Source={StaticResource ViewModel}, Path=CopyToClipboardCommand}"
+                                CommandParameter="{Binding}">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Resources/Images/copy.png" />
+                            </Button.Background>
+                        </Button>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Text="{Binding Subject}"
+                                     Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
+                                     Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
+                            <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
+                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}" />
+                        </Grid>
+
+                        <Grid Grid.Column="1" Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -242,11 +265,11 @@
 
                             <TextBox Grid.Column="0" Style="{StaticResource SearchResultValidityCaptionTextBoxStyle}" />
                             <WrapPanel Grid.Column="1" Margin="0,0,10,0">
-                                <TextBlock Text="{Binding NotBefore}"
-                                           Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                <TextBox BorderThickness="0" Text="{Binding NotBefore}"
+                                         Foreground="{Binding NotBefore, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                                 <TextBlock Text=" - " />
-                                <TextBlock Text="{Binding NotAfter}"
-                                           Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
+                                <TextBox BorderThickness="0" Text="{Binding NotAfter}"
+                                         Foreground="{Binding NotAfter, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                             </WrapPanel>
 
                             <TextBox Grid.Column="2" Style="{StaticResource SearchResultKeylengthCaptionTextBoxStyle}" />
@@ -269,23 +292,6 @@
                             <TextBox Grid.Column="7" Text="{Binding SerialNumber}"
                                      Style="{StaticResource SearchResultSerialNumberResultTextBoxStyle}"
                                      Foreground="{Binding SerialNumber, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
-                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}" />
-                            <Button IsEnabled="{Binding Source={StaticResource ViewModel}, Path=UserInputIsEnabled}"
-                                    Grid.Column="2" Style="{StaticResource CopyToClipboardButtonStyle}"
-                                    Command="{Binding Source={StaticResource ViewModel}, Path=CopyToClipboardCommand}"
-                                    CommandParameter="{Binding}">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="/Resources/Images/copy.png" />
-                                </Button.Background>
-                            </Button>
                         </Grid>
                     </Grid>
                 </DataTemplate>
