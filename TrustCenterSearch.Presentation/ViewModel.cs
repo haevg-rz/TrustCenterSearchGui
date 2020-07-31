@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using TrustCenterSearch.Core.Interfaces;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation.Models;
 
@@ -21,7 +21,7 @@ namespace TrustCenterSearch.Presentation
     {
         #region Properties
 
-        public Core.Core Core { get; set; } = new Core.Core();
+        public ICore Core { get; set; } = new Core.Core();
 
         private bool _userInputIsEnabled = true;
         public bool UserInputIsEnabled
