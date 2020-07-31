@@ -91,5 +91,5 @@
         <Setter Property="ToolTip" Value="Copy to Clipboard" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-    
+
 </ResourceDictionary>
