@@ -14,7 +14,7 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core
 {
-    public class Core
+    public class Core: ICore
     {
         #region Properties
         internal ITrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
@@ -84,8 +84,8 @@ namespace TrustCenterSearch.Core
 
         #endregion
 
-        #region PrivateMethods
-        private bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
+        #region InternalMethods
+        internal bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");
