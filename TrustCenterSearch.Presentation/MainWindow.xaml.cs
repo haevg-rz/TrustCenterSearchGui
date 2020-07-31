@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace TrustCenterSearch.Presentation
@@ -23,6 +24,13 @@ namespace TrustCenterSearch.Presentation
             }
 
             this.SearchWatermark.Visibility = Visibility.Collapsed;
+        }
+
+        private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            /*sender as TextBox
+                this.DataContext as ViewModel*/
+
         }
     }
 }

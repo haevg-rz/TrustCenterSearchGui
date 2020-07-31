@@ -28,7 +28,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
 
-    <Style x:Key="BinImageStyle" TargetType="{x:Type Button}">
+    <Style x:Key="DeleteTrustCenterImageStyle" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
@@ -64,8 +64,6 @@
                                     Value="{StaticResource Button.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Pressed.Background}" />
                             <Setter Property="BorderBrush" TargetName="border"
                                     Value="{StaticResource Button.Pressed.Border}" />
                         </Trigger>
@@ -118,10 +116,7 @@
                                     Value="{StaticResource Button.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Pressed.Background}" />
-                            <Setter Property="BorderBrush" TargetName="border"
-                                    Value="{StaticResource Button.Pressed.Border}" />
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource infoIcon}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border"
@@ -188,8 +183,6 @@
                                     Value="{StaticResource Button.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Pressed.Background}" />
                             <Setter Property="BorderBrush" TargetName="border"
                                     Value="{StaticResource Button.Pressed.Border}" />
                         </Trigger>
