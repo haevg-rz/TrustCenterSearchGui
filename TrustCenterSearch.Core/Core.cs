@@ -11,6 +11,7 @@ using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
 [assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace TrustCenterSearch.Core
 {
@@ -90,7 +91,7 @@ namespace TrustCenterSearch.Core
 
         #region InternalMethods
 
-        internal bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
+        internal virtual bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");

@@ -5,11 +5,16 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchCore.Test
 {
-    public class TrustCenterManagerTest : ITrustCenterManager
+    public class ITrustCenterManagerTest : ITrustCenterManager
     {
         public Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            throw new System.NotImplementedException();
+            async Task<byte[]> GetByteArray()
+            {
+                return new byte[0];
+            }
+
+            return GetByteArray();
         }
 
         public Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)

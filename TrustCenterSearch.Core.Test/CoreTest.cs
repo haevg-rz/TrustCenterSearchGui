@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Moq;
 using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.Models;
+using TrustCenterSearchCore.Test.MockObjects;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -17,7 +20,7 @@ namespace TrustCenterSearchCore.Test
 
             var core = new Core();
 
-            core.TrustCenterManager = new TrustCenterManagerTest();
+            core.TrustCenterManager = new ITrustCenterManagerTest();
             core.Config = Samples.ProvideSampleConfig();
 
             #endregion
@@ -41,16 +44,30 @@ namespace TrustCenterSearchCore.Test
         public void AddTrustCenterAsyncTest()
         {
             #region Arrange
+            
+            var moq = new Moq.Mock<Core>();
+            moq.Setup(m => m.IsTrustCenterInputValid(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+
+            var core = moq.Object;
+
+            core.TrustCenterManager = new ITrustCenterManagerTest();
+            core.ConfigManager = new IConfigManagerTest();
 
             #endregion
 
 
             #region Act
 
+            var result = core.AddTrustCenterAsync("name", "url");
+
             #endregion
 
 
             #region Assert
+
+            var expectedCount = 1;
+            Assert.Equal(expected: expectedCount, actual: core.Config.TrustCenterMetaInfos.Count);
+            Assert.Equal(3, core.Certificates.Count);
 
             #endregion
         }
