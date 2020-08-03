@@ -22,7 +22,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
                 return certificates;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new HashSet<Certificate>();
             }

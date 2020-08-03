@@ -48,7 +48,7 @@ namespace TrustCenterSearchCore.Test
         {
             var sample = new Config()
             {
-                TrustCenterMetaInfos = Samples.ProvideSampleMetaInfos()
+                TrustCenterMetaInfos = ProvideSampleMetaInfos()
             };
             return sample;
         }
