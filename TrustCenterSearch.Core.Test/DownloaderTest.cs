@@ -1,4 +1,5 @@
-﻿using TrustCenterSearch.Core.DataManagement.TrustCenters;
+﻿using System;
+using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -7,8 +8,9 @@ namespace TrustCenterSearchCore.Test
     {
         [Theory]
         [InlineData("google.com/", false)]
+        [InlineData("", false)]
         [InlineData("test123", false)]
-        public void IsUrlExistingTest(string url, bool aspectedResult)
+        public void IsUrlExistingTest(string url, bool expectedResult)
         {
             #region Arrange
 
@@ -24,26 +26,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Assert
 
-            Assert.Equal(result, aspectedResult);
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "DownloadCertificatesTest")]
-        public void DownloadCertificatesTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
+            Assert.Equal(result, expectedResult);
 
             #endregion
 
@@ -53,7 +36,7 @@ namespace TrustCenterSearchCore.Test
         [InlineData("test123", "test", "testtest123.txt")]
         [InlineData("123", "", "123.txt")]
         [InlineData("", "test", "test.txt")]
-        public void GetFilePathTest(string name, string dataFolderPath, string aspected)
+        public void GetFilePathTest(string name, string dataFolderPath, string expected)
         {
             #region Arrange
 
@@ -69,7 +52,7 @@ namespace TrustCenterSearchCore.Test
 
             #region Assert
 
-            Assert.Equal(result, aspected);
+            Assert.Equal(result, expected);
 
             #endregion
 
