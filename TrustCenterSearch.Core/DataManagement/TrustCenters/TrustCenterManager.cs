@@ -30,8 +30,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            var importedCertificates = await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
-            return importedCertificates;
+            return await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
         }
 
         public void DeleteTrustCenterFile(string trustCenterName)
