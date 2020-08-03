@@ -67,7 +67,7 @@ namespace TrustCenterSearchCore.Test
         [Theory]
         [InlineData("TooLongTrustCenterNameForTesting","TestURL", "One or more errors occurred. (The entered name is too long.)")]
         [InlineData("","TestURL", "One or more errors occurred. (The entered name must not be empty.)")]
-        [InlineData("TestName","TestURL", "One or more errors occurred. (The entered Url is not valid.)")]
+        [InlineData("TestName","TestURL", "One or more errors occurred. (Can not access Url.)")]
         public void IsTrustCenterInputValidTest(string newTrustCenterNameTest,string newTrustCenterUrlTest,string errorMessage)
         {
             #region Arrange
