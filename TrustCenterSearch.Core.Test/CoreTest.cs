@@ -66,8 +66,10 @@ namespace TrustCenterSearchCore.Test
             #region Assert
 
             var expectedCount = 1;
+            var expectedResult = new TrustCenterMetaInfo("name", "url", DateTime.Now);
             Assert.Equal(expectedCount, core.Config.TrustCenterMetaInfos.Count);
             Assert.Equal(3, core.Certificates.Count);
+            Equals(result, expectedResult);
 
             #endregion
         }
