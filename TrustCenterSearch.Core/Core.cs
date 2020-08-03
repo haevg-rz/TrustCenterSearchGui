@@ -14,35 +14,39 @@ using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core
 {
-    public class Core: ICore
+    public class Core : ICore
     {
         #region Properties
+
         internal ITrustCenterManager TrustCenterManager { get; set; } = new TrustCenterManager();
         internal IConfigManager ConfigManager { get; set; } = new ConfigManager();
         internal Config Config { get; set; }
         internal List<Certificate> Certificates { get; set; } = new List<Certificate>();
+
         #endregion
 
         #region Constructor
+
         public Core()
         {
             this.Config = this.ConfigManager.LoadConfig();
         }
+
         #endregion
 
         #region PublicMethods
+
         public async Task<List<Certificate>> ImportAllCertificatesFromTrustCentersAsync()
         {
-            var importTasks = this.Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo => this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
+            var importTasks = this.Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo =>
+                this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
             await Task.WhenAll(importTasks);
 
-            foreach (var importTask in importTasks)
-            {
-                this.Certificates.AddRange(importTask.Result);
-            }
+            foreach (var importTask in importTasks) this.Certificates.AddRange(importTask.Result);
 
             return this.Certificates;
         }
+
         public async Task<TrustCenterMetaInfo> AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (!this.IsTrustCenterInputValid(newTrustCenterName, newTrustCenterUrl))
@@ -50,7 +54,7 @@ namespace TrustCenterSearch.Core
 
             var newTrustCenterMetaInfo = new TrustCenterMetaInfo(newTrustCenterName, newTrustCenterUrl, DateTime.Now);
             await this.TrustCenterManager.DownloadCertificatesAsync(newTrustCenterMetaInfo);
-            var importedCertificates =  await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
+            var importedCertificates = await this.TrustCenterManager.ImportCertificatesAsync(newTrustCenterMetaInfo);
             this.Certificates.AddRange(importedCertificates);
             this.ConfigManager.AddTrustCenterToConfig(newTrustCenterMetaInfo, this.Config);
             this.ConfigManager.SaveConfig(this.Config);
@@ -85,12 +89,13 @@ namespace TrustCenterSearch.Core
         #endregion
 
         #region InternalMethods
+
         internal bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
             if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");
 
-            if (newTrustCenterName == String.Empty)
+            if (newTrustCenterName == string.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
             if (!Downloader.IsUrlExisting(newTrustCenterUrl))
@@ -104,6 +109,7 @@ namespace TrustCenterSearch.Core
 
             return true;
         }
+
         #endregion
     }
 }
