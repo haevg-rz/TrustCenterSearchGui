@@ -44,8 +44,8 @@ namespace TrustCenterSearchCore.Test
         public void AddTrustCenterAsyncTest()
         {
             #region Arrange
-            
-            var moq = new Moq.Mock<Core>();
+
+            var moq = new Mock<Core>();
             moq.Setup(m => m.IsTrustCenterInputValid(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
 
             var core = moq.Object;
@@ -66,7 +66,7 @@ namespace TrustCenterSearchCore.Test
             #region Assert
 
             var expectedCount = 1;
-            Assert.Equal(expected: expectedCount, actual: core.Config.TrustCenterMetaInfos.Count);
+            Assert.Equal(expectedCount, core.Config.TrustCenterMetaInfos.Count);
             Assert.Equal(3, core.Certificates.Count);
 
             #endregion
