@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Security;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
@@ -7,6 +10,7 @@ using Xunit;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
 using System.Threading;
+using TrustCenterSearchCore.Test;
 
 namespace TrustCenterSearchPresentation.Test
 {
@@ -240,8 +244,9 @@ namespace TrustCenterSearchPresentation.Test
 
         }
 
-        [Fact(DisplayName = "FilterTest")]
-        public void FilterTest()
+        [Theory]
+        [InlineData(null,false)]
+        public void FilterTest(Certificate okay, bool expectedBoolean)
         {
             #region Arrange
 
@@ -250,10 +255,15 @@ namespace TrustCenterSearchPresentation.Test
 
             #region Act
 
+            var view = new ViewModel();
+            var result = view.Filter(okay);
+            
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(result, expectedBoolean);
 
             #endregion
 

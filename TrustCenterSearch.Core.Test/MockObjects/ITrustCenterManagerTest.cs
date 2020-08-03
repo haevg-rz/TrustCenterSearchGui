@@ -19,7 +19,7 @@ namespace TrustCenterSearchCore.Test
 
         public Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         { 
-            async Task<IEnumerable<Certificate>> ProvideSampleOfCertificatesAsync() => Samples.ProvideSampleCertificates();
+            async Task<IEnumerable<Certificate>> ProvideSampleOfCertificatesAsync() => Samples.ProvideOneSampleCertificate();
 
             return ProvideSampleOfCertificatesAsync();
         }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TrustCenterSearch.Core.Test\TrustCenterSearchCore.Test.csproj" />
     <ProjectReference Include="..\TrustCenterSearch.Core\TrustCenterSearch.Core.csproj" />
     <ProjectReference Include="..\TrustCenterSearch.Presentation\TrustCenterSearch.Presentation.csproj" />
   </ItemGroup>

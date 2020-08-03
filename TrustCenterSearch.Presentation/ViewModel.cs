@@ -253,7 +253,7 @@ namespace TrustCenterSearch.Presentation
                 "Information about TrustCenter", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private bool Filter(object obj)
+        internal bool Filter(object obj)
         {
             if (!(obj is Certificate entry))
                 return false;
