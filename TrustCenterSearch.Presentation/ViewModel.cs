@@ -136,7 +136,7 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private void CollapseSidebarCommandExecute()
+        internal void CollapseSidebarCommandExecute()
         {
             this.MenuWidth = this.MenuWidth.Equals("Auto") ? "0" : this.MenuWidth = "Auto";
         }

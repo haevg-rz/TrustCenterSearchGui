@@ -58,7 +58,7 @@ namespace TrustCenterSearchPresentation.Test
 
         }
 
-        [Fact(DisplayName = "LoadDataAsyncCommandExecuteTest")]
+        [Fact]
         public void LoadDataAsyncCommandExecuteTest()
         {
             #region Arrange
@@ -68,29 +68,40 @@ namespace TrustCenterSearchPresentation.Test
 
             #region Act
 
+
             #endregion
 
 
             #region Assert
 
+
             #endregion
 
         }
 
-        [Fact(DisplayName = "CollapseSidebarCommandExecuteTest")]
-        public void CollapseSidebarCommandExecuteTest()
+        [Theory]
+        [InlineData("Auto", "0")]
+        [InlineData("0", "Auto")]
+        public void CollapseSidebarCommandExecuteTest(string setMenuWidth, string expectedMenuWidth)
         {
             #region Arrange
+
+            var view = new ViewModel();
+            view.MenuWidth = setMenuWidth;
 
             #endregion
 
 
             #region Act
 
+            view.CollapseSidebarCommandExecute();
+
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(view.MenuWidth, expectedMenuWidth);
 
             #endregion
 
