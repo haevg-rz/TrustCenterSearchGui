@@ -6,25 +6,6 @@ namespace TrustCenterSearchCore.Test
 {
     public class ImporterTest
     {
-        [Fact(DisplayName = "ReadFileAsyncTest")]
-        public void ReadFileAsyncTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
         [Theory]
         [InlineData("", "No Subjectinfo available")]
         [InlineData("CN=Test123, 456","CN=Test123")]
