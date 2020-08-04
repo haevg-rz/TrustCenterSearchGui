@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
-using Newtonsoft.Json;
-using Xunit;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
-using System.Threading;
 using TrustCenterSearchCore.Test;
+using Xunit;
 
 namespace TrustCenterSearchPresentation.Test
 {
     public class ViewModelTest
     {
+
         [Fact(DisplayName = "CopySearchResultToClipboardCommandExecuteTest")]
         public void CopySearchResultToClipboardCommandExecuteTest()
         {
@@ -245,10 +237,12 @@ namespace TrustCenterSearchPresentation.Test
         }
 
         [Theory]
-        [InlineData(null,false)]
-        public void FilterTest(Certificate okay, bool expectedBoolean)
+        [ClassData(typeof(Samples))]
+        public void FilterTest(Certificate certificate,bool expectedBoolean)
         {
             #region Arrange
+
+            
 
             #endregion
 
@@ -256,7 +250,7 @@ namespace TrustCenterSearchPresentation.Test
             #region Act
 
             var view = new ViewModel();
-            var result = view.Filter(okay);
+            var result = view.Filter(certificate);
             
             #endregion
 

@@ -1,13 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchCore.Test
 {
-    public static class Samples
+    public class Samples : IEnumerable<object[]>
     {
-        private static List<Certificate> samples = new List<Certificate>()
+        public static List<Certificate> CerSamples = new List<Certificate>()
         {
             new Certificate()
             {
@@ -41,14 +42,9 @@ namespace TrustCenterSearchCore.Test
             }
         };
 
-        public static Certificate ProvideOneSampleCertificate()
+        internal static IEnumerable<Certificate> ProvideOneSampleCertificate()
         {
-            return samples.First();
-        }
-
-        public static List<Certificate> ProvideSampleCertificates()
-        {
-            return samples;
+            throw new NotImplementedException();
         }
 
         public static Config ProvideSampleConfig()
@@ -79,5 +75,15 @@ namespace TrustCenterSearchCore.Test
             };
             return sample;
         }
+
+        private readonly List<object[]> filterTestData = new List<object[]>
+        {
+            new object[] {null, false},
+            new object[] {CerSamples.First(), true}
+
+        };
+
+        public IEnumerator<object[]> GetEnumerator() => filterTestData.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
