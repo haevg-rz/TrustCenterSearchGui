@@ -1,6 +1,6 @@
+using TestSamples;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
-using TrustCenterSearchCore.Test;
 using Xunit;
 
 namespace TrustCenterSearchPresentation.Test

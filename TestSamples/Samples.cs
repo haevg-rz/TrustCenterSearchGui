@@ -1,16 +1,17 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchCore.Test
+namespace TestSamples
 {
     public class Samples : IEnumerable<object[]>
     {
-        public static List<Certificate> CerSamples = new List<Certificate>()
+        public static List<Certificate> ProvideSampleCertificates()
         {
+
             var sample = new List<Certificate>()
             {
                 new Certificate()
@@ -44,8 +45,12 @@ namespace TrustCenterSearchCore.Test
                     Thumbprint = "Sample3Thumbprint"
                 }
             };
+
             return sample;
         }
+
+
+
 
         public static Config ProvideSampleConfig()
         {
@@ -99,7 +104,7 @@ namespace TrustCenterSearchCore.Test
         private readonly List<object[]> filterTestData = new List<object[]>
         {
             new object[] {null, false},
-            new object[] {CerSamples.First(), true}
+            new object[] {ProvideSampleCertificates().First(), true}
 
         };
 
