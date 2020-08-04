@@ -8,7 +8,7 @@ using TrustCenterSearch.Presentation.Models;
 
 namespace TestSamples
 {
-    public class Samples : IEnumerable<object[]>
+    public class Samples 
     {
         public static List<Certificate> ProvideSampleCertificates()
         {
@@ -139,17 +139,5 @@ namespace TestSamples
             return ProvideSampleOfCertificatesAsync();
         }
 
-        private readonly List<object[]> filterTestData = new List<object[]>
-        {
-            new object[] {null, false,null},
-            new object[] {ProvideSingleSampleCertificate(), false,null},
-            new object[] {ProvideSampleCertificates().First(), true,null},
-            new object[] {ProvideSampleCertificates().First(), true,"Sample1"},
-            new object[] {ProvideSampleCertificates().First(),true, "01.01.2" },
-            new object[] {ProvideSampleCertificates().First(),false, "01.01.22123" }
-        };
-
-        public IEnumerator<object[]> GetEnumerator() => filterTestData.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
