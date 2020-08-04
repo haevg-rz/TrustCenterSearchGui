@@ -1,6 +1,14 @@
-﻿
-using System.ComponentModel;
+﻿using Moq;
+using System;
+using System.Linq;
+using System.Runtime.InteropServices;
 using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.DataManagement.Configuration;
+using TrustCenterSearch.Core.DataManagement.TrustCenters;
+using TrustCenterSearch.Core.Interfaces;
+using TrustCenterSearch.Core.Interfaces.Configuration;
+using TrustCenterSearch.Core.Interfaces.TrustCenters;
+using TrustCenterSearch.Core.Models;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test
@@ -12,18 +20,30 @@ namespace TrustCenterSearchCore.Test
         {
             #region Arrange
 
+            var moqTrustCenterManager = new Mock<TrustCenterManager>();
+            moqTrustCenterManager.Setup(m => m.ImportCertificatesAsync(It.IsAny<TrustCenterMetaInfo>()))
+                .Returns(Samples.ProvideTaskIEnumerableCertificate);
+
+            var core = new Core();
+            core.TrustCenterManager = moqTrustCenterManager.Object;
+
+            core.Config = Samples.ProvideSampleConfig();
+
             #endregion
 
 
             #region Act
+
+            var result = core.ImportAllCertificatesFromTrustCentersAsync();
 
             #endregion
 
 
             #region Assert
 
-            #endregion
+            Assert.Equal(9, core.Certificates.Count);
 
+            #endregion
         }
 
         [Fact(DisplayName = "AddTrustCenterAsyncTest")]
@@ -31,44 +51,97 @@ namespace TrustCenterSearchCore.Test
         {
             #region Arrange
 
+            var moqCore = new Mock<Core>();
+            moqCore.Setup(m => m.IsTrustCenterInputValid(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(true);
+
+            var moqConfigManager = new Mock<ConfigManager>();
+            moqConfigManager.CallBase = true;
+            moqConfigManager.Setup(m => m.SaveConfig(It.IsAny<Config>()))
+                .Returns(Samples.ProvideSampleConfig);
+
+            var moqTrustCenterManager = new Mock<TrustCenterManager>();
+            moqTrustCenterManager.Setup(m => m.DownloadCertificatesAsync(It.IsAny<TrustCenterMetaInfo>()))
+                .Returns(Samples.ProvideSampleTaskByteArray);
+            moqTrustCenterManager.Setup(m => m.ImportCertificatesAsync(It.IsAny<TrustCenterMetaInfo>()))
+                .Returns(Samples.ProvideTaskIEnumerableCertificate);
+
+            var core = moqCore.Object;
+            core.ConfigManager = moqConfigManager.Object;
+            core.TrustCenterManager = moqTrustCenterManager.Object;
+
+            core.Config.TrustCenterMetaInfos.RemoveAll(m=>true);
+
             #endregion
 
 
             #region Act
+
+            var result = core.AddTrustCenterAsync("name", "url");
 
             #endregion
 
 
             #region Assert
 
-            #endregion
+            var expectedCount = 1;
+            var expectedResult = new TrustCenterMetaInfo("name", "url", DateTime.Now);
 
+            Assert.Equal(expectedCount, core.Config.TrustCenterMetaInfos.Count);
+            Assert.Equal(3, core.Certificates.Count);
+            Equals(result, expectedResult);
+
+            #endregion
         }
-        
-        [Fact(DisplayName = "ReloadCertificatesOfTrustCenterTest")]
-        public void ReloadCertificatesOfTrustCenterTest()
+
+        [Fact(DisplayName = "DeleteTrustCenterTest")]
+        public void DeleteTrustCenterTest()
         {
             #region Arrange
 
+            var moqConfigManager = new Mock<ConfigManager>();
+            moqConfigManager.CallBase = true;
+            moqConfigManager.Setup(m => m.SaveConfig(It.IsAny<Config>())).Returns(Samples.ProvideSampleConfig);
+
+            var moqTrustCenterManager = new Mock<TrustCenterManager>();
+            moqTrustCenterManager.CallBase = true;
+            moqTrustCenterManager.Setup(m => m.DeleteTrustCenterFile(It.IsAny<string>())).Returns(null);
+            
+            var moqCore = new Mock<Core>();
+            var core = moqCore.Object;
+
+            core.ConfigManager = moqConfigManager.Object;
+            core.TrustCenterManager = moqTrustCenterManager.Object;
+
+            core.Certificates = Samples.ProvideSampleCertificates();
+            core.Config = Samples.ProvideSampleConfig();
+
             #endregion
 
 
             #region Act
+
+            core.DeleteTrustCenter(Samples.ProvideSampleMetaInfos().FirstOrDefault());
 
             #endregion
 
 
             #region Assert
 
-            #endregion
+            var certificateCount = 1;
+            Assert.Equal(2, core.Config.TrustCenterMetaInfos.Count);
+            Assert.Equal(certificateCount, core.Certificates.Count);
 
+            #endregion
         }
 
         [Theory]
-        [InlineData("TooLongTrustCenterNameForTesting","TestURL", "One or more errors occurred. (The entered name is too long.)")]
-        [InlineData("","TestURL", "One or more errors occurred. (The entered name must not be empty.)")]
-        [InlineData("TestName","TestURL", "One or more errors occurred. (The entered Url is not valid.)")]
-        public void IsTrustCenterInputValidTest(string newTrustCenterNameTest,string newTrustCenterUrlTest,string errorMessage)
+        [InlineData("TooLongTrustCenterNameForTesting", "TestURL",
+            "One or more errors occurred. (The entered name is too long.)")]
+        [InlineData("", "TestURL", "One or more errors occurred. (The entered name must not be empty.)")]
+        [InlineData("TestName", "TestURL", "One or more errors occurred. (Can not access Url.)")]
+        public void IsTrustCenterInputValidTest(string newTrustCenterNameTest, string newTrustCenterUrlTest,
+            string errorMessage)
         {
             #region Arrange
 
@@ -85,10 +158,9 @@ namespace TrustCenterSearchCore.Test
 
             #region Assert
 
-            Assert.Equal(errorMessage,exceptionResult.Exception.Message);
+            Assert.Equal(errorMessage, exceptionResult.Exception.Message);
 
             #endregion
-
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 using TrustCenterSearch.Core;
+using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchCore.Test
@@ -20,7 +22,8 @@ namespace TrustCenterSearchCore.Test
 
             #region Act
 
-            core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567", DateTime.Now), config);
+            core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567", DateTime.Now),
+                config);
 
             #endregion
 
@@ -33,7 +36,6 @@ namespace TrustCenterSearchCore.Test
             object.Equals(result, config);
 
             #endregion
-
         }
 
         [Fact(DisplayName = "ConfigIsEmptyTest")]
@@ -56,10 +58,9 @@ namespace TrustCenterSearchCore.Test
 
             #region Assert
 
-            Assert.Equal(result, true);
+            Assert.True(result);
 
             #endregion
-
         }
 
         [Fact(DisplayName = "ConfigIsNotEmptyTest")]
@@ -83,12 +84,39 @@ namespace TrustCenterSearchCore.Test
 
 
             #region Assert
+            
+            Assert.False(result);
 
-            Assert.Equal(result, false);
+            #endregion
+        }
+
+        [Fact(DisplayName = "DeleteTrustCenterFromConfigTest")]
+        public void DeleteCertificatesOfTrustCenterTest()
+        {
+            #region Arrange
+
+            var configSample = Samples.ProvideSampleConfig();
+
+            var trustCenterManager = new ConfigManager();
+
+            var metaDataToDelete = configSample.TrustCenterMetaInfos.FirstOrDefault();
 
             #endregion
 
+
+            #region Act
+
+            trustCenterManager.DeleteTrustCenterFromConfig(metaDataToDelete, configSample);
+
+            #endregion
+
+
+            #region Assert
+
+            Assert.DoesNotContain(configSample.TrustCenterMetaInfos,
+                trustCentermetaInfo => trustCentermetaInfo.Name.Equals(metaDataToDelete.Name));
+
+            #endregion
         }
     }
 }
-

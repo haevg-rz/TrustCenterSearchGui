@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
@@ -23,25 +24,26 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         #region ITrustCenterManagerMethods
 
-        public async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        public virtual async Task<byte[]> DownloadCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
             return await this.DownloadManager.DownloadCertificates(trustCenterMetaInfo, _dataFolderPath);
         }
 
-        public async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
+        public virtual async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            var importedCertificates = await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
-            return importedCertificates;
+            return await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
         }
 
-        public void DeleteTrustCenterFile(string trustCenterName)
+        public virtual bool DeleteTrustCenterFile(string trustCenterName)
         {
             File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+            return true;
         }
 
-        public void DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName)
+        public List<Certificate> DeleteCertificatesOfTrustCenter(List<Certificate> certificates, string trustCenterName)
         {
             certificates.RemoveAll(c => c.TrustCenterName.Equals(trustCenterName));
+            return certificates;
         }
         #endregion
     }
