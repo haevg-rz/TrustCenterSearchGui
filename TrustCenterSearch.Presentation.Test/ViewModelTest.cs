@@ -1,5 +1,7 @@
+using Moq;
 using System.Windows.Data;
 using TestSamples;
+using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
 using Xunit;
@@ -55,27 +57,6 @@ namespace TrustCenterSearchPresentation.Test
 
         }
 
-        [Fact]
-        public void LoadDataAsyncCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-
-            #endregion
-
-
-            #region Assert
-
-
-            #endregion
-
-        }
-
         [Theory]
         [InlineData("Auto", "0")]
         [InlineData("0", "Auto")]
@@ -104,134 +85,32 @@ namespace TrustCenterSearchPresentation.Test
 
         }
 
-        [Fact(DisplayName = "ReloadCertificatesOfTrustCenterCommandExecuteTest")]
-        public void ReloadCertificatesOfTrustCenterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "ReloadTrustCenterHistoryElementTest")]
-        public void ReloadTrustCenterHistoryElementTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "AddTrustCenterAsyncCommandExecuteTest")]
-        public void AddTrustCenterAsyncCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "DeleteTrustCenterFromHistoryCommandExecuteTest")]
-        public void DeleteTrustCenterFromHistoryCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "AddTrustCenterToFilterCommandExecuteTest")]
-        public void AddTrustCenterToFilterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "RemoveTrustCenterFromFilterCommandExecuteTest")]
-        public void RemoveTrustCenterFromFilterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
 
         [Fact(DisplayName = "GetTrustCenterHistoryTest")]
         public void GetTrustCenterHistoryTest()
         {
             #region Arrange
 
+            var viewModel = new ViewModel();
+
+            var moqCore = new Mock<Core>();
+            moqCore.Setup(m => m.GetTrustCenterHistory()).Returns(Samples.ProvideSampleMetaInfos);
+
+            viewModel.Core = moqCore.Object;
+
             #endregion
 
 
             #region Act
 
+            var result = viewModel.GetTrustCenterHistory();
+
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(3, result.Count);
 
             #endregion
 

@@ -238,7 +238,7 @@ namespace TrustCenterSearch.Presentation
 
         #region Methods
 
-        private List<TrustCenterHistoryElement> GetTrustCenterHistory()
+        internal List<TrustCenterHistoryElement> GetTrustCenterHistory()
         {
             this.TrustCenterHistory.Clear();
             foreach (var trustCenterMetaInfo in this.Core.GetTrustCenterHistory())
