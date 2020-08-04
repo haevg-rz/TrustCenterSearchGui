@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
+using TrustCenterSearch.Presentation.Models;
 
 namespace TestSamples
 {
@@ -49,7 +50,44 @@ namespace TestSamples
             return sample;
         }
 
+        public static Certificate ProvideSingleSampleCertificate()
+        {
 
+            var sample = new Certificate()
+            {
+                NotAfter = "01.01.2020",
+                NotBefore = "01.01.2023",
+                TrustCenterName = "Sample4",
+                SerialNumber = "Sample1SN",
+                PublicKeyLength = "2048",
+                Subject = "CN=Sample1CN OU=Sample1OU1 OU=Sample1OU2",
+                Thumbprint = "Sample1Thumbprint"
+            };
+               
+            return sample;
+        }
+
+        public static List<TrustCenterHistoryElement> ProvideSampleListOfTrustCenterHistoryElements()
+        {
+            var sample = new List<TrustCenterHistoryElement>()
+            {
+                {
+                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample1", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1)))
+                },
+                {
+                   new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample2", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1)))
+                },
+                {
+                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample3", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                        new DateTime(2020, 1, 1)))
+                }
+            };
+            return sample;
+            
+
+        }
 
 
         public static Config ProvideSampleConfig()
@@ -103,9 +141,12 @@ namespace TestSamples
 
         private readonly List<object[]> filterTestData = new List<object[]>
         {
-            new object[] {null, false},
-            new object[] {ProvideSampleCertificates().First(), true}
-
+            new object[] {null, false,null},
+            new object[] {ProvideSingleSampleCertificate(), false,null},
+            new object[] {ProvideSampleCertificates().First(), true,null},
+            new object[] {ProvideSampleCertificates().First(), true,"Sample1"},
+            new object[] {ProvideSampleCertificates().First(),true, "01.01.2" },
+            new object[] {ProvideSampleCertificates().First(),false, "01.01.22123" }
         };
 
         public IEnumerator<object[]> GetEnumerator() => filterTestData.GetEnumerator();

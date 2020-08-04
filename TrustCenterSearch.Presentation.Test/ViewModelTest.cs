@@ -1,3 +1,4 @@
+using System.Windows.Data;
 using TestSamples;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
@@ -238,19 +239,24 @@ namespace TrustCenterSearchPresentation.Test
 
         [Theory]
         [ClassData(typeof(Samples))]
-        public void FilterTest(Certificate certificate,bool expectedBoolean)
+        public void FilterTest(Certificate certificate,bool expectedBoolean,string searchBarInputForTesting)
         {
             #region Arrange
 
-            
+            var viewModel = new ViewModel();
 
+            viewModel.CertificatesCollectionView = CollectionViewSource.GetDefaultView(Samples.ProvideSampleCertificates());
+            viewModel.CertificatesCollectionView.Filter = viewModel.Filter;
+
+            viewModel.SearchBarInput = searchBarInputForTesting;
+
+            viewModel.TrustCenterHistory = Samples.ProvideSampleListOfTrustCenterHistoryElements();
             #endregion
 
 
             #region Act
 
-            var view = new ViewModel();
-            var result = view.Filter(certificate);
+            var result = viewModel.Filter(certificate);
             
             #endregion
 
