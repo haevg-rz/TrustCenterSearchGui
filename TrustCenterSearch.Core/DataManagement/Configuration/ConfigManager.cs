@@ -33,23 +33,27 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
             return config;
         }
 
-        public void AddTrustCenterToConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
+        public Config AddTrustCenterToConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
         {
-            config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
+           config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
+           return config;
         }
 
-        public void SaveConfig(Config config)
+        public virtual Config SaveConfig(Config config)
         {
             if (!Directory.Exists(_trustCenterSearchGuiPath))
                 Directory.CreateDirectory(_trustCenterSearchGuiPath);
 
             var jsonString = JsonConvert.SerializeObject(config,Formatting.Indented);
             File.WriteAllText(ConfigPath, jsonString);
+
+            return config;
         }
 
-        public void DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
+        public Config DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
         {
             config.TrustCenterMetaInfos.RemoveAll(tc => tc.Name.Equals(trustCenterMetaInfo.Name));
+            return config;
         }
 
         public bool IsConfigEmpty(Config config)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearchCore.Test
@@ -14,7 +15,7 @@ namespace TrustCenterSearchCore.Test
                 {
                     NotAfter = "01.01.2020",
                     NotBefore = "01.01.2023",
-                    TrustCenterName = "SampleTrustCenter1",
+                    TrustCenterName = "Sample1",
                     SerialNumber = "Sample1SN",
                     PublicKeyLength = "2048",
                     Subject = "CN=Sample1CN OU=Sample1OU1 OU=Sample1OU2",
@@ -24,7 +25,7 @@ namespace TrustCenterSearchCore.Test
                 {
                     NotAfter = "01.01.2022",
                     NotBefore = "01.01.2025",
-                    TrustCenterName = "SampleTrustCenter1",
+                    TrustCenterName = "Sample1",
                     SerialNumber = "Sample2SN",
                     PublicKeyLength = "2048",
                     Subject = "CN=Sample2CN OU=Sample2OU1 OU=Sample2OU2",
@@ -34,7 +35,7 @@ namespace TrustCenterSearchCore.Test
                 {
                     NotAfter = "01.01.2020",
                     NotBefore = "01.01.2023",
-                    TrustCenterName = "SampleTrustCenter2",
+                    TrustCenterName = "Sample2",
                     SerialNumber = "Sample3SN",
                     PublicKeyLength = "2048",
                     Subject = "CN=Sample3CN OU=Sample3OU1 OU=Sample3OU2",
@@ -71,6 +72,26 @@ namespace TrustCenterSearchCore.Test
                 }
             };
             return sample;
+        }
+
+        public static Task<byte[]> ProvideSampleTaskByteArray()
+        {
+            async Task<byte[]> GetByteArray()
+            {
+                return new byte[0];
+            }
+
+            return GetByteArray();
+        }
+
+        public static Task<IEnumerable<Certificate>> ProvideTaskIEnumerableCertificate()
+        {
+            async Task<IEnumerable<Certificate>> ProvideSampleOfCertificatesAsync()
+            {
+                return ProvideSampleCertificates();
+            }
+
+            return ProvideSampleOfCertificatesAsync();
         }
     }
 }
