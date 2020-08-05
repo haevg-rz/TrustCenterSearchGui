@@ -72,10 +72,13 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-
                 <TextBlock Grid.Column="0" Style="{StaticResource MenuTitleTextBlockStyle}" />
                 <Button Grid.Column="1" Style="{StaticResource CloseMenuButtonStyle}"
-                        Command="{Binding CollapseSideBarCommand}" />
+                        Command="{Binding CollapseSideBarCommand}" >
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/navigate_left2.png" />
+                    </Button.Background>
+                </Button>
             </Grid>
             <!-- Menu Caption -->
 
