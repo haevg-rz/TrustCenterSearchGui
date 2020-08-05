@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestSamples\TestSamples.csproj" />
     <ProjectReference Include="..\TrustCenterSearch.Core\TrustCenterSearch.Core.csproj" />
   </ItemGroup>
 

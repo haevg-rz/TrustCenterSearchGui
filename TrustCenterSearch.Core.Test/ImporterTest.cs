@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TrustCenterSearch.Core.DataManagement.TrustCenters;
+﻿using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using Xunit;
 
 namespace TrustCenterSearchCore.Test

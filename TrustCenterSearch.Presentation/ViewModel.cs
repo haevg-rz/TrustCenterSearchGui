@@ -136,7 +136,7 @@ namespace TrustCenterSearch.Presentation
             this.UserInputIsEnabled = true;
         }
 
-        private void CollapseSidebarCommandExecute()
+        internal void CollapseSidebarCommandExecute()
         {
             this.MenuWidth = this.MenuWidth.Equals("Auto") ? "0" : this.MenuWidth = "Auto";
         }
@@ -238,7 +238,7 @@ namespace TrustCenterSearch.Presentation
 
         #region Methods
 
-        private List<TrustCenterHistoryElement> GetTrustCenterHistory()
+        internal List<TrustCenterHistoryElement> GetTrustCenterHistory()
         {
             this.TrustCenterHistory.Clear();
             foreach (var trustCenterMetaInfo in this.Core.GetTrustCenterHistory())
@@ -253,7 +253,7 @@ namespace TrustCenterSearch.Presentation
                 "Information about TrustCenter", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private bool Filter(object obj)
+        internal bool Filter(object obj)
         {
             if (!(obj is Certificate entry))
                 return false;

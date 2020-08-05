@@ -4,6 +4,7 @@ using Xunit;
 using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.Models;
+using TestSamples;
 
 namespace TrustCenterSearchCore.Test
 {

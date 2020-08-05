@@ -1,13 +1,10 @@
 ﻿using Moq;
 using System;
 using System.Linq;
-using System.Runtime.InteropServices;
+using TestSamples;
 using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.DataManagement.TrustCenters;
-using TrustCenterSearch.Core.Interfaces;
-using TrustCenterSearch.Core.Interfaces.Configuration;
-using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 using Xunit;
 

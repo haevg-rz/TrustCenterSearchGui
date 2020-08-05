@@ -1,17 +1,16 @@
-using System;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
-using Newtonsoft.Json;
-using Xunit;
+using Moq;
+using System.Windows.Data;
+using TestSamples;
+using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation;
-using System.Threading;
+using Xunit;
 
 namespace TrustCenterSearchPresentation.Test
 {
     public class ViewModelTest
     {
+
         [Fact(DisplayName = "CopySearchResultToClipboardCommandExecuteTest")]
         public void CopySearchResultToClipboardCommandExecuteTest()
         {
@@ -58,191 +57,92 @@ namespace TrustCenterSearchPresentation.Test
 
         }
 
-        [Fact(DisplayName = "LoadDataAsyncCommandExecuteTest")]
-        public void LoadDataAsyncCommandExecuteTest()
+        [Theory]
+        [InlineData("Auto", "0")]
+        [InlineData("0", "Auto")]
+        public void CollapseSidebarCommandExecuteTest(string setMenuWidth, string expectedMenuWidth)
         {
             #region Arrange
+
+            var view = new ViewModel();
+            view.MenuWidth = setMenuWidth;
 
             #endregion
 
 
             #region Act
 
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "CollapseSidebarCommandExecuteTest")]
-        public void CollapseSidebarCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
+            view.CollapseSidebarCommandExecute();
 
             #endregion
 
 
             #region Assert
 
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "ReloadCertificatesOfTrustCenterCommandExecuteTest")]
-        public void ReloadCertificatesOfTrustCenterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
+            Assert.Equal(view.MenuWidth, expectedMenuWidth);
 
             #endregion
 
         }
 
-        [Fact(DisplayName = "ReloadTrustCenterHistoryElementTest")]
-        public void ReloadTrustCenterHistoryElementTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "AddTrustCenterAsyncCommandExecuteTest")]
-        public void AddTrustCenterAsyncCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "DeleteTrustCenterFromHistoryCommandExecuteTest")]
-        public void DeleteTrustCenterFromHistoryCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "AddTrustCenterToFilterCommandExecuteTest")]
-        public void AddTrustCenterToFilterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
-
-        [Fact(DisplayName = "RemoveTrustCenterFromFilterCommandExecuteTest")]
-        public void RemoveTrustCenterFromFilterCommandExecuteTest()
-        {
-            #region Arrange
-
-            #endregion
-
-
-            #region Act
-
-            #endregion
-
-
-            #region Assert
-
-            #endregion
-
-        }
 
         [Fact(DisplayName = "GetTrustCenterHistoryTest")]
         public void GetTrustCenterHistoryTest()
         {
             #region Arrange
 
+            var viewModel = new ViewModel();
+
+            var moqCore = new Mock<Core>();
+            moqCore.Setup(m => m.GetTrustCenterHistory()).Returns(Samples.ProvideSampleMetaInfos);
+
+            viewModel.Core = moqCore.Object;
+
             #endregion
 
 
             #region Act
 
+            var result = viewModel.GetTrustCenterHistory();
+
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(3, result.Count);
 
             #endregion
 
         }
 
-        [Fact(DisplayName = "FilterTest")]
-        public void FilterTest()
+        [Theory]
+        [ClassData(typeof(Samples))]
+        public void FilterTest(Certificate certificate,bool expectedBoolean,string searchBarInputForTesting)
         {
             #region Arrange
 
+            var viewModel = new ViewModel();
+
+            viewModel.CertificatesCollectionView = CollectionViewSource.GetDefaultView(Samples.ProvideSampleCertificates());
+            viewModel.CertificatesCollectionView.Filter = viewModel.Filter;
+
+            viewModel.SearchBarInput = searchBarInputForTesting;
+
+            viewModel.TrustCenterHistory = Samples.ProvideSampleListOfTrustCenterHistoryElements();
             #endregion
 
 
             #region Act
 
+            var result = viewModel.Filter(certificate);
+            
             #endregion
 
 
             #region Assert
+
+            Assert.Equal(result, expectedBoolean);
 
             #endregion
 

@@ -77,7 +77,7 @@ namespace TrustCenterSearch.Core
             return await this.AddTrustCenterAsync(trustCenterMetaInfo.Name, trustCenterMetaInfo.TrustCenterUrl);
         }
 
-        public List<TrustCenterMetaInfo> GetTrustCenterHistory()
+        public virtual List<TrustCenterMetaInfo> GetTrustCenterHistory()
         {
             return this.Config.TrustCenterMetaInfos;
         }

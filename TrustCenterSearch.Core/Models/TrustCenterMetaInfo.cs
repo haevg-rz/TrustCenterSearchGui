@@ -4,6 +4,7 @@ namespace TrustCenterSearch.Core.Models
 {
     public class TrustCenterMetaInfo
     {
+
         public string Name { get; set; }
         public string TrustCenterUrl { get; set; }
         public DateTime LastUpdate { get; set; }
@@ -14,5 +15,6 @@ namespace TrustCenterSearch.Core.Models
             this.TrustCenterUrl = url;
             this.LastUpdate = lastUpdate;
         }
+
     }
 }
