@@ -237,7 +237,8 @@
                                      Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
                                      Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
                             <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
-                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}" />
+                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}"
+                                     Foreground="{Binding TrustCenterName, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"/>
                         </Grid>
 
                         <Grid Grid.Column="1" Grid.Row="1">
