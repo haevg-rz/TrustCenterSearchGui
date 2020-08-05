@@ -185,7 +185,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10" />
+                <TextBlock Grid.Column="0" Text="v0.2.0" Foreground="Gray" Margin="10" />
                 <TextBlock Grid.Column="1" Width="Auto" Margin="10" HorizontalAlignment="Center">
                     <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
                 </TextBlock>
