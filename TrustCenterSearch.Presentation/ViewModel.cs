@@ -86,7 +86,7 @@ namespace TrustCenterSearch.Presentation
         public RelayCommand OpenConfigCommand { get; set; }
 
         private string _menuWidth = "Auto";
-        private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki";
+        private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki/wiki";
         private readonly string _configFolderPath =
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\Config.JSON";
 
