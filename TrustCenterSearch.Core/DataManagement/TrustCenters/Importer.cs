@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,20 +49,35 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
                 new[] { Environment.NewLine + Environment.NewLine },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            var cer = from certificateTxt in certificatesTxt
-                select new X509Certificate2(Convert.FromBase64String(certificateTxt));
+            var collection = new BlockingCollection<(X509Certificate2 cert, string keySize)>(certificatesTxt.Length);
+            var parallelOptions = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Environment.ProcessorCount,
+            };
+            Parallel.ForEach(certificatesTxt, parallelOptions, (s, state) =>
+            {
+                var cert = new X509Certificate2(Convert.FromBase64String(s));
+                 var keySize = cert.PublicKey.Key.KeySize.ToString();
+
+                 collection.Add((cert, keySize));
+             });
+
+            var cer = certificatesTxt.Select(certificateTxt =>
+                new X509Certificate2(Convert.FromBase64String(certificateTxt)));
 
             var certificates = new HashSet<Certificate>();
 
-            certificates.UnionWith(cer.Select(c => new Certificate()
+            certificates.UnionWith(collection.Select(c =>
             {
-                Subject = GetSubjectElementsToDisplay(c.Subject),
-                SerialNumber = c.SerialNumber,
-                NotAfter = c.NotAfter.Date.ToShortDateString(),
-                NotBefore = c.NotBefore.Date.ToShortDateString(),
-                Thumbprint = c.Thumbprint,
-                PublicKeyLength = c.PublicKey.Key.KeySize.ToString(),
-                TrustCenterName = trustCenterMetaInfo.Name
+                var certificate = new Certificate();
+                certificate.Subject = GetSubjectElementsToDisplay(c.cert.Subject);
+                certificate.SerialNumber = c.cert.SerialNumber;
+                certificate.NotAfter = c.cert.NotAfter.Date.ToShortDateString();
+                certificate.NotBefore = c.cert.NotBefore.Date.ToShortDateString();
+                certificate.Thumbprint = c.cert.Thumbprint;
+                certificate.PublicKeyLength = c.keySize;
+                certificate.TrustCenterName = trustCenterMetaInfo.Name;
+                return certificate;
             }));
             return certificates;
         }
@@ -74,7 +90,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             var newSubject = subjectElementsToDisplay.Aggregate(String.Empty, (current, element) => current + element);
 
-            return newSubject.Equals(String.Empty) ? "No Subjectinfo available" : newSubject;
+            return newSubject.Equals(String.Empty) ? argSubject : newSubject;
         }
         #endregion
     }

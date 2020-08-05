@@ -185,7 +185,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="v0.0.1" Foreground="Gray" Margin="10" />
+                <TextBlock Grid.Column="0" Text="v0.2.0" Foreground="Gray" Margin="10" />
                 <TextBlock Grid.Column="1" Width="Auto" Margin="10" HorizontalAlignment="Center">
                     <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
                 </TextBlock>
@@ -248,7 +248,8 @@
                                      Foreground="{Binding Subject, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"
                                      Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
                             <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
-                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}" />
+                                     Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}"
+                                     Foreground="{Binding TrustCenterName, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"/>
                         </Grid>
 
                         <Grid Grid.Column="1" Grid.Row="1">
