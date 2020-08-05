@@ -142,4 +142,15 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Button" x:Key="OpenConfigButtonStyle">
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Content" Value="Config"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="10,5,10,10"/>
+        <Setter Property="Background" Value="#2772db"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="ToolTip" Value="Open config"/>
+    </Style>
+
 </ResourceDictionary>

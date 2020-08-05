@@ -9,6 +9,12 @@
 
     <Style x:Key="BusyAnimationStyle" TargetType="Control">
         <Setter Property="Background" Value="#7F000000" />
+        <Setter Property="Margin" Value="0,0,40,20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
 
         <Setter Property="Template">
             <Setter.Value>

@@ -2,6 +2,27 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:TrustCenterSearch.Presentation.Resources.Styles">
 
+    <!--Add TrustCenter-->
+
+    <Style TargetType="TextBox" x:Key="AddNameAndUrlTextBoxBaseStyle">
+        <Setter Property="Margin" Value="0,5,10,5"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="AddNameTextBoxStyle" BasedOn="{StaticResource AddNameAndUrlTextBoxBaseStyle}">
+        <Setter Property="ToolTip" Value="Enter a name that describes the collection of certificates you want to import"/>
+    </Style>
+
+    <Style TargetType="TextBox" x:Key="AddUrlTextBoxStyle" BasedOn="{StaticResource AddNameAndUrlTextBoxBaseStyle}">
+        <Setter Property="ToolTip" Value="Enter a url that leads to a file containing hashed x509 certificates"/>
+    </Style>
+
+    <!--Add TrustCenter-->
+
     <!--search Results-->
 
     <Style TargetType="TextBox" x:Key="SearchResultTextBoxBaseStyle">
@@ -82,5 +103,7 @@
     </Style>
 
     <!--search Results-->
+
+
 
 </ResourceDictionary>
