@@ -125,12 +125,12 @@ namespace TrustCenterSearch.Presentation
         {
             this.UserInputIsEnabled = false;
 
-            await this.Core.ImportAllCertificatesFromTrustCentersAsync();
+            var certs = await this.Core.ImportAllCertificatesFromTrustCentersAsync();
 
             this.TrustCenterHistoryCollectionView = CollectionViewSource.GetDefaultView(this.GetTrustCenterHistory());
             this.TrustCenterHistoryCollectionView.SortDescriptions.Add(new SortDescription(nameof(TrustCenterHistoryElement.Active), ListSortDirection.Descending));
 
-            this.CertificatesCollectionView = CollectionViewSource.GetDefaultView(this.Core.GetCertificates());
+            this.CertificatesCollectionView = CollectionViewSource.GetDefaultView(certs);
             this.CertificatesCollectionView.Filter = this.Filter;
 
             this.UserInputIsEnabled = true;
