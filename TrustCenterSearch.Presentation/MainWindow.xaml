@@ -97,23 +97,13 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource MenuAddTrustCenterNameTextBlockStyle}" />
                 <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource MenuAddTrustCenterUrlTextBlockStyle}" />
 
-                <TextBox Grid.Column="1" Grid.Row="0" Margin="0,5,10,5" BorderBrush="Transparent"
-                         Padding="3"
-                         Height="auto"
+                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource AddNameTextBoxStyle}"
                          Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding UserInputIsEnabled}"
-                         Width="200"
-                         HorizontalAlignment="Right"
-                         ToolTip="Enter a name that describes the collection of certificates you want to import" />
+                         IsEnabled="{Binding UserInputIsEnabled}"/>
 
-                <TextBox Grid.Column="1" Grid.Row="1" Margin="0,5,10,5" BorderBrush="Transparent"
-                         Padding="3"
-                         Height="auto"
+                <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource AddUrlTextBoxStyle}"
                          Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding UserInputIsEnabled}"
-                         Width="200"
-                         HorizontalAlignment="Right"
-                         ToolTip="Enter a url that leads to a file containing hashed x509 certificates" />
+                         IsEnabled="{Binding UserInputIsEnabled}"/>
 
                 <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource AddButtonStyle}"
                         Command="{Binding AddTrustCenterButtonCommand}"
@@ -188,13 +178,12 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="v0.2.0" Foreground="Gray" Margin="10" />
-                <TextBlock Grid.Column="1" Width="Auto" Margin="10" HorizontalAlignment="Center">
+                <TextBlock Grid.Column="0" Style="{StaticResource VersionTextBlockStyle}" />
+                <TextBlock Grid.Column="1" Style="{StaticResource GoToWikiTextBlockStyle}">
                     <Hyperlink Command="{Binding OpenWikiWebpageCommand}">Go to Wiki</Hyperlink>
                 </TextBlock>
-                <Button Grid.Column="2" Padding="3" Content="Config" HorizontalAlignment="Right"
-                        Command="{Binding OpenConfigCommand}" Margin="10,5,10,10" Background="#2772db"
-                        Foreground="White" BorderBrush="Transparent" ToolTip="Open config" />
+                <Button Grid.Column="2" Style="{StaticResource OpenConfigButtonStyle}"
+                        Command="{Binding OpenConfigCommand}" />
             </Grid>
             <!-- Links and Version -->
 
@@ -321,9 +310,7 @@
 
         <!-- LoadingAnimation -->
         <Grid Grid.Column="2" Grid.Row="1">
-            <Control Margin="0,0,40,20" Background="Transparent" Width="50" Height="50" HorizontalAlignment="Right"
-                     VerticalAlignment="Bottom"
-                     Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
+            <Control Visibility="{Binding UserInputIsEnabled, Converter={StaticResource VisibilityConverter}}"
                      Style="{StaticResource BusyAnimationStyle}" />
         </Grid>
         <!-- LoadingAnimation -->
