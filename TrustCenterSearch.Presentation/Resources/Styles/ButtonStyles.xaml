@@ -3,6 +3,8 @@
                     xmlns:local="clr-namespace:TrustCenterSearch.Presentation.Resources.Styles">
 
     <ImageBrush x:Key="CopyImage" ImageSource="/Resources/Images/copy.png" Stretch="Uniform" />
+    <ImageBrush x:Key="CopyImageMouseOver" ImageSource="/Resources/Images/CopyWhenMoseOver.png" Stretch="Uniform" />
+    <ImageBrush x:Key="navigate_left2" ImageSource="/Resources/Images/navigate_left2WhenMouseOver.png" />
 
     <Style x:Key="FocusVisual">
         <Setter Property="Control.Template">
@@ -79,14 +81,37 @@
     </Style>
 
     <Style TargetType="Button" x:Key="CloseMenuButtonStyle">
-        <Setter Property="Width" Value="30" />
-        <Setter Property="Height" Value="25" />
-        <Setter Property="Content" Value="&lt;&lt;" />
+        <Setter Property="Margin" Value="0,3,1,0" />
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="13" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="ToolTip" Value="Hide menu" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource navigate_left2}" />
+                            <Setter Property="BorderBrush" TargetName="border"
+                                    Value="{StaticResource Button.MouseOver.Border}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="Button" x:Key="CopyToClipboardButtonStyle">
@@ -123,9 +148,8 @@
                                     Value="{StaticResource Button.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource CopyImage}" />
-                            <Setter Property="Width" TargetName="border" Value="16" />
-                            <Setter Property="Height" TargetName="border" Value="16" />
+                            <Setter Property="Background" TargetName="border"
+                                    Value="{StaticResource CopyImageMouseOver}" />
                             <Setter Property="BorderBrush" TargetName="border"
                                     Value="{StaticResource Button.Pressed.Border}" />
                         </Trigger>

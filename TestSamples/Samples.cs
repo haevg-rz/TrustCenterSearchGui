@@ -72,15 +72,15 @@ namespace TestSamples
             var sample = new List<TrustCenterHistoryElement>()
             {
                 {
-                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample1", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample1", "abc",
                         new DateTime(2020, 1, 1)))
                 },
                 {
-                   new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample2", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                   new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample2", "abc",
                         new DateTime(2020, 1, 1)))
                 },
                 {
-                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample3", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                    new TrustCenterHistoryElement(new TrustCenterMetaInfo("Sample3", "abc",
                         new DateTime(2020, 1, 1)))
                 }
             };

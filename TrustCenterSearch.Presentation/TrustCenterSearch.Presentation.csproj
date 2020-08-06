@@ -13,10 +13,13 @@
     <None Remove="Resources\Images\binBlack.png" />
     <None Remove="Resources\Images\binRed.png" />
     <None Remove="Resources\Images\copy.png" />
+    <None Remove="Resources\Images\CopyWhenMoseOver.png" />
     <None Remove="Resources\Images\infoIcon.png" />
     <None Remove="Resources\Images\infoIconMouseOver.png" />
     <None Remove="Resources\Images\loadIcon.png" />
     <None Remove="Resources\Images\loadIconWhenMouseOver.png" />
+    <None Remove="Resources\Images\navigate_left2.png" />
+    <None Remove="Resources\Images\navigate_left2WhenMouseOver.png" />
     <None Remove="Resources\Images\remove.png" />
     <None Remove="Resources\Images\removeMouseOver.png" />
   </ItemGroup>
@@ -46,6 +49,9 @@
     <Resource Include="Resources\Images\copy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\CopyWhenMoseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\infoIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -56,6 +62,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\loadIconWhenMouseOver.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\navigate_left2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\navigate_left2WhenMouseOver.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\remove.png">
