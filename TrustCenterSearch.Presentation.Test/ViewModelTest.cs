@@ -117,7 +117,7 @@ namespace TrustCenterSearchPresentation.Test
         }
 
         [Theory]
-        [ClassData(typeof(Samples))]
+        [ClassData(typeof(FilterTestData))]
         public void FilterTest(Certificate certificate,bool expectedBoolean,string searchBarInputForTesting)
         {
             #region Arrange
