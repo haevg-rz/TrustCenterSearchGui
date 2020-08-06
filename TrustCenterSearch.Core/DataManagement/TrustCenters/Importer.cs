@@ -54,13 +54,14 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount,
             };
+
             Parallel.ForEach(certificatesTxt, parallelOptions, (s, state) =>
             {
-                var cert = new X509Certificate2(Convert.FromBase64String(s));
+                 var cert = new X509Certificate2(Convert.FromBase64String(s));
                  var keySize = cert.PublicKey.Key.KeySize.ToString();
 
                  collection.Add((cert, keySize));
-             });
+            });
 
             var cer = certificatesTxt.Select(certificateTxt =>
                 new X509Certificate2(Convert.FromBase64String(certificateTxt)));
