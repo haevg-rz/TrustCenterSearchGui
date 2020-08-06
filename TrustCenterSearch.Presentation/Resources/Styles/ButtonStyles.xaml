@@ -42,7 +42,6 @@
             <DataTrigger Binding="{Binding MenuWidth}" Value="auto">
                 <Setter Property="ToolTip" Value="Hide menu" />
             </DataTrigger>
-
         </Style.Triggers>
     </Style>
 
@@ -50,10 +49,20 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Height" Value="30" />
         <Setter Property="Margin" Value="0,2,0,2" />
-        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="CommandParameter" Value="{Binding}" />
         <Setter Property="Command"
                 Value="{Binding Source={StaticResource ViewModel}, Path=ToggleTrustCenterHistoryFilterCommand}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" >
+                            <!-- BorderThickness="1" BorderBrush="Transparent" CornerRadius="1" -->
+                            
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
                 <Setter Property="Background" Value="#d9e9ff" />
@@ -63,6 +72,11 @@
                 <Setter Property="Background" Value="#f7f8fa" />
                 <Setter Property="ToolTip" Value="Add Trust Center to filter" />
             </DataTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <!-- <Setter Property="BorderBrush" Value="Blue" /> -->
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontStyle" Value="Italic" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -167,14 +181,14 @@
     </Style>
 
     <Style TargetType="Button" x:Key="OpenConfigButtonStyle">
-        <Setter Property="Padding" Value="3"/>
-        <Setter Property="Content" Value="Config"/>
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="10,5,10,10"/>
-        <Setter Property="Background" Value="#2772db"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="ToolTip" Value="Open config"/>
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Content" Value="Config" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="10,5,10,10" />
+        <Setter Property="Background" Value="#2772db" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="ToolTip" Value="Open config" />
     </Style>
 
 </ResourceDictionary>
