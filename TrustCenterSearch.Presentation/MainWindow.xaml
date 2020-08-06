@@ -136,7 +136,7 @@
                                                 <TextBlock
                                                     Style="{DynamicResource TrustCenterHistoryElementAddTextBlockStyle}" />
                                                 <TextBlock Width="150" VerticalAlignment="Center"
-                                                           Text="{Binding TrustCenterMetaInfo.Name}" />
+                                                           Text="{Binding TrustCenterMetaInfo.Name}"/>
                                                 <Button Style="{DynamicResource InfoButtonStyle}"
                                                         CommandParameter="{Binding}"
                                                         Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
