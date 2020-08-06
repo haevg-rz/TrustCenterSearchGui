@@ -93,7 +93,6 @@ namespace TrustCenterSearch.Core
 
         internal virtual bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
-            var specialCharacter = new char[] { '~' , '#' , '%' , '&' , '*', ':', '<','>','?','/','{','|','}'};
             
             if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");
@@ -101,7 +100,8 @@ namespace TrustCenterSearch.Core
             if (newTrustCenterName == string.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
-            if (newTrustCenterName.Intersect(specialCharacter).Any())
+
+            if (newTrustCenterName.Intersect(new char[] { '~', '#', '%', '&', '*', ':', '<', '>', '?', '/', '{', '|', '}' }).Any())
                 throw new ArgumentException("Invalid file characters are: ~ #% & *: <>? /  {|}.");
 
             if (!Downloader.IsUrlExisting(newTrustCenterUrl))
