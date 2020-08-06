@@ -57,10 +57,14 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
             Parallel.ForEach(certificatesTxt, parallelOptions, (s, state) =>
             {
-                 var cert = new X509Certificate2(Convert.FromBase64String(s));
-                 var keySize = cert.PublicKey.Key.KeySize.ToString();
+                try
+                {
+                    var cert = new X509Certificate2(Convert.FromBase64String(s));
+                    var keySize = cert.PublicKey.Key.KeySize.ToString();
 
-                 collection.Add((cert, keySize));
+                    collection.Add((cert, keySize));
+                }
+                catch{ }
             });
 
             var cer = certificatesTxt.Select(certificateTxt =>
