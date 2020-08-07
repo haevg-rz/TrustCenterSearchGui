@@ -14,18 +14,7 @@ namespace TrustCenterSearch.Presentation
         {
             InitializeComponent();
         }
-
-        private void WatermarkVisibilityConverter(object sender, KeyEventArgs e)
-        {
-            if (this.SearchBar.Text.Equals(String.Empty))
-            {
-                this.SearchWatermark.Visibility = Visibility.Visible;
-                return;
-            }
-
-            this.SearchWatermark.Visibility = Visibility.Collapsed;
-        }
-
+        
         private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             /*sender as TextBox

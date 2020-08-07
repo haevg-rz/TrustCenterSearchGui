@@ -74,7 +74,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Style="{StaticResource MenuTitleTextBlockStyle}" />
                 <Button Grid.Column="1" Style="{StaticResource CloseMenuButtonStyle}"
-                        Command="{Binding CollapseSideBarCommand}" >
+                        Command="{Binding CollapseSideBarCommand}">
                     <Button.Background>
                         <ImageBrush ImageSource="/Resources/Images/navigate_left2.png" />
                     </Button.Background>
@@ -99,11 +99,11 @@
 
                 <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource AddNameTextBoxStyle}"
                          Text="{Binding AddTrustCenterName, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding UserInputIsEnabled}"/>
+                         IsEnabled="{Binding UserInputIsEnabled}" />
 
                 <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource AddUrlTextBoxStyle}"
                          Text="{Binding AddTrustCenterUrl, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding UserInputIsEnabled}"/>
+                         IsEnabled="{Binding UserInputIsEnabled}" />
 
                 <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource AddButtonStyle}"
                         Command="{Binding AddTrustCenterButtonCommand}"
@@ -136,7 +136,7 @@
                                                 <TextBlock
                                                     Style="{DynamicResource TrustCenterHistoryElementAddTextBlockStyle}" />
                                                 <TextBlock Width="150" VerticalAlignment="Center"
-                                                           Text="{Binding TrustCenterMetaInfo.Name}"/>
+                                                           Text="{Binding TrustCenterMetaInfo.Name}" />
                                                 <Button Style="{DynamicResource InfoButtonStyle}"
                                                         CommandParameter="{Binding}"
                                                         Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">
@@ -191,18 +191,39 @@
         <!-- Menu -->
 
         <!-- Search Bar -->
+
         <StackPanel Grid.Column="2" Grid.Row="0" Margin="10,10,27,0">
             <Grid>
+                <Grid.Resources>
+                    <VisualBrush x:Key="Watermark" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+                        <VisualBrush.Transform>
+                            <TranslateTransform X="5" Y="7" />
+                        </VisualBrush.Transform>
+                        <VisualBrush.Visual>
+                            <Grid HorizontalAlignment="Left">
+                                <TextBlock FontSize="15" FontWeight="Light" FontStyle="Italic"
+                                           HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Gray"
+                                           Text="Search" />
+                            </Grid>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Grid.Resources>
                 <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Height="30" FontSize="15"
-                         Padding="4" TextChanged="SearchBar_OnTextChanged" KeyUp="WatermarkVisibilityConverter">
+                         Padding="4" TextChanged="SearchBar_OnTextChanged">
                     <TextBox.Text>
                         <Binding Path="SearchBarInput" Delay="300" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                     </TextBox.Text>
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=SearchBar, Path=Text}" Value="">
+                                    <Setter Property="Background" Value="{StaticResource Watermark}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
                 </TextBox>
-                <TextBlock Grid.Row="0" FontSize="15" FontWeight="Light" Padding="8,4,4,4" FontStyle="Italic"
-                           Foreground="Gray"
-                           Name="SearchWatermark"
-                           Text="Search" HorizontalAlignment="Left" Visibility="Visible" IsHitTestVisible="False" />
             </Grid>
         </StackPanel>
         <!-- Search Bar -->
@@ -241,7 +262,7 @@
                                      Style="{StaticResource SearchResultSubjectTextBoxStyle}" />
                             <TextBox Grid.Column="1" Text="{Binding TrustCenterName}"
                                      Style="{StaticResource SearchResultTrustCenterNameTextBoxStyle}"
-                                     Foreground="{Binding TrustCenterName, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}"/>
+                                     Foreground="{Binding TrustCenterName, Converter={StaticResource HighlightConverter}, ConverterParameter={x:Reference SearchBar}}" />
                         </Grid>
 
                         <Grid Grid.Column="1" Grid.Row="1">
