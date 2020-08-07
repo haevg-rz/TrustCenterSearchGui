@@ -203,13 +203,13 @@
                             <Grid HorizontalAlignment="Left">
                                 <TextBlock FontSize="15" FontWeight="Light" FontStyle="Italic"
                                            HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Gray"
-                                           Text="Search" />
+                                           Text=" Search" />
                             </Grid>
                         </VisualBrush.Visual>
                     </VisualBrush>
                 </Grid.Resources>
                 <TextBox Name="SearchBar" IsEnabled="{Binding UserInputIsEnabled}" Height="30" FontSize="15"
-                         Padding="4" TextChanged="SearchBar_OnTextChanged">
+                         Padding="4">
                     <TextBox.Text>
                         <Binding Path="SearchBarInput" Delay="300" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" />
                     </TextBox.Text>
