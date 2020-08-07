@@ -14,12 +14,5 @@ namespace TrustCenterSearch.Presentation
         {
             InitializeComponent();
         }
-        
-        private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            /*sender as TextBox
-                this.DataContext as ViewModel*/
-
-        }
     }
 }
