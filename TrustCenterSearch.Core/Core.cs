@@ -10,7 +10,7 @@ using TrustCenterSearch.Core.Interfaces.Configuration;
 using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
 
-[assembly: InternalsVisibleTo("TrustCenterSearchCore.Test")]
+[assembly: InternalsVisibleTo("TrustCenterSearch.Core.Test")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace TrustCenterSearch.Core

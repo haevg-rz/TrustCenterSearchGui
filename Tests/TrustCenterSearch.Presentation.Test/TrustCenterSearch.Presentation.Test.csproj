@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TrustCenterSearch.Presentation\TrustCenterSearch.Presentation.csproj" />
     <ProjectReference Include="..\TestSamples\TestSamples.csproj" />
-    <ProjectReference Include="..\TrustCenterSearch.Core\TrustCenterSearch.Core.csproj" />
   </ItemGroup>
 
 </Project>

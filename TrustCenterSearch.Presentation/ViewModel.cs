@@ -13,7 +13,7 @@ using TrustCenterSearch.Core.Interfaces;
 using TrustCenterSearch.Core.Models;
 using TrustCenterSearch.Presentation.Models;
 
-[assembly: InternalsVisibleTo("TrustCenterSearchPresentation.Test")]
+[assembly: InternalsVisibleTo("TrustCenterSearch.Presentation.Test")]
 
 namespace TrustCenterSearch.Presentation
 {
