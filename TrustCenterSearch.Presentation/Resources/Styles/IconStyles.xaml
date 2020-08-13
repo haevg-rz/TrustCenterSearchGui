@@ -67,14 +67,6 @@
                             <Setter Property="BorderBrush" TargetName="border"
                                     Value="{StaticResource Button.Pressed.Border}" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Background}" />
-                            <Setter Property="BorderBrush" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Border}" />
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource Button.Disabled.Foreground}" />
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -117,14 +109,6 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource infoIcon}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Background}" />
-                            <Setter Property="BorderBrush" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Border}" />
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -185,14 +169,6 @@
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderBrush" TargetName="border"
                                     Value="{StaticResource Button.Pressed.Border}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Background}" />
-                            <Setter Property="BorderBrush" TargetName="border"
-                                    Value="{StaticResource Button.Disabled.Border}" />
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

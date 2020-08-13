@@ -33,14 +33,11 @@
 
     <Style TargetType="TextBlock" x:Key="TrustCenterHistoryElementAddTextBlockStyle">
         <Setter Property="Margin" Value="5,0,5,0" />
-        <Setter Property="FontWeight" Value="ExtraBold" />
-        <Setter Property="Text" Value="-" />
         <Setter Property="Width" Value="10" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-
         <Style.Triggers>
             <DataTrigger Binding="{Binding Active}" Value="true">
                 <Setter Property="Text" Value="-" />
@@ -48,7 +45,7 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Active}" Value="false">
                 <Setter Property="Text" Value="+" />
-                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontSize" Value="15" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -57,7 +54,7 @@
     <!-- Links and Version -->
 
     <Style TargetType="TextBlock" x:Key="VersionTextBlockStyle">
-        <Setter Property="Text" Value="v0.3.0"/>
+        <Setter Property="Text" Value="v1.0.0"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="Margin" Value="10"/>
     </Style>
