@@ -133,10 +133,8 @@
                                             IsEnabled="{Binding Source={StaticResource ViewModel}, Path=UserInputIsEnabled}">
                                         <Button.Content>
                                             <WrapPanel Background="Transparent">
-                                                <TextBlock
-                                                    Style="{DynamicResource TrustCenterHistoryElementAddTextBlockStyle}" />
-                                                <TextBlock Width="150" VerticalAlignment="Center"
-                                                           Text="{Binding TrustCenterMetaInfo.Name}" />
+                                                <TextBlock Style="{DynamicResource TrustCenterHistoryElementAddTextBlockStyle}" />
+                                                <TextBlock Width="150" VerticalAlignment="Center" Text="{Binding TrustCenterMetaInfo.Name}" />
                                                 <Button Style="{DynamicResource InfoButtonStyle}"
                                                         CommandParameter="{Binding}"
                                                         Command="{Binding Source={StaticResource ViewModel}, Path=InfoAboutTrustCenterCommand}">

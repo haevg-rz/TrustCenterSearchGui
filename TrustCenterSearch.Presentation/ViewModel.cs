@@ -116,11 +116,7 @@ namespace TrustCenterSearch.Presentation
         #endregion
 
         #region Commandhandling
-        internal void CopySearchResultToClipboardCommandExecute(Certificate certificate)
-        {
-            var jsonString = JsonConvert.SerializeObject(certificate,Formatting.Indented);
-            Clipboard.SetText(jsonString);
-        }
+       
         private async void LoadDataAsyncCommandExecute()
         {
             this.UserInputIsEnabled = false;
@@ -134,6 +130,11 @@ namespace TrustCenterSearch.Presentation
             this.CertificatesCollectionView.Filter = this.Filter;
 
             this.UserInputIsEnabled = true;
+        }
+        internal void CopySearchResultToClipboardCommandExecute(Certificate certificate)
+        {
+            var jsonString = JsonConvert.SerializeObject(certificate, Formatting.Indented);
+            Clipboard.SetText(jsonString);
         }
 
         internal void CollapseSidebarCommandExecute()
