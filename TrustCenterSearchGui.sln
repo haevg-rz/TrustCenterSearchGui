@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrustCenterSearch.Presentation", "TrustCenterSearch.Presentation\TrustCenterSearch.Presentation.csproj", "{AC33929E-1359-4A6D-8788-30012998F2E1}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6A5F7A75-707B-4F83-B4FC-CD95E351D599}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrustCenterSearch.Core", "TrustCenterSearch.Core\TrustCenterSearch.Core.csproj", "{3E90CD20-354F-47EF-AD0F-79CA30F62560}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrustCenterSearch.Presentation", "TrustCenterSearch.Presentation\TrustCenterSearch.Presentation.csproj", "{AC33929E-1359-4A6D-8788-30012998F2E1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSamples", "Tests\TestSamples\TestSamples.csproj", "{3226A9D4-961A-491C-AFA2-CAD5CA392051}"
 EndProject
