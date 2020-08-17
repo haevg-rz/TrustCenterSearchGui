@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Net.Sockets;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Interfaces.Configuration;
 using TrustCenterSearch.Core.Models;
@@ -66,7 +69,8 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
             return config.TrustCenterMetaInfos.Count == 0;
         }
 
-        public Config OpenConfig(Config config)
+        public (List<TrustCenterMetaInfo> addedTrustCenterHistoryElements, List<TrustCenterMetaInfo>
+            removedTrustCenterHistoryElements, Config config) OpenConfig(Config config)
         {
             if (!File.Exists(this._configFolderPath))
             {
@@ -74,21 +78,34 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
                 this.SaveConfig(config);
             }
 
-            this.OpenFile();
-            return config;
-        }
-
-        private void OpenFile()
-        {
             var psi = new ProcessStartInfo
             {
                 FileName = this._configFolderPath,
                 UseShellExecute = true,
                 Verb = "open"
             };
-            Process.Start(psi);
-        }
 
-        #endregion
+            var p = Process.Start(psi);
+            p.WaitForInputIdle();
+            p.WaitForExit();
+
+            if (p.HasExited)
+            {
+                var newConfig = this.LoadConfig();
+
+                var newElements = newConfig.TrustCenterMetaInfos.Where(newConfigElement =>
+                    config.TrustCenterMetaInfos.All(x => x.Name != newConfigElement.Name)).ToList();
+
+                var deletedElements = config.TrustCenterMetaInfos.Where(newConfigElement =>
+                    newConfig.TrustCenterMetaInfos.All(x => x.Name != newConfigElement.Name)).ToList();
+
+                config = newConfig;
+                return (newElements.ToList(), deletedElements.ToList(), config);
+            }
+
+            return (new List<TrustCenterMetaInfo>(), new List<TrustCenterMetaInfo>(), config);
+        }
     }
+
+    #endregion
 }

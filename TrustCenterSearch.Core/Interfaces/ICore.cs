@@ -17,6 +17,6 @@ namespace TrustCenterSearch.Core.Interfaces
         List<TrustCenterMetaInfo> GetTrustCenterHistory();
 
         List<Certificate> GetCertificates();
-        void OpenConfig();
+        Task<List<Certificate>> OpenConfig();
     }
 }

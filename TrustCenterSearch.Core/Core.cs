@@ -87,9 +87,29 @@ namespace TrustCenterSearch.Core
             return this.Certificates;
         }
 
-        public void OpenConfig()
+        public async Task<List<Certificate>> OpenConfig()
         {
-            this.Config = this.ConfigManager.OpenConfig(this.Config);
+            (List<TrustCenterMetaInfo>addedElements, List<TrustCenterMetaInfo>deletedElements, Config config)changesInConfig = this.ConfigManager.OpenConfig(this.Config);
+            this.Config = changesInConfig.config;
+
+            /*foreach (var trustCenterMetaInfo in changesInConfig.addedElements)
+            {
+                var importedCertificates = await this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo);
+                this.Certificates.AddRange(importedCertificates);
+            }*/
+
+            var importTasks = changesInConfig.addedElements.Select(trustCenterMetaInfo =>
+                this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
+            await Task.WhenAll(importTasks);
+
+            foreach (var importTask in importTasks) this.Certificates.AddRange(importTask.Result);
+
+            foreach (var deletedElement in changesInConfig.deletedElements)
+            {
+                this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, deletedElement.Name);
+            }
+
+            return this.Certificates;
         }
 
         #endregion
