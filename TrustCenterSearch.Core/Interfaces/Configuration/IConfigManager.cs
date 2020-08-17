@@ -17,5 +17,6 @@ namespace TrustCenterSearch.Core.Interfaces.Configuration
         Config DeleteTrustCenterFromConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config);
 
         bool IsConfigEmpty(Config config);
+        Config OpenConfig(Config config);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -87,8 +88,6 @@ namespace TrustCenterSearch.Presentation
 
         private string _menuWidth = "Auto";
         private readonly string _gitHubWikiUrl = "https://github.com/haevg-rz/TrustCenterSearchGui/wiki/wiki";
-        private readonly string _configFolderPath =
-            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\Config.JSON";
 
         public string MenuWidth
         {
@@ -226,13 +225,9 @@ namespace TrustCenterSearch.Presentation
 
         private void OpenConfigCommandExecute()
         {
-            var psi = new ProcessStartInfo
-            {
-                FileName = this._configFolderPath,
-                UseShellExecute = true,
-                Verb = "open"
-            };
-            Process.Start(psi);
+
+            this.Core.OpenConfig();
+
         }
 
         #endregion

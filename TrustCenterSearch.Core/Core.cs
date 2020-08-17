@@ -87,6 +87,11 @@ namespace TrustCenterSearch.Core
             return this.Certificates;
         }
 
+        public void OpenConfig()
+        {
+            this.Config = this.ConfigManager.OpenConfig(this.Config);
+        }
+
         #endregion
 
         #region InternalMethods

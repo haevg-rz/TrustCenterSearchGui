@@ -36,7 +36,9 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         public virtual bool DeleteTrustCenterFile(string trustCenterName)
         {
-            File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+            if(File.Exists(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath)))
+                File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+
             return true;
         }
 
