@@ -39,7 +39,7 @@ namespace TrustCenterSearch.Core
 
         public async Task<List<Certificate>> ImportAllCertificatesFromTrustCentersAsync()
         {
-            return await this.TrustCenterManager.ImportCertificatesAsync(this.Config.TrustCenterMetaInfos,
+            return await this.TrustCenterManager.ImportCertificatesAsyncTest(this.Config.TrustCenterMetaInfos,
                 this.Certificates);
         }
 
@@ -88,7 +88,7 @@ namespace TrustCenterSearch.Core
                 changesInConfig = this.ConfigManager.OpenConfig(this.Config);
             this.Config = changesInConfig.config;
 
-            await this.TrustCenterManager.ImportCertificatesAsync(changesInConfig.addedElements, this.Certificates);
+            await this.TrustCenterManager.ImportCertificatesAsyncTest(changesInConfig.addedElements, this.Certificates);
 
             foreach (var deletedElement in changesInConfig.deletedElements)
                 this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, deletedElement.Name);

@@ -10,7 +10,7 @@ namespace TrustCenterSearch.Core.Interfaces.TrustCenters
 
         Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo);
 
-        Task<List<Certificate>> ImportCertificatesAsync(List<TrustCenterMetaInfo> trustCenterMetaInfos,
+        Task<List<Certificate>> ImportCertificatesAsyncTest(List<TrustCenterMetaInfo> trustCenterMetaInfos,
             List<Certificate> certificates);
 
         bool DeleteTrustCenterFile(string trustCenterName);

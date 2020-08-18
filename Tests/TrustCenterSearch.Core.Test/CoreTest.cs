@@ -1,6 +1,8 @@
 ﻿using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TestSamples;
 using TrustCenterSearch.Core;
 using TrustCenterSearch.Core.DataManagement.Configuration;
@@ -20,25 +22,30 @@ namespace TrustCenterSearchCore.Test
             var moqTrustCenterManager = new Mock<TrustCenterManager>();
             moqTrustCenterManager.Setup(m => m.ImportCertificatesAsync(It.IsAny<TrustCenterMetaInfo>()))
                 .Returns(Samples.ProvideTaskIEnumerableCertificate);
+           // moqTrustCenterManager
+            //    .Setup(m => m.ImportCertificatesAsyncTest(It.IsAny<List<TrustCenterMetaInfo>>(),
+             //       It.IsAny<List<Certificate>>())).Returns(Samples.ProvideTaskIListCertificate());
 
-            var core = new Core();
-            core.TrustCenterManager = moqTrustCenterManager.Object;
-
-            core.Config = Samples.ProvideSampleConfig();
+            var core = new Core
+            {
+                TrustCenterManager = moqTrustCenterManager.Object, 
+                Config = Samples.ProvideSampleConfig()
+            };
 
             #endregion
 
 
             #region Act
 
-            var result = core.ImportAllCertificatesFromTrustCentersAsync();
+            var a = core.ImportAllCertificatesFromTrustCentersAsync();
 
             #endregion
 
 
             #region Assert
 
-            Assert.Equal(9, core.Certificates.Count);
+            //Assert.Equal(9, core.Certificates.Count);
+            Assert.Equal(9, a.Result.Count);
 
             #endregion
         }
