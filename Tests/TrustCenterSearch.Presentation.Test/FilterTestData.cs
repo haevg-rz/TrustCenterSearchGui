@@ -9,17 +9,6 @@ namespace TrustCenterSearch.Presentation.Test
 {
     class FilterTestData : IEnumerable<object[]>
     {
-
-        public static Task<IEnumerable<Certificate>> ProvideTaskIEnumerableCertificate()
-        {
-            async Task<IEnumerable<Certificate>> ProvideSampleOfCertificatesAsync()
-            {
-                return Samples.ProvideSampleCertificates();
-            }
-
-            return ProvideSampleOfCertificatesAsync();
-        }
-
         private readonly List<object[]> filterTestData = new List<object[]>
         {
             new object[] {null, false,null},
@@ -32,6 +21,5 @@ namespace TrustCenterSearch.Presentation.Test
 
         public IEnumerator<object[]> GetEnumerator() => this.filterTestData.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
-
     }
 }
