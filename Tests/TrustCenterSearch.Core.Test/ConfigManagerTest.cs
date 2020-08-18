@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Xunit;
-using TrustCenterSearch.Core;
+using TestSamples;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.Models;
-using TestSamples;
+using Xunit;
 
-namespace TrustCenterSearchCore.Test
+namespace TrustCenterSearch.Core.Test
 {
     public class ConfigManagerTest
     {
@@ -20,14 +19,12 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567", DateTime.Now),
                 config);
 
             #endregion
-
 
             #region Assert
 
@@ -49,13 +46,11 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             var result = core.ConfigManager.IsConfigEmpty(config);
 
             #endregion
-
 
             #region Assert
 
@@ -76,13 +71,11 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             var result = core.ConfigManager.IsConfigEmpty(config);
 
             #endregion
-
 
             #region Assert
             
@@ -104,18 +97,16 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             trustCenterManager.DeleteTrustCenterFromConfig(metaDataToDelete, configSample);
 
             #endregion
 
-
             #region Assert
 
             Assert.DoesNotContain(configSample.TrustCenterMetaInfos,
-                trustCentermetaInfo => trustCentermetaInfo.Name.Equals(metaDataToDelete.Name));
+                trustCenterMetaInfo => trustCenterMetaInfo.Name.Equals(metaDataToDelete.Name));
 
             #endregion
         }

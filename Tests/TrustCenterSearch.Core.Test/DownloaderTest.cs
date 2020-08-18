@@ -1,8 +1,7 @@
-﻿using System;
-using TrustCenterSearch.Core.DataManagement.TrustCenters;
+﻿using TrustCenterSearch.Core.DataManagement.TrustCenters;
 using Xunit;
 
-namespace TrustCenterSearchCore.Test
+namespace TrustCenterSearch.Core.Test
 {
     public class DownloaderTest
     {
@@ -16,20 +15,17 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             var result = Downloader.IsUrlExisting(url);
 
             #endregion
 
-
             #region Assert
 
             Assert.Equal(result, expectedResult);
 
             #endregion
-
         }
 
         [Theory]
@@ -55,7 +51,6 @@ namespace TrustCenterSearchCore.Test
             Assert.Equal(result, expected);
 
             #endregion
-
         }
     }
 }

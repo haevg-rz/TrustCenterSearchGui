@@ -138,16 +138,5 @@ namespace TestSamples
 
             return ProvideSampleOfCertificatesAsync();
         }
-
-        public static Task<List<Certificate>> ProvideTaskIListCertificate()
-        {
-            async Task<List<Certificate>> ProvideSampleOfCertificatesAsync()
-            {
-                return ProvideSampleCertificates();
-            }
-
-            return ProvideSampleOfCertificatesAsync();
-        }
-
     }
 }
