@@ -1,12 +1,13 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Xunit;
-using TrustCenterSearch.Core;
+using TestSamples;
 using TrustCenterSearch.Core.DataManagement.Configuration;
 using TrustCenterSearch.Core.Models;
-using TestSamples;
+using Xunit;
 
-namespace TrustCenterSearchCore.Test
+namespace TrustCenterSearch.Core.Test
 {
     public class ConfigManagerTest
     {
@@ -20,14 +21,12 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             core.ConfigManager.AddTrustCenterToConfig(new TrustCenterMetaInfo("test123", "test567", DateTime.Now),
                 config);
 
             #endregion
-
 
             #region Assert
 
@@ -49,13 +48,11 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             var result = core.ConfigManager.IsConfigEmpty(config);
 
             #endregion
-
 
             #region Assert
 
@@ -76,13 +73,11 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             var result = core.ConfigManager.IsConfigEmpty(config);
 
             #endregion
-
 
             #region Assert
             
@@ -104,19 +99,43 @@ namespace TrustCenterSearchCore.Test
 
             #endregion
 
-
             #region Act
 
             trustCenterManager.DeleteTrustCenterFromConfig(metaDataToDelete, configSample);
 
             #endregion
 
-
             #region Assert
 
             Assert.DoesNotContain(configSample.TrustCenterMetaInfos,
-                trustCentermetaInfo => trustCentermetaInfo.Name.Equals(metaDataToDelete.Name));
+                trustCenterMetaInfo => trustCenterMetaInfo.Name.Equals(metaDataToDelete.Name));
 
+            #endregion
+        }
+
+        [Fact(DisplayName = "GetRelativeTrustCenterMetaInfoComplementTest")]
+        public void GetRelativeTrustCenterMetaInfoComplementTest()
+        {
+            #region Arrange
+
+            var config = Samples.ProvideSampleConfig();
+            var newConfig = Samples.ProvideSampleConfig();
+            newConfig.TrustCenterMetaInfos = Samples.ProvideSampleMetaInfos().TakeLast<TrustCenterMetaInfo>(2).ToList();
+
+            var expectedResult = new List<TrustCenterMetaInfo>() { Samples.ProvideSampleMetaInfos()[0] };
+
+            #endregion
+
+            #region Act
+
+            var result = ConfigManager.GetRelativeTrustCenterMetaInfoComplement(config, newConfig);
+
+            #endregion
+
+            # region Assert
+
+            expectedResult.Should().BeEquivalentTo(result);
+      
             #endregion
         }
     }

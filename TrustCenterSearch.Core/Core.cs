@@ -39,13 +39,8 @@ namespace TrustCenterSearch.Core
 
         public async Task<List<Certificate>> ImportAllCertificatesFromTrustCentersAsync()
         {
-            var importTasks = this.Config.TrustCenterMetaInfos.Select(trustCenterMetaInfo =>
-                this.TrustCenterManager.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
-            await Task.WhenAll(importTasks);
-
-            foreach (var importTask in importTasks) this.Certificates.AddRange(importTask.Result);
-
-            return this.Certificates;
+            return await this.TrustCenterManager.ImportCertificatesAsync(this.Config.TrustCenterMetaInfos,
+                this.Certificates);
         }
 
         public async Task<TrustCenterMetaInfo> AddTrustCenterAsync(string newTrustCenterName, string newTrustCenterUrl)
@@ -87,20 +82,34 @@ namespace TrustCenterSearch.Core
             return this.Certificates;
         }
 
+        public async Task<List<Certificate>> OpenConfig()
+        {
+            (List<TrustCenterMetaInfo>addedElements, List<TrustCenterMetaInfo>deletedElements, Config config)
+                changesInConfig = this.ConfigManager.OpenConfig(this.Config);
+            this.Config = changesInConfig.config;
+
+            await this.TrustCenterManager.ImportCertificatesAsync(changesInConfig.addedElements, this.Certificates);
+
+            foreach (var deletedElement in changesInConfig.deletedElements)
+                this.TrustCenterManager.DeleteCertificatesOfTrustCenter(this.Certificates, deletedElement.Name);
+
+            return this.Certificates;
+        }
+
         #endregion
 
         #region InternalMethods
 
         internal virtual bool IsTrustCenterInputValid(string newTrustCenterName, string newTrustCenterUrl)
         {
-            
             if (newTrustCenterName.Length > 24)
                 throw new ArgumentException("The entered name is too long.");
 
             if (newTrustCenterName == string.Empty)
                 throw new ArgumentException("The entered name must not be empty.");
 
-            if (newTrustCenterName.Intersect(new char[] { '~', '#', '%', '&', '*', ':', '<', '>', '?', '/', '{', '|', '}' }).Any())
+            if (newTrustCenterName.Intersect(new char[]
+                {'~', '#', '%', '&', '*', ':', '<', '>', '?', '/', '{', '|', '}'}).Any())
                 throw new ArgumentException("Invalid file characters are: ~ #% & *: <>? /  {|}.");
 
             if (!Downloader.IsUrlExisting(newTrustCenterUrl))

@@ -104,21 +104,21 @@ namespace TestSamples
             var sample = new List<TrustCenterMetaInfo>()
             {
                 {
-                    new TrustCenterMetaInfo("Sample1", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                    new TrustCenterMetaInfo("Sample1", "https://www.test1Url.de",
                         new DateTime(2020, 1, 1))
                 },
                 {
-                    new TrustCenterMetaInfo("Sample2", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                    new TrustCenterMetaInfo("Sample2", "https://www.test2Url.de",
                         new DateTime(2020, 1, 1))
                 },
                 {
-                    new TrustCenterMetaInfo("Sample3", "https://www.speedtestx.de/testfiles/data_1mb.test",
+                    new TrustCenterMetaInfo("Sample3", "https://www.test3Url.de",
                         new DateTime(2020, 1, 1))
                 }
             };
             return sample;
         }
-
+       
         public static Task<byte[]> ProvideSampleTaskByteArray()
         {
             async Task<byte[]> GetByteArray()
@@ -138,6 +138,5 @@ namespace TestSamples
 
             return ProvideSampleOfCertificatesAsync();
         }
-
     }
 }

@@ -54,7 +54,7 @@
     <!-- Links and Version -->
 
     <Style TargetType="TextBlock" x:Key="VersionTextBlockStyle">
-        <Setter Property="Text" Value="v1.0.0"/>
+        <Setter Property="Text" Value="v1.0.1"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="Margin" Value="10"/>
     </Style>

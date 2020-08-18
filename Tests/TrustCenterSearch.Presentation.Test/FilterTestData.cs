@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestSamples;
 using TrustCenterSearch.Core.Models;
 
-namespace TrustCenterSearchPresentation.Test
+namespace TrustCenterSearch.Presentation.Test
 {
     class FilterTestData : IEnumerable<object[]>
     {
-
-        public static Task<IEnumerable<Certificate>> ProvideTaskIEnumerableCertificate()
-        {
-            async Task<IEnumerable<Certificate>> ProvideSampleOfCertificatesAsync()
-            {
-                return Samples.ProvideSampleCertificates();
-            }
-
-            return ProvideSampleOfCertificatesAsync();
-        }
-
         private readonly List<object[]> filterTestData = new List<object[]>
         {
             new object[] {null, false,null},
@@ -31,8 +19,7 @@ namespace TrustCenterSearchPresentation.Test
             new object[] {Samples.ProvideSampleCertificates().First(),false, "01.01.22123" }
         };
 
-        public IEnumerator<object[]> GetEnumerator() => filterTestData.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
+        public IEnumerator<object[]> GetEnumerator() => this.filterTestData.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
     }
 }

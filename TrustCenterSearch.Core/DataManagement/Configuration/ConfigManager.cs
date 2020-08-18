@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using TrustCenterSearch.Core.Interfaces.Configuration;
 using TrustCenterSearch.Core.Models;
 
 namespace TrustCenterSearch.Core.DataManagement.Configuration
 {
-    internal class ConfigManager:IConfigManager
+    internal class ConfigManager : IConfigManager
     {
         #region Properties
 
@@ -20,9 +23,13 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
         private readonly string _trustCenterSearchGuiPath =
             $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch";
 
+        private readonly string _configFolderPath =
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\TrustCenterSearch\Config.JSON";
+
         #endregion
 
         #region ICongigManagerMethods
+
         public Config LoadConfig()
         {
             if (!File.Exists(ConfigPath))
@@ -35,16 +42,16 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
 
         public Config AddTrustCenterToConfig(TrustCenterMetaInfo trustCenterMetaInfo, Config config)
         {
-           config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
-           return config;
+            config.TrustCenterMetaInfos.Add(trustCenterMetaInfo);
+            return config;
         }
 
         public virtual Config SaveConfig(Config config)
         {
-            if (!Directory.Exists(_trustCenterSearchGuiPath))
-                Directory.CreateDirectory(_trustCenterSearchGuiPath);
+            if (!Directory.Exists(this._trustCenterSearchGuiPath))
+                Directory.CreateDirectory(this._trustCenterSearchGuiPath);
 
-            var jsonString = JsonConvert.SerializeObject(config,Formatting.Indented);
+            var jsonString = JsonConvert.SerializeObject(config, Formatting.Indented);
             File.WriteAllText(ConfigPath, jsonString);
 
             return config;
@@ -61,6 +68,46 @@ namespace TrustCenterSearch.Core.DataManagement.Configuration
             return config.TrustCenterMetaInfos.Count == 0;
         }
 
+        public (List<TrustCenterMetaInfo> addedTrustCenterHistoryElements, List<TrustCenterMetaInfo> 
+            removedTrustCenterHistoryElements, Config config) OpenConfig(Config config)
+        {
+            if (!File.Exists(this._configFolderPath))
+            {
+                config = new Config();
+                this.SaveConfig(config);
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = this._configFolderPath,
+                UseShellExecute = true,
+                Verb = "open"
+            };
+
+            var p = Process.Start(psi);
+            p.WaitForInputIdle();
+            p.WaitForExit();
+
+            if (p.HasExited)
+            {
+                var newConfig = this.LoadConfig();
+
+                config = newConfig;
+                return (GetRelativeTrustCenterMetaInfoComplement(newConfig, config), GetRelativeTrustCenterMetaInfoComplement(config, newConfig), config);
+            }
+
+            return (new List<TrustCenterMetaInfo>(), new List<TrustCenterMetaInfo>(), config);
+        }
+
+        #endregion
+
+        #region internalMethods
+        internal static List<TrustCenterMetaInfo> GetRelativeTrustCenterMetaInfoComplement(Config config, Config newConfig)
+        {
+            return config.TrustCenterMetaInfos.Where(newConfigElement =>
+                                newConfig.TrustCenterMetaInfos.All(x => x.Name != newConfigElement.Name)).ToList();
+        }
         #endregion
     }
+
 }

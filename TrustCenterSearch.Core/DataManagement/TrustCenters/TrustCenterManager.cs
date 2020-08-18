@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 using TrustCenterSearch.Core.Interfaces.TrustCenters;
 using TrustCenterSearch.Core.Models;
@@ -31,12 +30,23 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
 
         public virtual async Task<IEnumerable<Certificate>> ImportCertificatesAsync(TrustCenterMetaInfo trustCenterMetaInfo)
         {
-            return await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
+            return await this.ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
+        }
+        public virtual async Task<List<Certificate>> ImportCertificatesAsync(List<TrustCenterMetaInfo> trustCenterMetaInfos, List<Certificate> certificates)
+        {
+            var importTasks = trustCenterMetaInfos.Select(this.ImportCertificatesAsync).ToList();
+            await Task.WhenAll(importTasks);
+
+            foreach (var importTask in importTasks) certificates.AddRange(importTask.Result);
+
+            return certificates;
         }
 
         public virtual bool DeleteTrustCenterFile(string trustCenterName)
         {
-            File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+            if(File.Exists(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath)))
+                File.Delete(this.DownloadManager.GetFilePath(trustCenterName, this._dataFolderPath));
+
             return true;
         }
 
