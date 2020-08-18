@@ -22,13 +22,13 @@ namespace TrustCenterSearchCore.Test
             var moqTrustCenterManager = new Mock<TrustCenterManager>();
             moqTrustCenterManager.Setup(m => m.ImportCertificatesAsync(It.IsAny<TrustCenterMetaInfo>()))
                 .Returns(Samples.ProvideTaskIEnumerableCertificate);
-           // moqTrustCenterManager
+            // moqTrustCenterManager
             //    .Setup(m => m.ImportCertificatesAsyncTest(It.IsAny<List<TrustCenterMetaInfo>>(),
-             //       It.IsAny<List<Certificate>>())).Returns(Samples.ProvideTaskIListCertificate());
+            //       It.IsAny<List<Certificate>>())).Returns(Samples.ProvideTaskIListCertificate());
 
             var core = new Core
             {
-                TrustCenterManager = moqTrustCenterManager.Object, 
+                TrustCenterManager = moqTrustCenterManager.Object,
                 Config = Samples.ProvideSampleConfig()
             };
 
@@ -74,7 +74,7 @@ namespace TrustCenterSearchCore.Test
             core.ConfigManager = moqConfigManager.Object;
             core.TrustCenterManager = moqTrustCenterManager.Object;
 
-            core.Config.TrustCenterMetaInfos.RemoveAll(m=>true);
+            core.Config.TrustCenterMetaInfos.RemoveAll(m => true);
 
             #endregion
 
@@ -110,7 +110,7 @@ namespace TrustCenterSearchCore.Test
             var moqTrustCenterManager = new Mock<TrustCenterManager>();
             moqTrustCenterManager.CallBase = true;
             moqTrustCenterManager.Setup(m => m.DeleteTrustCenterFile(It.IsAny<string>())).Returns(null);
-            
+
             var moqCore = new Mock<Core>();
             var core = moqCore.Object;
 
