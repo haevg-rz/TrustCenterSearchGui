@@ -32,7 +32,7 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         {
             return await this.ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
         }
-        public virtual async Task<List<Certificate>> ImportCertificatesAsyncTest(List<TrustCenterMetaInfo> trustCenterMetaInfos, List<Certificate> certificates)
+        public virtual async Task<List<Certificate>> ImportCertificatesAsync(List<TrustCenterMetaInfo> trustCenterMetaInfos, List<Certificate> certificates)
         {
             var importTasks = trustCenterMetaInfos.Select(this.ImportCertificatesAsync).ToList();
             await Task.WhenAll(importTasks);
