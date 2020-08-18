@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using TestSamples;
 using TrustCenterSearch.Core.DataManagement.Configuration;
@@ -108,6 +110,32 @@ namespace TrustCenterSearch.Core.Test
             Assert.DoesNotContain(configSample.TrustCenterMetaInfos,
                 trustCenterMetaInfo => trustCenterMetaInfo.Name.Equals(metaDataToDelete.Name));
 
+            #endregion
+        }
+
+        [Fact(DisplayName = "GetRelativeTrustCenterMetaInfoComplementTest")]
+        public void GetRelativeTrustCenterMetaInfoComplementTest()
+        {
+            #region Arrange
+
+            var config = Samples.ProvideSampleConfig();
+            var newConfig = Samples.ProvideSampleConfig();
+            newConfig.TrustCenterMetaInfos = Samples.ProvideSampleMetaInfos().TakeLast<TrustCenterMetaInfo>(2).ToList();
+
+            var expectedResult = new List<TrustCenterMetaInfo>() { Samples.ProvideSampleMetaInfos()[0] };
+
+            #endregion
+
+            #region Act
+
+            var result = ConfigManager.GetRelativeTrustCenterMetaInfoComplement(config, newConfig);
+
+            #endregion
+
+            # region Assert
+
+            expectedResult.Should().BeEquivalentTo(result);
+      
             #endregion
         }
     }
