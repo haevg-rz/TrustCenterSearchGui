@@ -240,10 +240,14 @@ namespace TrustCenterSearch.Presentation
 
         private async void OpenConfigCommandExecute()
         {
+            this.UserInputIsEnabled = false;
+
             await this.Core.OpenConfig();
             this.GetTrustCenterHistory();
 
             this.RefreshCollectionViews();
+
+            this.UserInputIsEnabled = true;
         }
 
         #endregion

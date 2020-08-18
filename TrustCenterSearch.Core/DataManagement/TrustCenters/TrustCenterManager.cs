@@ -33,6 +33,16 @@ namespace TrustCenterSearch.Core.DataManagement.TrustCenters
         {
             return await ImportManager.ImportCertificatesAsync(trustCenterMetaInfo, _dataFolderPath).ConfigureAwait(false);
         }
+        public virtual async Task<List<Certificate>> ImportCertificatesAsync(List<TrustCenterMetaInfo> trustCenterMetaInfos, List<Certificate> certificates)
+        {
+            var importTasks = trustCenterMetaInfos.Select(trustCenterMetaInfo =>
+                this.ImportCertificatesAsync(trustCenterMetaInfo)).ToList();
+            await Task.WhenAll(importTasks);
+
+            foreach (var importTask in importTasks) certificates.AddRange(importTask.Result);
+
+            return certificates;
+        }
 
         public virtual bool DeleteTrustCenterFile(string trustCenterName)
         {
